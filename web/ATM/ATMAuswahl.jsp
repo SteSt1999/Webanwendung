@@ -5,8 +5,7 @@
     </head>
     <body>
         <h1>ATM</h1>
-        <br> Login erfolgreich!
-        <br>Sie können eine Überweisung tätigen oder ihren Kontoverlauf anschauen.
+        <br>Sie sind eingeloggt.
         <br>
         <br>Kontostand: unbekannt
         <br>
