@@ -1,16 +1,24 @@
 package Logik.Verwaltung;
 
 public abstract class User {
+
+
     //Login-Daten
-    String passwort;
     String benutzername;
 
 
-    //Persönliche Daten
-    private String vorname;
-    private String nachname;
+    // private int bankid;
 
-    private int bankid;
+    public User(String benutzername) {
+        setBenutzername(benutzername);
+    }
 
+    public String getBenutzername() {
+        return benutzername;
+    }
 
+    public void setBenutzername(String benutzername) {
+        this.benutzername = benutzername;
+
+    }
 }

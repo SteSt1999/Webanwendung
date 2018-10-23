@@ -1,6 +1,7 @@
 package Datenbank;
 
 import Logik.Verwaltung.Transaction;
+import Logik.Verwaltung.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +15,7 @@ public class Datenbank {
     final static private String userName = "root";
     static private String password = Passwort.getDbPasswort();
 
-    final static private String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    final static private String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     public static String connect() {
         StringBuilder sb = new StringBuilder();
@@ -62,6 +63,22 @@ public class Datenbank {
         }
         return false;
     }
-    public static void logHinzufügen(Transaction transaction){}
-    public static void  kontostandAnpassen(long betrag){};
+
+    public static void logHinzufügen(Transaction transaction) {
+    }
+
+    public static void kontostandAnpassen(User user, long betrag) {
+    }
+
+
+    public static ResultSet getATMLog(int id) {
+        return null;
+    }
+
+    public static ResultSet getUserLog(String benutzername) {
+        return null;
+    }
+    public static ResultSet getBankLog() {
+        return null;
+    }
 }

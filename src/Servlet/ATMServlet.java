@@ -15,6 +15,7 @@ public class ATMServlet extends HttpServlet {
         if (request.getParameter("Login") != null) {
             if (Datenbank.Datenbank.checkPasswortATM(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
                 //TODO generate Session
+                //new Session( getUserAusDB("logInID"), new ATM_Zugang(getIDAusJSP))
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
@@ -29,6 +30,7 @@ public class ATMServlet extends HttpServlet {
         } else if (request.getParameter("Ueberweisen") != null) {
             request.getRequestDispatcher("ATM/ATMUeberweisungErfolgt.jsp").forward(request, response);
             //TODO Überweisung
+            //doATMüberweisen(Session session, User kunde, long betrag)
         }
 
         // Transactions
@@ -42,6 +44,8 @@ public class ATMServlet extends HttpServlet {
         } else if (request.getParameter("Einzahlen") != null) {
             request.getRequestDispatcher("ATM/ATMEinzahlungErfolgt.jsp").forward(request, response);
             //TODO Einzahlung
+            //doATMeinzahlen(Session session, long betrag)
+
         }
 
         // Auszahlung
@@ -50,6 +54,7 @@ public class ATMServlet extends HttpServlet {
         } else if (request.getParameter("Auszahlen") != null) {
             request.getRequestDispatcher("ATM/ATMAuszahlungErfolgt.jsp").forward(request, response);
             //TODO Auszahlung
+            //doATMabheben(Session session, long betrag)
         }
 
         // Sonstiges

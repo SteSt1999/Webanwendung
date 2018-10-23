@@ -1,7 +1,6 @@
 package Logik.Verwaltung;
 
 
-import java.util.List;
 
 import static Datenbank.Datenbank.kontostandAnpassen;
 
@@ -15,17 +14,20 @@ public class Konto {
         return kontostand;
     }
 
-    public void abheben(long betrag) {
+    public void abheben(User user,long betrag) {
         this.kontostand -= betrag;
-        kontostandAnpassen(kontostand);
+        kontostandAnpassen(user,kontostand);
     }
 
-   public void einzahlen(long betrag) {
+   public void einzahlen(User user,long betrag) {
          this.kontostand += betrag ;
-        kontostandAnpassen(kontostand);
+        kontostandAnpassen(user,kontostand);
     }
-    public void überweisen(long betrag) {
+    public void überweisen(User sender, User empfänger, long betrag) {
+        ((Kunde) empfänger).getKonto().einzahlen(empfänger, betrag);
+        this.kontostand -= betrag;
 
+        kontostandAnpassen(sender,kontostand);
     }
 
 

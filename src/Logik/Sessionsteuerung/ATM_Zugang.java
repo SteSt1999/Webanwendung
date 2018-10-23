@@ -1,9 +1,6 @@
 package Logik.Sessionsteuerung;
 
-import Logik.Verwaltung.ATM;
-import Logik.Verwaltung.Konto;
-import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.Transaction;
+import Logik.Verwaltung.*;
 
 import static Datenbank.Datenbank.logHinzufügen;
 
@@ -20,17 +17,17 @@ public class ATM_Zugang implements Zugangsweg {
 
     public void doATMabheben(Session session, long betrag) {
         //abheben
-         ((Kunde) session.getUser()).getKonto().abheben(betrag);
+         ((Kunde) session.getUser()).getKonto().abheben(session.getUser(), betrag);
 
-        Transaction transaction = new Transaction(session.getUser(), (Kunde) (session.getUser()), betrag, session.getZugangsweg(), 3);
+        Transaction transaction = new Transaction(session.getUser(),  (session.getUser()), betrag, session.getZugangsweg(), 3);
 
         logHinzufügen(transaction);
 
     }
 
-    public void doATMüberweisen(Session session, Kunde kunde, long betrag) {
+    public void doATMüberweisen(Session session, User kunde, long betrag) {
         //überweisen
-        ((Kunde) session.getUser()).getKonto().überweisen(betrag);
+        ((Kunde) session.getUser()).getKonto().überweisen(session.getUser(), kunde, betrag);
 
         Transaction transactionUeberweisung = new Transaction(session.getUser(),kunde, betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde,session.getUser(), betrag, session.getZugangsweg(), 2);
@@ -44,9 +41,9 @@ public class ATM_Zugang implements Zugangsweg {
     }
     public void doATMeinzahlen(Session session, long betrag){
         //einzahlen
-        ((Kunde) session.getUser()).getKonto().einzahlen(betrag);
+        ((Kunde) session.getUser()).getKonto().einzahlen(session.getUser(),betrag);
 
-        Transaction transaction = new Transaction(session.getUser(), (Kunde) (session.getUser()), betrag, session.getZugangsweg(), 4);
+        Transaction transaction = new Transaction(session.getUser(),  (session.getUser()), betrag, session.getZugangsweg(), 4);
 
         logHinzufügen(transaction);
     }
