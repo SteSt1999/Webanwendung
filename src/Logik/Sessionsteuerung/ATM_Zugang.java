@@ -2,7 +2,7 @@ package Logik.Sessionsteuerung;
 
 import Logik.Verwaltung.*;
 
-import static Datenbank.Datenbank.logHinzufügen;
+import static Datenbank.DBLog.logHinzufügen;
 
 public class ATM_Zugang implements Zugangsweg {
     private ATM atm;

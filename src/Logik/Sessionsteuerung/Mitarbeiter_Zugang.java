@@ -1,13 +1,9 @@
 package Logik.Sessionsteuerung;
 
 import Logik.Verwaltung.Kunde;
-
 import Logik.Verwaltung.Transaction;
-
-
 import java.sql.ResultSet;
-
-import static Datenbank.Datenbank.*;
+import static Datenbank.DBLog.*;
 
 public class Mitarbeiter_Zugang implements Zugangsweg {
 

@@ -1,84 +1,73 @@
 package Datenbank;
 
-import Logik.Verwaltung.Transaction;
 import Logik.Verwaltung.User;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Datenbank {
-    final static private String driver = "com.mysql.cj.jdbc.Driver";
-    final static private String userName = "root";
-    static private String password = Passwort.getDbPasswort();
-
+    final private static String user = "root";
+    final static private String password = Passwort.passwort;
+    final private static String driver = "com.mysql.cj.jdbc.Driver";
     final static private String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-    public static String connect() {
-        StringBuilder sb = new StringBuilder();
-        try {
-            Class.forName(driver);
+    final private static String sqlCheckPasswortKunde = "SELECT * FROM KUNDEN WHERE ID = \"(?)\";";
+    final private static String sqlCheckPasswortMitarbeiter = "SELECT * FROM MITARBEITER WHERE ID = \"(?)\";";
 
-            Connection conn = DriverManager.getConnection(url, userName, password);
-
-            Statement statement = conn.createStatement();
-            String queryString = "SELECT * FROM tabelle";
-            ResultSet rs = statement.executeQuery(queryString);
-            while (rs.next()) {
-                sb.append("<br>").append(rs.getString(2));
-                //System.out.println(rs.getString(2));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
+    public static boolean checkPasswortKunde(String kundenID, String passwort) {
+        String sqlAnfrage = sqlCheckPasswortKunde.replaceFirst("(?)", kundenID);
+        return checkPasswort(sqlAnfrage, passwort);
     }
 
-    public static void main(String[] args) {
-        /*Datenbank db = new Datenbank();
-        db.connect();*/
-        //System.out.println(connect());
-
-        System.out.println(checkPasswortATM("Stefan", "1"));
-        System.out.println(checkPasswortATM("Stefan", "2"));
+    public static boolean checkPasswortMitarbeiter(String mitarbeiterID, String passwort) {
+        String sqlAnfrage = sqlCheckPasswortMitarbeiter.replaceFirst("(?)", mitarbeiterID);
+        return checkPasswort(sqlAnfrage, passwort);
     }
 
-    public static boolean checkPasswortATM(String name, String passwort) {
+    public static boolean checkPasswort(String sqlAnfrage, String passwort) {
+        ResultSet resultSet = sqlGetResultSet(sqlAnfrage);
         try {
-            Class.forName(driver);
-            Connection conn = DriverManager.getConnection(url, userName, password);
-            Statement statement = conn.createStatement();
-            String queryString = "SELECT * FROM tabelle WHERE name = \"" + name + "\"";
-            ResultSet rs = statement.executeQuery(queryString);
-            while (rs.next()) {
-                if (passwort.equals(rs.getString(1))) {
+            while (resultSet.next()) {
+                if (passwort.equals(resultSet.getString("Kennwort"))) {
                     return true;
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public static void logHinzufügen(Transaction transaction) {
+    public static ResultSet sqlGetResultSet(String sqlAnfrage) {
+        ResultSet resultSet = null;
+        try {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement statement = conn.createStatement();
+            resultSet = statement.executeQuery(sqlAnfrage);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 
     public static void kontostandAnpassen(User user, long betrag) {
     }
 
 
-    public static ResultSet getATMLog(int id) {
-        return null;
+
+    public static void sqlAusfuehren(String sqlAnfrage) {
+        try {
+            Class.forName(driver);
+            Connection conn = DriverManager.getConnection(url, user, password);
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sqlAnfrage);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static ResultSet getUserLog(String benutzername) {
-        return null;
-    }
-    public static ResultSet getBankLog() {
-        return null;
+    public static String replaceFirst(String sqlAnfrage, String eingabe) {
+        int n = sqlAnfrage.indexOf("(?)");
+        return sqlAnfrage.substring(0, n) + eingabe + sqlAnfrage.substring(n + 3);
     }
 }

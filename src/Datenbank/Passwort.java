@@ -1,5 +1,5 @@
 package Datenbank;
 
 public class Passwort {
-    final static String passwort = "...";
+    final static String passwort = "admin";
 }
