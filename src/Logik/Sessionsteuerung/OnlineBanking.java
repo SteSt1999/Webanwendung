@@ -1,4 +1,9 @@
 package Logik.Sessionsteuerung;
 
-public class OnlineBanking {
+public class OnlineBanking implements Zugangsweg{
+
+
+
+
+
 }

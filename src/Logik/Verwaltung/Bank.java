@@ -9,5 +9,14 @@ public class Bank {
     private List <Kunde> kunden;
 
 
-    private double  vermögen;
+    private double saldo;
+
+
+    public Bank (String name){
+        this.name = name;
+    }
+
+
+
+
 }
