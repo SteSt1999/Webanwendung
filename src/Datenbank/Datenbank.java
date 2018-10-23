@@ -14,12 +14,14 @@ public class Datenbank {
     final private static String sqlCheckPasswortMitarbeiter = "SELECT * FROM MITARBEITER WHERE ID = \"(?)\";";
 
     public static boolean checkPasswortKunde(String kundenID, String passwort) {
-        String sqlAnfrage = sqlCheckPasswortKunde.replaceFirst("(?)", kundenID);
+        String sqlAnfrage = sqlCheckPasswortKunde;
+        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         return checkPasswort(sqlAnfrage, passwort);
     }
 
     public static boolean checkPasswortMitarbeiter(String mitarbeiterID, String passwort) {
-        String sqlAnfrage = sqlCheckPasswortMitarbeiter.replaceFirst("(?)", mitarbeiterID);
+        String sqlAnfrage = sqlCheckPasswortMitarbeiter;
+        sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
         return checkPasswort(sqlAnfrage, passwort);
     }
 
