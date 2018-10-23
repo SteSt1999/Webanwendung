@@ -13,10 +13,6 @@
             <p>Summe: </p>
             <input type="text" name="Summe" size=20 maxlength=50>
             <p>Verwendungszweck: </p>
-            <input type="text" name="Verwendungszweck" size=20 maxlength=50>
-            <p>Datum: </p>
-            <input type="text" name="Datum" size=20 maxlength=50>
-            <br><br>
             <input type="submit" name="Ueberweisen" value="Überweisen"/>
             <br>
         </form>

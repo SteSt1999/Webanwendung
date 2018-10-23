@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import static Datenbank.DBHelper.replaceFirst;
 
 public class DBPasswort {
-    final private static String sqlCheckPasswortKunde = "SELECT * FROM KUNDEN WHERE ID = \"(?)\";";
-    final private static String sqlCheckPasswortMitarbeiter = "SELECT * FROM MITARBEITER WHERE ID = \"(?)\";";
+    final private static String sqlCheckPasswortKunde = "SELECT KENNWORT FROM KUNDEN WHERE ID = \"(?)\";";
+    final private static String sqlCheckPasswortMitarbeiter = "SELECT KENNWORT FROM MITARBEITER WHERE ID = \"(?)\";";
 
     public static boolean checkPasswortKunde(String kundenID, String passwort) {
         String sqlAnfrage = sqlCheckPasswortKunde;
@@ -24,10 +24,8 @@ public class DBPasswort {
     public static boolean checkPasswort(String sqlAnfrage, String passwort) {
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
         try {
-            while (resultSet.next()) {
-                if (passwort.equals(resultSet.getString("Kennwort"))) {
-                    return true;
-                }
+            if (resultSet.next() && passwort.equals(resultSet.getString(1))) {
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();

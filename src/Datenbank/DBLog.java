@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import static Datenbank.DBHelper.replaceFirst;
 
 public class DBLog {
-    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
+    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
     final private static String sqlGetTransactionsKunde = "SELECT * FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT * FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
@@ -15,11 +15,10 @@ public class DBLog {
     public static void logHinzufügen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
+        //TODO ZugangswegID speichern
         sqlAnfrage = replaceFirst(sqlAnfrage, 2 + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        //TODO Empfänger Bank aus DB entfernen
-        sqlAnfrage = replaceFirst(sqlAnfrage, null);
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
         DBHelper.sqlAusfuehren(sqlAnfrage);
     }
