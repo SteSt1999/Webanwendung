@@ -7,9 +7,17 @@ public class Konto {
     private long kontostand;
 
 
+    public Konto(long kontostand){
+        setKontostand(kontostand);
+
+
+    }
 
     public long getKontostand() {
         return kontostand;
+    }
+    public void setKontostand(long kontostand) {
+        this.kontostand = kontostand;
     }
 
     public void abheben(User user,long betrag) {

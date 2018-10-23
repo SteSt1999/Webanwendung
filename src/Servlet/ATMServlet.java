@@ -1,6 +1,11 @@
 package Servlet;
 
 import Datenbank.DBPasswort;
+import Logik.Sessionsteuerung.ATM_Zugang;
+import Logik.Sessionsteuerung.Session;
+import Logik.Verwaltung.Konto;
+import Logik.Verwaltung.Kunde;
+import Logik.Verwaltung.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static Datenbank.DBKontostand.kontostandLesen;
+
 
 @WebServlet("/ATMServlet")
 public class ATMServlet extends HttpServlet {
@@ -18,6 +26,16 @@ public class ATMServlet extends HttpServlet {
             if (DBPasswort.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
                 //TODO generate Session
                 //new Session( getUserAusDB("logInID"), new ATM_Zugang(getIDAusJSP))
+
+                    Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
+
+
+
+
+
+
+
+
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);

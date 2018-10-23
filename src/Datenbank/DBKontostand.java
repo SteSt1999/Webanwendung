@@ -32,4 +32,7 @@ public class DBKontostand {
         }
         throw new RuntimeException("Das Konto \"" + kunde.getBenutzername() + "\2 existiert nicht.");
     }
+    public static long kontostandLesen(String benutzername){
+         return 0;
+    }
 }

@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBHelper {
     final private static String user = "root";
-    final static private String password = Passwort.passwort;
+    final static private String password = Passwort.dbPasswort;
     final private static String driver = "com.mysql.cj.jdbc.Driver";
     final static private String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 

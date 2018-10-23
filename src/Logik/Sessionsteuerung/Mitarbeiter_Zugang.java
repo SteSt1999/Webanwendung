@@ -2,11 +2,13 @@ package Logik.Sessionsteuerung;
 
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Transaction;
+
 import java.sql.ResultSet;
+
 import static Datenbank.DBLog.*;
 
 public class Mitarbeiter_Zugang implements Zugangsweg {
-
+    int dbBezeichnung = 1;
 
     public void doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag) {
         //einzahlen
@@ -36,7 +38,8 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
     public void doAusgabeUserLog(Kunde user) {
         ResultSet resultSet = getUserLog(user.getBenutzername());
     }
-    public void doAusgabeBankLog(){
+
+    public void doAusgabeBankLog() {
         ResultSet resultSet = getBankLog();
     }
 }
