@@ -10,21 +10,9 @@ import java.sql.Statement;
 public class Datenbank {
     final static private String driver = "com.mysql.cj.jdbc.Driver";
     final static private String userName = "root";
-    static private String password = null;
+    static private String password = Passwort.getDbPasswort();
 
     final static private String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-
-    static {
-        FileReader fr;
-        try {
-            //TODO Absolute Pfadangabe vermeiden
-            fr = new FileReader("C:\\Users\\stump\\IdeaProjects\\Webanwendung\\Passwort.txt");
-            BufferedReader br = new BufferedReader(fr);
-            password = br.readLine();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static String connect() {
         StringBuilder sb = new StringBuilder();
