@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Asuwahlmenü</title>
+        <title>Auswahlmenü</title>
     </head>
     <body>
         <h1>Auswahlmenü</h1>
