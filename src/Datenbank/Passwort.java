@@ -1,7 +1,7 @@
 package Datenbank;
 
 public class Passwort {
-    final static String dbPasswort = "...";
+    final private static String dbPasswort = "...";
 
     public static String getDbPasswort() {
         return dbPasswort;
