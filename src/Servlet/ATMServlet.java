@@ -19,22 +19,19 @@ import static Datenbank.DBKontostand.kontostandLesen;
 
 @WebServlet("/ATMServlet")
 public class ATMServlet extends HttpServlet {
+
+    private Session session;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
             if (DBPasswort.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
-                //TODO generate Session
-                //new Session( getUserAusDB("logInID"), new ATM_Zugang(getIDAusJSP))
+
 
                     Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
 
-
-
-
-
-
-
+                   this.session =  new Session(kunde,new ATM_Zugang(Integer.parseInt(request.getParameter("ATM-ID"))));
 
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
@@ -49,7 +46,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             request.getRequestDispatcher("ATM/ATMUeberweisungErfolgt.jsp").forward(request, response);
-            //TODO Überweisung
+
             //doATMüberweisen(Session session, User kunde, long betrag)
         }
 
