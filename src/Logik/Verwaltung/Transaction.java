@@ -1,14 +1,24 @@
 package Logik.Verwaltung;
 
+import java.util.Random;
+
 public class Transaction {
 
     private int tan;
-    private Kunde sender;
+    private User sender;
     private Kunde empfänger;
 
-    private double betrag;
+    private String betrag;
 
 
+    public Transaction(User sender, Kunde empfänger, String Betrag) {
+        this.sender = sender;
+        this.empfänger = empfänger;
+        this.betrag = betrag;
+
+        this.tan = new Random().nextInt();
+
+    }
 
 
 }

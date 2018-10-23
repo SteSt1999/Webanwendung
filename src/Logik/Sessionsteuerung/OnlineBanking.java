@@ -1,9 +1,17 @@
 package Logik.Sessionsteuerung;
 
-public class OnlineBanking implements Zugangsweg{
+import Logik.Verwaltung.Transaction;
+
+public class OnlineBanking implements Zugangsweg {
 
 
+    public OnlineBanking() {
+    }
 
+    public  void doOnlineBanking(Transaction transaction) {
+
+
+    }
 
 
 }
