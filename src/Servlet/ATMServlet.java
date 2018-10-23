@@ -11,13 +11,52 @@ import java.io.IOException;
 public class ATMServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("ATMLogin") != null) {
+        // Login
+        if (request.getParameter("Login") != null) {
             if (Datenbank.Datenbank.checkPasswortATM(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
+                //TODO generate Session
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
             }
-        } else if (request.getParameter("ATMLoginFehlgeschlagenZurueck") != null) {
+        } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
+            request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
+        }
+
+        // Überweisung
+        else if (request.getParameter("Ueberweisung") != null) {
+            request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
+        } else if (request.getParameter("Ueberweisen") != null) {
+            request.getRequestDispatcher("ATM/ATMUeberweisungErfolgt.jsp").forward(request, response);
+            //TODO Überweisung
+        }
+
+        // Transactions
+        else if (request.getParameter("Transactions") != null) {
+            request.getRequestDispatcher("ATM/ATMTransactions.jsp").forward(request, response);
+        }
+
+        // Einzahlung
+        else if (request.getParameter("Einzahlung") != null) {
+            request.getRequestDispatcher("ATM/ATMEinzahlung.jsp").forward(request, response);
+        } else if (request.getParameter("Einzahlen") != null) {
+            request.getRequestDispatcher("ATM/ATMEinzahlungErfolgt.jsp").forward(request, response);
+            //TODO Einzahlung
+        }
+
+        // Auszahlung
+        else if (request.getParameter("Auszahlung") != null) {
+            request.getRequestDispatcher("ATM/ATMAuszahlung.jsp").forward(request, response);
+        } else if (request.getParameter("Auszahlen") != null) {
+            request.getRequestDispatcher("ATM/ATMAuszahlungErfolgt.jsp").forward(request, response);
+            //TODO Auszahlung
+        }
+
+        // Sonstiges
+        else if (request.getParameter("Hauptmenu") != null) {
+            request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
+        } else if (request.getParameter("Abmelden") != null) {
+            //TODO destroy Session
             request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         }
     }

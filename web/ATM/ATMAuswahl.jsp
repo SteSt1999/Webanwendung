@@ -8,6 +8,19 @@
         <br> Login erfolgreich!
         <br>Sie können eine Überweisung tätigen oder ihren Kontoverlauf anschauen.
         <br>
-        <br>In Arbeit...
+        <br>Kontostand: unbekannt
+        <br>
+        <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
+            <br><br>
+            <input type="submit" name="Ueberweisung" value="Überweisen"/>
+            <br><br>
+            <input type="submit" name="Transactions" value="Kontoverlauf"/>
+            <br><br>
+            <input type="submit" name="Einzahlung" value="Einzahlen"/>
+            <br><br>
+            <input type="submit" name="Auszahlung" value="Abheben"/>
+            <br><br>
+            <input type="submit" name="Abmelden" value="Abmelden"/>
+        </form>
     </body>
 </html>
