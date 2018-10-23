@@ -1,49 +1,42 @@
 package Datenbank;
 
-import Logik.Verwaltung.Transaction;
+import Logik.Verwaltung.*;
 
 import java.sql.ResultSet;
 
 import static Datenbank.Datenbank.replaceFirst;
 
 public class DBLog {
-    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
+    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
     final private static String sqlGetTransactionsKunde = "SELECT * FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT * FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
 
-    /*
-    private static void logHinzufügen(String kundenID, int zugangsweg, int transaktionsID, int betrag, String empfaengerBank, String empfaengerID) {
+    public static void logHinzufügen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
-        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        sqlAnfrage = replaceFirst(sqlAnfrage, zugangsweg + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaktionsID + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, betrag + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, empfaengerBank);
-        sqlAnfrage = replaceFirst(sqlAnfrage, empfaengerID);
-        System.out.println(sqlAnfrage);
+        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
+        sqlAnfrage = replaceFirst(sqlAnfrage, 2 + "");
+        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
+        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
+        //TODO Empfänger Bank aus DB entfernen
+        sqlAnfrage = replaceFirst(sqlAnfrage, null);
+        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
         Datenbank.sqlAusfuehren(sqlAnfrage);
     }
-    */
 
-    public static void logHinzufügen(Transaction t) {
-
+    public static ResultSet getUserLog(String kundenID) {
+        String sqlAnfrage = sqlGetTransactionsKunde;
+        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID + "");
+        return Datenbank.sqlGetResultSet(sqlAnfrage);
     }
 
-    public static ResultSet getATMLog(int id) {
-        return null;
+    public static ResultSet getATMLog(int ATMID) {
+        String sqlAnfrage = sqlGetTransactionsATM;
+        sqlAnfrage = replaceFirst(sqlAnfrage, ATMID + "");
+        return Datenbank.sqlGetResultSet(sqlAnfrage);
     }
 
-    public static ResultSet getUserLog(String benutzername) {
-        return null;
-    }
     public static ResultSet getBankLog() {
-        return null;
+        return Datenbank.sqlGetResultSet(sqlGetAllTransactions);
     }
-
-    /*
-    public static void main(String[] args) {
-        logHinzufügen("1", 2, 3, 4, "5", "6");
-    }
-    */
 }
