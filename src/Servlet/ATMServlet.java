@@ -1,5 +1,7 @@
 package Servlet;
 
+import Datenbank.DBPasswort;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +15,7 @@ public class ATMServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            if (Datenbank.Datenbank.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
+            if (DBPasswort.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
                 //TODO generate Session
                 //new Session( getUserAusDB("logInID"), new ATM_Zugang(getIDAusJSP))
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
