@@ -10,7 +10,7 @@ public abstract class User {
     private String vorname;
     private String nachname;
 
-    private Bank bank;
+    private int bankid;
 
 
 }

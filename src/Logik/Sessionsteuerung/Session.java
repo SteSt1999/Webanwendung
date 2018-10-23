@@ -7,30 +7,42 @@ import Logik.Verwaltung.User;
 import java.util.Random;
 
 
-
 public class Session {
     private int id;
-
-
+    private Zugangsweg zugangsweg;
     //aktuell eingeloggter User
-    //bei jedem Log
     private User user;
 
 
-    public Session (User user){
-        this.id = new Random().nextInt();
-        this.user = user;
+    public Session(User user, Zugangsweg zugangsweg) {
+        setId(new Random().nextInt());
+        setUser(user);
+        setZugangsweg(zugangsweg);
 
     }
 
-    public void doTransaction(Zugangsweg zugangsweg, Kunde empfänger, String betrag){
-        Transaction transaction = new Transaction(user,empfänger,betrag);
 
-        if(zugangsweg instanceof OnlineBanking ){
-            //zugangsweg.doOnlineBanking(transaction);
-        }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public Zugangsweg getZugangsweg() {
+        return zugangsweg;
+    }
 
+    public void setZugangsweg(Zugangsweg zugangsweg) {
+        this.zugangsweg = zugangsweg;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,22 +1,30 @@
 package Logik.Verwaltung;
 
+import Logik.Sessionsteuerung.Zugangsweg;
+
 import java.util.Random;
 
 public class Transaction {
 
-    private int tan;
+    private Zugangsweg zugangsweg;
     private User sender;
-    private Kunde empfänger;
+    private User empfänger;
 
-    private String betrag;
+    // 1 = überweisung,2 = überweisung erhalten, 3 = abheben, 4 = einzahlen
+    private int transaktionsID;
 
 
-    public Transaction(User sender, Kunde empfänger, String Betrag) {
+    private long betrag;
+
+
+    public Transaction(User sender, User empfänger, long betrag, Zugangsweg zugangsweg, int überweisungsid)  {
         this.sender = sender;
         this.empfänger = empfänger;
         this.betrag = betrag;
+        this.zugangsweg = zugangsweg;
+        this.transaktionsID = überweisungsid;
 
-        this.tan = new Random().nextInt();
+
 
     }
 

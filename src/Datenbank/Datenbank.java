@@ -1,5 +1,7 @@
 package Datenbank;
 
+import Logik.Verwaltung.Transaction;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -60,4 +62,6 @@ public class Datenbank {
         }
         return false;
     }
+    public static void logHinzufügen(Transaction transaction){}
+    public static void  kontostandAnpassen(long betrag){};
 }

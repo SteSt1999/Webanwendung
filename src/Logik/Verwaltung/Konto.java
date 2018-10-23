@@ -1,14 +1,33 @@
 package Logik.Verwaltung;
 
-import Logik.Logs.Konto_Log;
+
+import java.util.List;
+
+import static Datenbank.Datenbank.kontostandAnpassen;
 
 public class Konto {
-    private double kontostand;
 
-    //Log der Transaktionen die auf diesem Konto geführt wurden
-    private Konto_Log kontoLog;
+    private long kontostand;
 
 
-    public Konto(){};
+
+    public long getKontostand() {
+        return kontostand;
+    }
+
+    public void abheben(long betrag) {
+        this.kontostand -= betrag;
+        kontostandAnpassen(kontostand);
+    }
+
+   public void einzahlen(long betrag) {
+         this.kontostand += betrag ;
+        kontostandAnpassen(kontostand);
+    }
+    public void überweisen(long betrag) {
+
+    }
+
+
 
 }

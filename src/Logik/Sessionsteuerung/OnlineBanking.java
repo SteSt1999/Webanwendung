@@ -6,10 +6,6 @@ public class OnlineBanking implements Zugangsweg {
 
 
     public OnlineBanking() {
-    }
-
-    public  void doOnlineBanking(Transaction transaction) {
-
 
     }
 
