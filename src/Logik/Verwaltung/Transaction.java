@@ -17,16 +17,31 @@ public class Transaction {
     private long betrag;
 
 
-    public Transaction(User sender, User empfänger, long betrag, Zugangsweg zugangsweg, int überweisungsid)  {
+    public Transaction(User sender, User empfänger, long betrag, Zugangsweg zugangsweg, int transaktionsID)  {
         this.sender = sender;
         this.empfänger = empfänger;
         this.betrag = betrag;
         this.zugangsweg = zugangsweg;
-        this.transaktionsID = überweisungsid;
-
-
-
+        this.transaktionsID = transaktionsID;
     }
 
+    public Zugangsweg getZugangsweg() {
+        return zugangsweg;
+    }
 
+    public User getSender() {
+        return sender;
+    }
+
+    public User getEmpfänger() {
+        return empfänger;
+    }
+
+    public int getTransaktionsID() {
+        return transaktionsID;
+    }
+
+    public long getBetrag() {
+        return betrag;
+    }
 }

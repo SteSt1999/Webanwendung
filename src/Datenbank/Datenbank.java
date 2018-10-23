@@ -53,8 +53,14 @@ public class Datenbank {
     }
 
     public static void kontostandAnpassen(User user, long betrag) {
+        //TODO
     }
 
+    public static void kontostandLesen(User user) {
+        //TODO
+    }
+
+    //TODO SQL für ATMS
 
 
     public static void sqlAusfuehren(String sqlAnfrage) {

@@ -4,7 +4,7 @@ public class Kunde extends User{
     //Konto und Kunde bei welcher Bank
     private Konto konto;
 
-    public Kunde(Konto konte, String benutzername) {
+    public Kunde(Konto konto, String benutzername) {
         super(benutzername);
         this.konto = konto;
 
