@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: test
+-- Host: localhost    Database: hostbank
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tabelle`
+-- Table structure for table `kunden`
 --
 
-DROP TABLE IF EXISTS `tabelle`;
+DROP TABLE IF EXISTS `kunden`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `tabelle` (
-  `id` int(11) DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `geburtsdatum` date DEFAULT NULL
+CREATE TABLE `kunden` (
+  `ID` varchar(95) NOT NULL,
+  `Kennwort` varchar(45) NOT NULL,
+  `Nachname` varchar(45) NOT NULL,
+  `Vorname` varchar(45) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tabelle`
+-- Dumping data for table `kunden`
 --
 
-LOCK TABLES `tabelle` WRITE;
-/*!40000 ALTER TABLE `tabelle` DISABLE KEYS */;
-INSERT INTO `tabelle` VALUES (1,'Stefan','1999-01-25'),(0,'Julia',NULL);
-/*!40000 ALTER TABLE `tabelle` ENABLE KEYS */;
+LOCK TABLES `kunden` WRITE;
+/*!40000 ALTER TABLE `kunden` DISABLE KEYS */;
+INSERT INTO `kunden` VALUES ('holzmann.julia','Hallo123','Holzmann','Julia'),('otto.ben','Test1','Otto','Ben'),('otto.ben2','Test2','Otto','Ben'),('stump.stefan','Passwort','Stump','Stefan');
+/*!40000 ALTER TABLE `kunden` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-24  9:14:02
+-- Dump completed on 2018-10-23 11:44:13
