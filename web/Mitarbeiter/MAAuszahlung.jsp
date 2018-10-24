@@ -4,8 +4,8 @@
         <title>Einzahlung</title>
     </head>
     <body>
-        <h1>ATM</h1>
-        <br>Hier Können Sie Geld abheben.
+        <h1>Mitarbeiter-Konto</h1>
+        <br>Hier können Sie Geld von einem Kundenkonto abheben.
         <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
             <p>Kunde: </p>

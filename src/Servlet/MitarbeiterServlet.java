@@ -21,10 +21,10 @@ public class MitarbeiterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            if (DBUser.checkPasswortMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort")) ) {
+            if (DBUser.checkPasswortMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
 
 
-                User mitarbeiter = new Mitarbeiter( request.getParameter("LogInID"));
+                User mitarbeiter = new Mitarbeiter(request.getParameter("LogInID"));
 
                 this.session = new Session(mitarbeiter, new Mitarbeiter_Zugang());
 
@@ -37,11 +37,36 @@ public class MitarbeiterServlet extends HttpServlet {
         }
 
 
-
-        // Transactions
-        else if (request.getParameter("Transactions") != null) {
-            request.getRequestDispatcher("ATM/Transactions.jsp").forward(request, response);
+        //AllLos
+        else if (request.getParameter("AllLogs") != null) {
+            request.getRequestDispatcher("Mitarbeiter/MAAllLogs.jsp").forward(request, response);
+            //@TODO AUSGABE DER LOGS
         }
+
+        //ATMLogs
+        else if (request.getParameter("ATMLogs") != null) {
+            request.getRequestDispatcher("Mitarbeiter/MAATMLogAuswahl.jsp").forward(request, response);
+
+        } else if (request.getParameter("Anzeigen") != null) {
+            //@TODO AUSGABE DER LOGS
+
+
+            request.getRequestDispatcher("Mitarbeiter/MAATMLogs.jsp").forward(request, response);
+
+        }
+        //UserLog
+        else if (request.getParameter("UserLogs") != null) {
+            request.getRequestDispatcher("Mitarbeiter/MAUserLogAuswahl.jsp").forward(request, response);
+
+        } else if (request.getParameter("Anzeigen") != null) {
+
+            //@TODO AUSGABE DER LOGS
+
+
+            request.getRequestDispatcher("Mitarbeiter/MAUserLogs.jsp").forward(request, response);
+
+        }
+
 
         // Einzahlung
         else if (request.getParameter("Einzahlung") != null) {
@@ -49,17 +74,17 @@ public class MitarbeiterServlet extends HttpServlet {
         } else if (request.getParameter("Einzahlen") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAEinzahlungErfolgt.jsp").forward(request, response);
 
-          //@TODO Einzahlung verbinden doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag)
+            //@TODO Einzahlung verbinden doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag)
 
         }
 
         // Auszahlung
-        else if (request.getParameter("Auszahlung") != null) {
+        else if (request.getParameter("Abhebung") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlung.jsp").forward(request, response);
-        } else if (request.getParameter("Auszahlen") != null) {
+        } else if (request.getParameter("Abheben") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlungErfolgt.jsp").forward(request, response);
 
-          //@TODO Auszahlung verbinden doMitarbeiterAbheben(Session session, Kunde kunde, long betrag)
+            //@TODO Auszahlung verbinden doMitarbeiterAbheben(Session session, Kunde kunde, long betrag)
         }
 
         // Sonstiges
