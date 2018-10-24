@@ -6,7 +6,7 @@ public class Kunde extends User{
 
     public Kunde(Konto konto, String benutzername) {
         super(benutzername);
-        this.konto = konto;
+        setKonto( konto);
 
     }
 

@@ -7,7 +7,11 @@ import Logik.Verwaltung.User;
 import static Datenbank.DBLog.logHinzufuegen;
 
 public class OnlineBanking implements Zugangsweg {
-    int dbBezeichnung = 2;
+    public String getdbBezeichnung() {
+        return dbBezeichnung;
+    }
+
+    String dbBezeichnung = "2";
 
 
     public void doOnlineBankingÜberweisung(Session session, User kunde, long betrag){

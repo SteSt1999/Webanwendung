@@ -16,8 +16,7 @@ public class DBLog {
     public static void logHinzufuegen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
-        //TODO ZugangswegID speichern
-        sqlAnfrage = replaceFirst(sqlAnfrage, 2 + "");
+        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());

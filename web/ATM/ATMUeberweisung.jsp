@@ -9,7 +9,7 @@
         <br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <p>Empfänger: </p>
-            <input type="text" name="Empfänger" size=20 maxlength=50>
+            <input type="text" name="Empfaenger" size=20 maxlength=50>
             <p>Summe: </p>
             <input type="text" name="Summe" size=20 maxlength=50>
             <br><br>

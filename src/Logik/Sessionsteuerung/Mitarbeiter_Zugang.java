@@ -6,7 +6,9 @@ import Logik.Verwaltung.Transaction;
 import static Datenbank.DBLog.*;
 
 public class Mitarbeiter_Zugang implements Zugangsweg {
-    int dbBezeichnung = 1;
+
+
+    String dbBezeichnung = "1";
 
     public void doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag) {
         //einzahlen
@@ -28,7 +30,7 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
         logHinzufuegen(transaction);
     }
 
-
+   //@TODO Mitarbeiter Log Ausgaben
     public void doAusgabeATMLog(String atmID) {
        String log = getZugangswegLog(atmID);
     }
@@ -39,5 +41,9 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
 
     public void doAusgabeBankLog() {
         String log = getBankLog();
+    }
+
+    public String getdbBezeichnung() {
+        return dbBezeichnung;
     }
 }

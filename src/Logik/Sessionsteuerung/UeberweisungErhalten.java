@@ -1,5 +1,9 @@
 package Logik.Sessionsteuerung;
 
 public class UeberweisungErhalten implements Zugangsweg {
-    int dbBezeichnung = 0;
+    String dbBezeichnung ="0";
+
+    public String getdbBezeichnung() {
+        return dbBezeichnung;
+    }
 }
