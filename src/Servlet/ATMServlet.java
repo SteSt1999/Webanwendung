@@ -35,17 +35,38 @@ public class ATMServlet extends HttpServlet {
             }
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
+        } else if (request.getParameter("Abmelden") != null) {
+            session = null;
+            request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         }
+
+
+        /*
+            Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
+         */
+        if (session == null) {
+            request.getRequestDispatcher("ATM/ATMAusgeloggt.jsp").forward(request, response);
+        }
+        /*
+
+
+        ALLE NACHFOLGENDEN METHODEN können nur aufgerufen werden, wenn man eingeloggt ist
+
+
+         */
+
 
         // Überweisung
         else if (request.getParameter("Ueberweisung") != null) {
             request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-            long betrag = Long.parseLong(request.getParameter("Summe"));
-            ATM_Zugang.doATMUeberweisen(session, user, betrag);
+            try {
+                ATM_Zugang.doATMUeberweisen(session, user, request.getParameter("Summe"));
+            } catch (IllegalArgumentException e) {
+                request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("ATM/ATMUeberweisungErfolgt.jsp").forward(request, response);
-
         }
 
         // Transactions
@@ -57,7 +78,11 @@ public class ATMServlet extends HttpServlet {
         else if (request.getParameter("Einzahlung") != null) {
             request.getRequestDispatcher("ATM/ATMEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
-            ATM_Zugang.doATMEinzahlen(session, Long.parseLong(request.getParameter("Betrag")));
+            try {
+                ATM_Zugang.doATMEinzahlen(session, request.getParameter("Betrag"));
+            } catch (NumberFormatException e) {
+                request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("ATM/ATMEinzahlungErfolgt.jsp").forward(request, response);
         }
 
@@ -65,16 +90,17 @@ public class ATMServlet extends HttpServlet {
         else if (request.getParameter("Auszahlung") != null) {
             request.getRequestDispatcher("ATM/ATMAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Auszahlen") != null) {
-            ATM_Zugang.doATMabheben(session, Long.parseLong(request.getParameter("Betrag")));
+            try {
+                ATM_Zugang.doATMabheben(session, request.getParameter("Betrag"));
+            } catch (NumberFormatException e) {
+                request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("ATM/ATMAuszahlungErfolgt.jsp").forward(request, response);
         }
 
         // Sonstiges
         else if (request.getParameter("Hauptmenu") != null) {
             request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
-        } else if (request.getParameter("Abmelden") != null) {
-            session = null;
-            request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         }
     }
 }
