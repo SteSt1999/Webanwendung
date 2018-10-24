@@ -27,8 +27,7 @@ CREATE TABLE `transaktionen` (
   `Zugangsweg` int(11) NOT NULL COMMENT '0: Geld erhalten\\\\n1: Mitarbeiter\\\\n2: Online-Banking\\\\nZahl > 2: ATM-ID',
   `Transaktions_ID` int(11) NOT NULL COMMENT '1: Ueberweisung senden\\n2. Ueberweisung erhalten\\n3: Abheben\\n4: Einzahlen',
   `Betrag` int(20) NOT NULL,
-  `Empfänger_ID` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Betrag`)
+  `Empfänger_ID` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-24 10:13:22
+-- Dump completed on 2018-10-24 10:42:26
