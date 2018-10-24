@@ -29,8 +29,8 @@ public class Konto {
          this.kontostand += betrag ;
         kontostandAnpassen(user.getBenutzername(),kontostand);
     }
-    public void überweisen(User sender, User empfänger, long betrag) {
-        ((Kunde) empfänger).getKonto().einzahlen(empfänger, betrag);
+    public void überweisen(User sender, User empfaenger, long betrag) {
+        ((Kunde) empfaenger).getKonto().einzahlen(empfaenger, betrag);
         this.kontostand -= betrag;
 
         kontostandAnpassen(sender.getBenutzername(),kontostand);
