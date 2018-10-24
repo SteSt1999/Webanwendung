@@ -16,7 +16,7 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
 
         Transaction transaction = new Transaction(kunde, null, betrag, session.getZugangsweg(), 4);
 
-        logHinzufügen(transaction);
+        logHinzufuegen(transaction);
 
     }
 
@@ -27,7 +27,7 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
 
         Transaction transaction = new Transaction(kunde, null, betrag, session.getZugangsweg(), 3);
 
-        logHinzufügen(transaction);
+        logHinzufuegen(transaction);
     }
 
 

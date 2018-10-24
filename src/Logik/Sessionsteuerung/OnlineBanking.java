@@ -4,7 +4,7 @@ import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Transaction;
 import Logik.Verwaltung.User;
 
-import static Datenbank.DBLog.logHinzufügen;
+import static Datenbank.DBLog.logHinzufuegen;
 
 public class OnlineBanking implements Zugangsweg {
     int dbBezeichnung = 2;
@@ -17,8 +17,8 @@ public class OnlineBanking implements Zugangsweg {
         Transaction transactionUeberweisung = new Transaction(session.getUser(),kunde, betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde,session.getUser(), betrag, session.getZugangsweg(), 2);
 
-        logHinzufügen(transactionUeberweisung);
-        logHinzufügen(transactionUeberweisungErhalten);
+        logHinzufuegen(transactionUeberweisung);
+        logHinzufuegen(transactionUeberweisungErhalten);
 
     }
 

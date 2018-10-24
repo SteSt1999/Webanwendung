@@ -1,11 +1,10 @@
 package Servlet;
 
-import Datenbank.DBPasswort;
+import Datenbank.DBUser;
 import Logik.Sessionsteuerung.ATM_Zugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +25,7 @@ public class ATMServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            if (DBPasswort.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
+            if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
 
 
                     Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));

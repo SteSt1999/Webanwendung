@@ -32,6 +32,16 @@ public class DBHelper {
         }
     }
 
+    public static boolean existiert(String sqlAnfrage) {
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+        try {
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static String replaceFirst(String sqlAnfrage, String eingabe) {
         int n = sqlAnfrage.indexOf("(?)");
         return sqlAnfrage.substring(0, n) + eingabe + sqlAnfrage.substring(n + 3);

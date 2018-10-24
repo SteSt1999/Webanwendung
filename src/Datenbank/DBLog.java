@@ -12,7 +12,7 @@ public class DBLog {
     final private static String sqlGetTransactionsKunde = "SELECT * FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT * FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
 
-    public static void logHinzufügen(Transaction transaction) {
+    public static void logHinzufuegen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
         //TODO ZugangswegID speichern

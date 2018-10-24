@@ -2,7 +2,7 @@ package Logik.Sessionsteuerung;
 
 import Logik.Verwaltung.*;
 
-import static Datenbank.DBLog.logHinzufügen;
+import static Datenbank.DBLog.logHinzufuegen;
 
 public class ATM_Zugang implements Zugangsweg {
     private ATM atm;
@@ -21,7 +21,7 @@ public class ATM_Zugang implements Zugangsweg {
 
         Transaction transaction = new Transaction(session.getUser(),  (session.getUser()), betrag, session.getZugangsweg(), 3);
 
-        logHinzufügen(transaction);
+        logHinzufuegen(transaction);
 
     }
 
@@ -32,8 +32,8 @@ public class ATM_Zugang implements Zugangsweg {
         Transaction transactionUeberweisung = new Transaction(session.getUser(),kunde, betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde,session.getUser(), betrag, session.getZugangsweg(), 2);
 
-        logHinzufügen(transactionUeberweisung);
-        logHinzufügen(transactionUeberweisungErhalten);
+        logHinzufuegen(transactionUeberweisung);
+        logHinzufuegen(transactionUeberweisungErhalten);
 
 
 
@@ -45,6 +45,6 @@ public class ATM_Zugang implements Zugangsweg {
 
         Transaction transaction = new Transaction(session.getUser(),  (session.getUser()), betrag, session.getZugangsweg(), 4);
 
-        logHinzufügen(transaction);
+        logHinzufuegen(transaction);
     }
 }
