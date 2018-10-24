@@ -12,12 +12,9 @@ public class Transaction {
 
     // 1 = überweisung,2 = überweisung erhalten, 3 = abheben, 4 = einzahlen
     private int transaktionsID;
-
-
     private long betrag;
 
-
-    public Transaction(User sender, User empfänger, long betrag, Zugangsweg zugangsweg, int transaktionsID)  {
+    public Transaction(User sender, User empfänger, long betrag, Zugangsweg zugangsweg, int transaktionsID) {
         this.sender = sender;
         this.empfänger = empfänger;
         this.betrag = betrag;

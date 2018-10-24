@@ -6,11 +6,11 @@ import Logik.Verwaltung.*;
 
 import static Datenbank.DBLog.logHinzufuegen;
 
-public class ATM_Zugang implements Zugangsweg {
+public class ATMZugang implements Zugangsweg {
     private ATM atm;
 
     // bekommt beim Login eine id nummer mit Übergeben
-    public ATM_Zugang(int id) {
+    public ATMZugang(int id) {
         this.atm = new ATM(id);
     }
 
@@ -20,14 +20,14 @@ public class ATM_Zugang implements Zugangsweg {
     }
 
     public static void doATMUeberweisen(Session session, User kunde, String eingabeBetrag) {
-        long betrag = -1 * Umwandlung.stringToLong(eingabeBetrag);
+        long betrag = Umwandlung.stringToLong(eingabeBetrag);
         if (!DBUser.existiertKunde(kunde.getBenutzername())) {
             throw new IllegalArgumentException();
         }
 
         ((Kunde) session.getUser()).getKonto().ueberweisen(session.getUser(), kunde, betrag);
 
-        Transaction transactionUeberweisung = new Transaction(session.getUser(), kunde, betrag, session.getZugangsweg(), 1);
+        Transaction transactionUeberweisung = new Transaction(session.getUser(), kunde, -betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde, session.getUser(), betrag, session.getZugangsweg(), 2);
 
         logHinzufuegen(transactionUeberweisung);

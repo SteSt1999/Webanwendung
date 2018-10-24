@@ -3,9 +3,7 @@ package Logik.Verwaltung;
 import static Datenbank.DBKontostand.kontostandAnpassen;
 
 public class Konto {
-
     private long kontostand;
-
 
     public Konto(long kontostand) {
         setKontostand(kontostand);
@@ -31,8 +29,7 @@ public class Konto {
 
     public void ueberweisen(User sender, User empfaenger, long betrag) {
         ((Kunde) empfaenger).getKonto().einzahlen(empfaenger, betrag);
-        this.kontostand += betrag;
-
+        this.kontostand -= betrag;
         kontostandAnpassen(sender.getBenutzername(), kontostand);
     }
 }

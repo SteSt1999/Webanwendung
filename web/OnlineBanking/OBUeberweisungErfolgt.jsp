@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Online-Banking</h1>
-        <br>Die Überweisung wird bearbeitet!
+        <br>Die Überweisung ist erfolgt!
         <br>
         <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
             <br><br>

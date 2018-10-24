@@ -1,11 +1,8 @@
 package Logik.Verwaltung;
 
 public abstract class User {
-
-
     //Login-Daten
     String benutzername;
-
 
     // private int bankid;
 

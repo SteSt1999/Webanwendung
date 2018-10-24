@@ -20,7 +20,7 @@ public class DBLog {
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        if(transaction.getEmpfänger() != null) {
+        if (transaction.getEmpfänger() != null) {
             sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
         } else {
             sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);

@@ -9,7 +9,8 @@
         <br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <p>Betrag: </p>
-            <input type="number" max="10000000" min="0" step="0.01" data-number-to-be-fixed="2" data-number-stepfactor="100" name="Betrag" size=20 maxlength=50>
+            <input type="number" max="10000000" min="0" step="0.01" data-number-to-be-fixed="2"
+                   data-number-stepfactor="100" name="Betrag" size=20 maxlength=50>
             <br><br>
             <input type="submit" name="Einzahlen" value="Einzahlen"/>
             <br>

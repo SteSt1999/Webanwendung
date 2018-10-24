@@ -1,7 +1,5 @@
 package Logik.Sessionsteuerung;
 
-import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.Transaction;
 import Logik.Verwaltung.User;
 
 import java.util.Random;
@@ -20,7 +18,6 @@ public class Session {
         setZugangsweg(zugangsweg);
 
     }
-
 
     public int getId() {
         return id;

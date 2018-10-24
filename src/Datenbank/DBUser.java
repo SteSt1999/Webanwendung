@@ -22,7 +22,7 @@ public class DBUser {
         return checkPasswort(sqlAnfrage, passwort);
     }
 
-    public static boolean checkPasswort(String sqlAnfrage, String passwort) {
+    private static boolean checkPasswort(String sqlAnfrage, String passwort) {
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
         try {
             if (resultSet.next() && passwort.equals(resultSet.getString("KENNWORT"))) {

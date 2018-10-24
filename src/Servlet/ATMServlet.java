@@ -2,7 +2,7 @@ package Servlet;
 
 import Datenbank.DBATM;
 import Datenbank.DBUser;
-import Logik.Sessionsteuerung.ATM_Zugang;
+import Logik.Sessionsteuerung.ATMZugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
@@ -28,7 +28,7 @@ public class ATMServlet extends HttpServlet {
         if (request.getParameter("Login") != null) {
             if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort")) && DBATM.existiertATM(request.getParameter("ATM-ID"))) {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
-                this.session = new Session(kunde, new ATM_Zugang(Integer.parseInt(request.getParameter("ATM-ID"))));
+                this.session = new Session(kunde, new ATMZugang(Integer.parseInt(request.getParameter("ATM-ID"))));
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
@@ -62,7 +62,7 @@ public class ATMServlet extends HttpServlet {
         } else if (request.getParameter("Ueberweisen") != null) {
             User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
             try {
-                ATM_Zugang.doATMUeberweisen(session, user, request.getParameter("Summe"));
+                ATMZugang.doATMUeberweisen(session, user, request.getParameter("Summe"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }
@@ -79,7 +79,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
             try {
-                ATM_Zugang.doATMEinzahlen(session, request.getParameter("Betrag"));
+                ATMZugang.doATMEinzahlen(session, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }
@@ -91,7 +91,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Auszahlen") != null) {
             try {
-                ATM_Zugang.doATMabheben(session, request.getParameter("Betrag"));
+                ATMZugang.doATMabheben(session, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }

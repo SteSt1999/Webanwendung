@@ -1,12 +1,8 @@
 package Servlet;
 
-import Datenbank.DBATM;
 import Datenbank.DBUser;
-import Logik.Sessionsteuerung.ATM_Zugang;
 import Logik.Sessionsteuerung.Mitarbeiter_Zugang;
 import Logik.Sessionsteuerung.Session;
-import Logik.Verwaltung.Konto;
-import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Mitarbeiter;
 import Logik.Verwaltung.User;
 
@@ -17,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static Datenbank.DBKontostand.kontostandLesen;
 @WebServlet("/MitarbeiterServlet")
 public class MitarbeiterServlet extends HttpServlet {
     private Session session;

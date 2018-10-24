@@ -1,15 +1,14 @@
 package Logik.Verwaltung;
 
-public class Kunde extends User{
+public class Kunde extends User {
     //Konto und Kunde bei welcher Bank
     private Konto konto;
 
     public Kunde(Konto konto, String benutzername) {
         super(benutzername);
-        setKonto( konto);
+        setKonto(konto);
 
     }
-
 
     public Konto getKonto() {
         return konto;
