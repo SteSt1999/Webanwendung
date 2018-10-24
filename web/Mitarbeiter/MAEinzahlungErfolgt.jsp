@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>ATM</title>
+        <title>Mitarbeiter</title>
     </head>
     <body>
-        <h1>ATM</h1>
-        <br> Die Auszahlung ist erfolgt!
-        <br> Bitte nehmen Sie das Geld!
+        <h1>Mitarbeiter</h1>
+        <br> Die Einzahlung ist erfolgt!
         <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
             <br><br>

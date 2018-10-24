@@ -9,6 +9,6 @@
         <br>
         <a href="OnlineBanking/OBLogin.jsp">Online Banking</a>
         <br>
-        <a href="Mitarbeiter/MitarbeiterLogin.jsp">Mitarbeiter</a>
+        <a href="Mitarbeiter/MALogin.jsp">Mitarbeiter</a>
     </body>
 </html>

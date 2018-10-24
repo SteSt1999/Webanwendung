@@ -10,9 +10,6 @@
     <input type="text" name="LogInID" size=20 maxlength=50>
     <p>Passwort: </p>
     <input type="password" name="LogInPasswort" size=20 maxlength=50>
-    <p>ATM-ID: </p>
-    <input type="text" name="ATM-ID" size=20 maxlength=50>
-    <br><br>
     <input type="submit" name="Login" value="Einloggen"/>
 </form>
 </body>

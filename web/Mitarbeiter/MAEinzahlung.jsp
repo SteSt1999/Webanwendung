@@ -4,8 +4,8 @@
         <title>Einzahlung</title>
     </head>
     <body>
-        <h1>ATM</h1>
-        <br>Hier Können Sie Geld einzahlen.
+        <h1>Mitarbeiter-Konto</h1>
+        <br>Hier Können Sie Geld auf ein Kundenkonto einzahlen.
         <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
             <p>Kunde: </p>
@@ -16,7 +16,7 @@
             <input type="submit" name="Einzahlen" value="Einzahlen"/>
             <br>
         </form>
-        <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
             <br><br>
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
             <br><br>

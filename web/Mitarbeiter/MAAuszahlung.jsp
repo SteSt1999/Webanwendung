@@ -13,10 +13,10 @@
             <p>Betrag: </p>
             <input type="text" name="Betrag" size=20 maxlength=50>
             <br><br>
-            <input type="submit" name="Auszahlen" value="Abheben"/>
+            <input type="submit" name="Abheben" value="Abheben"/>
             <br>
         </form>
-        <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
             <br><br>
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
             <br><br>

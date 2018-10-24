@@ -10,15 +10,18 @@
 <br>
 <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
     <br><br>
-    <input type="submit" name="Einzahlen" value="Auf Kundenkonto einzahlen"/>
+    <input type="submit" name="Einzahlung" value="Auf Kundenkonto einzahlen"/>
     <br><br>
-    <input type="submit" name="Abheben" value="Von Kundenkonto abheben"/>
+    <input type="submit" name="Abhebung" value="Von Kundenkonto abheben"/>
     <br><br>
+    <p> Transaktionen anzeigen: </p>
     <input type="submit" name="AllLogs" value="Bank-Transaktionen anzeigen"/>
     <br><br>
     <input type="submit" name="ATMLogs" value="ATM-Transaktionen anzeigen"/>
     <br><br>
     <input type="submit" name="UserLogs" value="Kunden-Transaktionen anzeigen"/>
+    <br><br>
+    <br><br>
     <br><br>
     <input type="submit" name="Abmelden" value="Abmelden"/>
 </form>
