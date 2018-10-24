@@ -16,17 +16,17 @@ public class DBKontostand {
         DBHelper.sqlAusfuehren(sqlAnfrage);
     }
 
-    public static long kontostandLesen(String kundenID){
+    public static long kontostandLesen(String kundenID) {
         String sqlAnfrage = sqlKontostandLesen;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
         try {
             if (resultSet.next()) {
-                return resultSet.getInt(1);
+                return resultSet.getInt("KONTOSTAND");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("Das Konto \"" + kundenID + "\2 existiert nicht.");
+        throw new RuntimeException("Das Konto \"" + kundenID + "\" existiert nicht.");
     }
 }

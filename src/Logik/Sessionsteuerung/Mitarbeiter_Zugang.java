@@ -3,8 +3,6 @@ package Logik.Sessionsteuerung;
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Transaction;
 
-import java.sql.ResultSet;
-
 import static Datenbank.DBLog.*;
 
 public class Mitarbeiter_Zugang implements Zugangsweg {
@@ -31,15 +29,15 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
     }
 
 
-    public void doAusgabeATMLog(int id) {
-        ResultSet resultSet = getATMLog(id);
+    public void doAusgabeATMLog(String atmID) {
+       String log = getZugangswegLog(atmID);
     }
 
     public void doAusgabeUserLog(Kunde user) {
-        ResultSet resultSet = getUserLog(user.getBenutzername());
+        String log = getUserLog(user.getBenutzername());
     }
 
     public void doAusgabeBankLog() {
-        ResultSet resultSet = getBankLog();
+        String log = getBankLog();
     }
 }

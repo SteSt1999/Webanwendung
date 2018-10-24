@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `atm`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `atm` (
-  `ATM_ID` int(11) NOT NULL,
+  `ATM_ID` varchar(45) NOT NULL,
   PRIMARY KEY (`ATM_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -34,7 +34,7 @@ CREATE TABLE `atm` (
 
 LOCK TABLES `atm` WRITE;
 /*!40000 ALTER TABLE `atm` DISABLE KEYS */;
-INSERT INTO `atm` VALUES (3),(4),(5),(42);
+INSERT INTO `atm` VALUES ('3'),('4'),('42'),('5');
 /*!40000 ALTER TABLE `atm` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-23 14:54:46
+-- Dump completed on 2018-10-24 10:13:22

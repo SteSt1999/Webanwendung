@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `konto`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `konto` (
   `Kunden_ID` varchar(95) NOT NULL,
-  `Kontostand` int(11) NOT NULL,
+  `Kontostand` int(20) NOT NULL,
   UNIQUE KEY `Kunden_ID_UNIQUE` (`Kunden_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-23 14:54:45
+-- Dump completed on 2018-10-24 10:13:22
