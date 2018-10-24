@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>ATM</title>
+        <title>Überweisung eingegangen</title>
     </head>
     <body>
-        <h1>ATM</h1>
-        <br> Die Ueberweisung wird bearbeitet!
+        <h1>Online-Banking</h1>
+        <br>Die Überweisung wird bearbeitet!
         <br>
-        <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
+        <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
             <br><br>
             <input type="submit" name="Ueberweisung" value="Weitere Überweisung"/>
             <br><br>

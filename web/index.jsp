@@ -5,9 +5,9 @@
     </head>
     <body>
         <h1>Auswahlmenü</h1>
-        <a href="ATM/ATMLogin.jsp">ATM</a>
+        <a href="ATM/Login.jsp">ATM</a>
         <br>
-        <a href="OnlineBanking/OnlineBankingLogin.jsp">Online Banking</a>
+        <a href="OnlineBanking/Login.jsp">Online Banking</a>
         <br>
         <a href="Mitarbeiter/MitarbeiterLogin.jsp">Mitarbeiter</a>
     </body>
