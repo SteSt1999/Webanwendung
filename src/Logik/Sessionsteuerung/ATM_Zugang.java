@@ -20,12 +20,12 @@ public class ATM_Zugang implements Zugangsweg {
     }
 
     public static void doATMUeberweisen(Session session, User kunde, String eingabeBetrag) {
-        long betrag = Umwandlung.stringToLong(eingabeBetrag);
+        long betrag = -1 * Umwandlung.stringToLong(eingabeBetrag);
         if (!DBUser.existiertKunde(kunde.getBenutzername())) {
             throw new IllegalArgumentException();
         }
 
-        ((Kunde) session.getUser()).getKonto().überweisen(session.getUser(), kunde, betrag);
+        ((Kunde) session.getUser()).getKonto().ueberweisen(session.getUser(), kunde, betrag);
 
         Transaction transactionUeberweisung = new Transaction(session.getUser(), kunde, betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde, session.getUser(), betrag, session.getZugangsweg(), 2);
@@ -35,10 +35,10 @@ public class ATM_Zugang implements Zugangsweg {
     }
 
     public static void doATMabheben(Session session, String eingabeBetrag) {
-        long betrag = Umwandlung.stringToLong(eingabeBetrag);
+        long betrag = -1 * Umwandlung.stringToLong(eingabeBetrag);
 
         ((Kunde) session.getUser()).getKonto().abheben(session.getUser(), betrag);
-        Transaction transaction = new Transaction(session.getUser(), (session.getUser()), betrag, session.getZugangsweg(), 3);
+        Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 3);
 
         logHinzufuegen(transaction);
     }
@@ -47,7 +47,7 @@ public class ATM_Zugang implements Zugangsweg {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
 
         ((Kunde) session.getUser()).getKonto().einzahlen(session.getUser(), betrag);
-        Transaction transaction = new Transaction(session.getUser(), (session.getUser()), betrag, session.getZugangsweg(), 4);
+        Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 4);
 
         logHinzufuegen(transaction);
     }

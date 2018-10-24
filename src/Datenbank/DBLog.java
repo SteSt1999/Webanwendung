@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static Datenbank.DBHelper.replaceFirst;
+import static Datenbank.DBHelper.replaceFirstWithNulll;
 
 public class DBLog {
     final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
@@ -19,7 +20,11 @@ public class DBLog {
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
+        if(transaction.getEmpfänger() != null) {
+            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
+        } else {
+            sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
+        }
         DBHelper.sqlAusfuehren(sqlAnfrage);
     }
 

@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>ATM</h1>
-        <br>Hier Können Sie Geld abheben.
+        <br>Hier können Sie Geld abheben.
         <br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <p>Betrag: </p>

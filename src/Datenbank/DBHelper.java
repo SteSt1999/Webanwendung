@@ -46,4 +46,9 @@ public class DBHelper {
         int n = sqlAnfrage.indexOf("(?)");
         return sqlAnfrage.substring(0, n) + eingabe + sqlAnfrage.substring(n + 3);
     }
+
+    public static String replaceFirstWithNulll(String sqlAnfrage) {
+        int n = sqlAnfrage.indexOf("\"(?)\"");
+        return sqlAnfrage.substring(0, n) + "NULL" + sqlAnfrage.substring(n + 5);
+    }
 }

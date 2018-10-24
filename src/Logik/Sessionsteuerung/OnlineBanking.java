@@ -15,8 +15,8 @@ public class OnlineBanking implements Zugangsweg {
 
 
     public void doOnlineBankingÜberweisung(Session session, User kunde, long betrag){
-        //überweisen
-        ((Kunde) session.getUser()).getKonto().überweisen(session.getUser(), kunde, betrag);
+        //ueberweisen
+        ((Kunde) session.getUser()).getKonto().ueberweisen(session.getUser(), kunde, betrag);
 
         Transaction transactionUeberweisung = new Transaction(session.getUser(),kunde, betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(kunde,session.getUser(), betrag, session.getZugangsweg(), 2);
