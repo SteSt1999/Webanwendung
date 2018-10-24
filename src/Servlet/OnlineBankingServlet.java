@@ -16,31 +16,31 @@ public class OnlineBankingServlet extends HttpServlet {
         // Login
         if (request.getParameter("Login") != null) {
             if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
-                request.getRequestDispatcher("OnlineBanking/Auswahl.jsp").forward(request, response);
+                request.getRequestDispatcher("OnlineBanking/ATMAuswahl.jsp").forward(request, response);
             } else {
-                request.getRequestDispatcher("OnlineBanking/LoginFehlgeschlagen.jsp").forward(request, response);
+                request.getRequestDispatcher("OnlineBanking/ATMLoginFehlgeschlagen.jsp").forward(request, response);
             }
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
-            request.getRequestDispatcher("OnlineBanking/Login.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMLogin.jsp").forward(request, response);
         }
 
         // Überweisung
         else if (request.getParameter("Ueberweisung") != null) {
-            request.getRequestDispatcher("OnlineBanking/Ueberweisung.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
-            request.getRequestDispatcher("OnlineBanking/UeberweisungErfolgt.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMUeberweisungErfolgt.jsp").forward(request, response);
         }
 
         // Transactions
         else if (request.getParameter("Transactions") != null) {
-            request.getRequestDispatcher("OnlineBanking/Transactions.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMTransactions.jsp").forward(request, response);
         }
 
         // Sonstiges
         else if (request.getParameter("Hauptmenu") != null) {
-            request.getRequestDispatcher("OnlineBanking/Auswahl.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
-            request.getRequestDispatcher("OnlineBanking/Login.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/ATMLogin.jsp").forward(request, response);
         }
     }
 }
