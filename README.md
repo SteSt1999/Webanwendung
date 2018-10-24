@@ -9,7 +9,7 @@
 6.	Project Structure --> Libraries --> New --> Java --> mysql-connector-java-8.0.12.jar wählen (standardmäßig  C:\Program Files (x86)\MySQL\Connector J 8.0\mysql-connector-java-8.0.12.jar)
 7.  a)  Öffne MySQL Command Line Client
     b)  Passwort von der Installation eingeben
-    c)  Eingeben: „CREATE DATABASE test;“
+    c)  Eingeben: „CREATE DATABASE hostbank;“
 8.	MySQL Workbench
     a)	Local instance anklicken
     b)	Data Import/Restore
