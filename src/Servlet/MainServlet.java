@@ -22,7 +22,7 @@ public class MainServlet extends HttpServlet {
             if (DBBank.existiertBank(bankID)) {
                 setBank(bankID);
                 request.getRequestDispatcher("Auswahl.jsp").forward(request, response);
-            } {
+            } else {
                 request.getRequestDispatcher("BankAuswahlFehlgeschlagen.jsp").forward(request, response);
             }
         } else if (request.getParameter("Zurueck") != null) {
@@ -31,11 +31,11 @@ public class MainServlet extends HttpServlet {
 
         // Auswahl des Zugangsweg
         else if (request.getParameter("ATM") != null) {
-            request.getRequestDispatcher("ATMLogin.jsp").forward(request, response);
+            request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         } else if (request.getParameter("OnlineBanking") != null) {
-            request.getRequestDispatcher("OBLogin.jsp").forward(request, response);
+            request.getRequestDispatcher("OnlineBanking/OBLogin.jsp").forward(request, response);
         } else if (request.getParameter("Mitarbeiter") != null) {
-            request.getRequestDispatcher("MALogin.jsp").forward(request, response);
+            request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
     }
 

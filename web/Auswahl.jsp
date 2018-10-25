@@ -5,10 +5,13 @@
     </head>
     <body>
         <h1>Auswahlmenü</h1>
-        <a href="ATM/ATMLogin.jsp">ATM</a>
-        <br>
-        <a href="OnlineBanking/OBLogin.jsp">Online Banking</a>
-        <br>
-        <a href="Mitarbeiter/MALogin.jsp">Mitarbeiter</a>
+        <form action="${pageContext.request.contextPath}/MainServlet" method="post">
+            <br><br>
+            <input type="submit" name="ATM" value="ATM"/>
+            <br><br>
+            <input type="submit" name="OnlineBanking" value="Online-Banking"/>
+            <br><br>
+            <input type="submit" name="Mitarbeiter" value="Mitarbeiter"/>
+        </form>
     </body>
 </html>
