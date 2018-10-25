@@ -1,5 +1,5 @@
 package Logik.Sessionsteuerung;
 
 public interface Zugangsweg {
-    public String getdbBezeichnung();
+    String getdbBezeichnung();
 }

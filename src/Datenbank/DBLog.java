@@ -20,8 +20,8 @@ public class DBLog {
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        if (transaction.getEmpfänger() != null) {
-            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfänger().getBenutzername());
+        if (transaction.getEmpfaenger() != null) {
+            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
         } else {
             sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
         }
@@ -116,14 +116,15 @@ public class DBLog {
     }
 
     private static String getTextZugangsweg(String zugangsweg) {
-        if (zugangsweg.equals("0")) {
-            return "";
-        } else if (zugangsweg.equals("1")) {
-            return " von einem Mitarbeiter der Bank";
-        } else if (zugangsweg.equals("2")) {
-            return " über Online-Banking";
-        } else {
-            return " an ATM " + zugangsweg;
+        switch (zugangsweg) {
+            case "0":
+                return "";
+            case "1":
+                return " von einem Mitarbeiter der Bank";
+            case "2":
+                return " über Online-Banking";
+            default:
+                return " an ATM " + zugangsweg;
         }
     }
 }
