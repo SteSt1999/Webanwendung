@@ -13,7 +13,7 @@
            name="ATM-ID" size=20 maxlength=50>
     <br><br>
     <br><br>
-    <input type="submit" name="Anzeigen" value="Anzeigen"/>
+    <input type="submit" name="AnzeigenATM" value="Anzeigen"/>
     <br>
     <br><br>
     <br><br>

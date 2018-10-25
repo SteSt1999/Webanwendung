@@ -1,3 +1,4 @@
+<%@ page import="Servlet.MitarbeiterServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,6 +10,11 @@
 <br>
 <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
     <br><br>
+    <br><br>
+    <br><br>
+    <%
+        out.println(MitarbeiterServlet.getATMLogs());
+    %>
     <br><br>
     <br><br>
     <input type="submit" name="Hauptmenu" value="Hauptmenü"/>

@@ -1,5 +1,6 @@
 package Logik.Sessionsteuerung;
 
+import Logik.Umwandlung;
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Transaction;
 
@@ -8,8 +9,9 @@ import static Datenbank.DBLog.*;
 public class Mitarbeiter_Zugang implements Zugangsweg {
     final private String dbBezeichnung = "1";
 
-    public void doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag) {
+    public static void doMitarbeiterEinzahlen(Session session, Kunde kunde, String eingabeBetrag) {
         //einzahlen
+        long betrag =  Umwandlung.stringToLong(eingabeBetrag);
         kunde.getKonto().einzahlen(kunde, betrag);
 
         Transaction transaction = new Transaction(kunde, null, betrag, session.getZugangsweg(), 4);
@@ -19,8 +21,9 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
     }
 
 
-    public void doMitarbeiterAbheben(Session session, Kunde kunde, long betrag) {
+    public static void doMitarbeiterAbheben(Session session, Kunde kunde, String eingabeBetrag) {
         //abheben
+        long betrag = -1 * Umwandlung.stringToLong(eingabeBetrag);
         kunde.getKonto().abheben(kunde, betrag);
 
         Transaction transaction = new Transaction(kunde, null, betrag, session.getZugangsweg(), 3);
@@ -28,17 +31,17 @@ public class Mitarbeiter_Zugang implements Zugangsweg {
         logHinzufuegen(transaction);
     }
 
-   //@TODO Mitarbeiter Log Ausgaben
-    public void doAusgabeATMLog(String atmID) {
-       String log = getZugangswegLog(atmID);
+
+    public static String doAusgabeATMLog(String atmID) {
+        return getZugangswegLog(atmID);
     }
 
-    public void doAusgabeUserLog(Kunde user) {
-        String log = getUserLog(user.getBenutzername());
+    public static String doAusgabeUserLog(Kunde user) {
+        return getUserLog(user.getBenutzername());
     }
 
-    public void doAusgabeBankLog() {
-        String log = getBankLog();
+    public static String doAusgabeBankLog() {
+        return getBankLog();
     }
 
     public String getdbBezeichnung() {

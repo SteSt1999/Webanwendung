@@ -1,8 +1,12 @@
 package Servlet;
 
 import Datenbank.DBUser;
+import Logik.Sessionsteuerung.ATMZugang;
 import Logik.Sessionsteuerung.Mitarbeiter_Zugang;
 import Logik.Sessionsteuerung.Session;
+import Logik.Umwandlung;
+import Logik.Verwaltung.Konto;
+import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Mitarbeiter;
 import Logik.Verwaltung.User;
 
@@ -13,9 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static Datenbank.DBKontostand.kontostandLesen;
+
 @WebServlet("/MitarbeiterServlet")
 public class MitarbeiterServlet extends HttpServlet {
-    private Session session;
+    public static Session session;
+    public static Kunde userLogauswahl;
+    public static String ATMLogauswahl;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,18 +47,19 @@ public class MitarbeiterServlet extends HttpServlet {
 
         //AllLos
         else if (request.getParameter("AllLogs") != null) {
+
             request.getRequestDispatcher("Mitarbeiter/MAAllLogs.jsp").forward(request, response);
-            //@TODO AUSGABE DER LOGS
+
         }
 
         //ATMLogs
         else if (request.getParameter("ATMLogs") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAATMLogAuswahl.jsp").forward(request, response);
 
-        } else if (request.getParameter("Anzeigen") != null) {
-            //@TODO AUSGABE DER LOGS
+        } else if (request.getParameter("AnzeigenATM") != null) {
 
 
+            ATMLogauswahl = request.getParameter("number");
             request.getRequestDispatcher("Mitarbeiter/MAATMLogs.jsp").forward(request, response);
 
         }
@@ -58,11 +67,10 @@ public class MitarbeiterServlet extends HttpServlet {
         else if (request.getParameter("UserLogs") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAUserLogAuswahl.jsp").forward(request, response);
 
-        } else if (request.getParameter("Anzeigen") != null) {
-
-            //@TODO AUSGABE DER LOGS
+        } else if (request.getParameter("AnzeigenUser") != null) {
 
 
+            userLogauswahl = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
             request.getRequestDispatcher("Mitarbeiter/MAUserLogs.jsp").forward(request, response);
 
         }
@@ -72,9 +80,17 @@ public class MitarbeiterServlet extends HttpServlet {
         else if (request.getParameter("Einzahlung") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
-            request.getRequestDispatcher("Mitarbeiter/MAEinzahlungErfolgt.jsp").forward(request, response);
 
-            //@TODO Einzahlung verbinden doMitarbeiterEinzahlen(Session session, Kunde kunde, long betrag)
+
+            try {
+                Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
+
+                Mitarbeiter_Zugang.doMitarbeiterEinzahlen(session, kunde, (request.getParameter("Betrag")));
+
+            } catch (NumberFormatException e) {
+                request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
+            }
+            request.getRequestDispatcher("Mitarbeiter/MAEinzahlungErfolgt.jsp").forward(request, response);
 
         }
 
@@ -82,9 +98,18 @@ public class MitarbeiterServlet extends HttpServlet {
         else if (request.getParameter("Abhebung") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Abheben") != null) {
+
+            try {
+                Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
+
+                Mitarbeiter_Zugang.doMitarbeiterAbheben(session, kunde, (request.getParameter("Betrag")));
+
+            } catch (NumberFormatException e) {
+                request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlungErfolgt.jsp").forward(request, response);
 
-            //@TODO Auszahlung verbinden doMitarbeiterAbheben(Session session, Kunde kunde, long betrag)
+
         }
 
         // Sonstiges
@@ -94,6 +119,18 @@ public class MitarbeiterServlet extends HttpServlet {
             session = null;
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
+    }
+
+
+    public static String getAllLogs() {
+        return Mitarbeiter_Zugang.doAusgabeBankLog();
+    }
+
+    public static String getUserLogs() {
+        return Mitarbeiter_Zugang.doAusgabeUserLog(userLogauswahl);
+    }
+    public static  String getATMLogs(){
+        return Mitarbeiter_Zugang.doAusgabeATMLog(ATMLogauswahl);
     }
 }
 

@@ -12,7 +12,7 @@
     <input type="text" name="Empfaenger" size=20 maxlength=50>
     <br><br>
     <br><br>
-    <input type="submit" name="Anzeigen" value="Anzeigen"/>
+    <input type="submit" name="AnzeigenUser" value="Anzeigen"/>
     <br>
     <br><br>
     <br><br>

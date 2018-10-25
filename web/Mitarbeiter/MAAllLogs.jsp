@@ -1,3 +1,4 @@
+<%@ page import="Servlet.MitarbeiterServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -5,8 +6,13 @@
 </head>
 <body>
 <h1>Bank-Transaktionen</h1>
-<br>Hier sehen Sie die gesamten Transaktionen der HOST-Bank.
+<br>Hier sehen Sie die gesamten Transaktionen der Bank.
 <br>
+<br><br>
+<%
+    out.println(MitarbeiterServlet.getAllLogs());
+%>
+<br><br>
 <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
     <br><br>
     <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
