@@ -1,10 +1,10 @@
 package Logik.Sessionsteuerung;
 
+import Datenbank.DBKontostand;
 import Datenbank.DBUser;
 import Logik.Umwandlung;
-import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.Transaction;
-import Logik.Verwaltung.User;
+import Logik.Verwaltung.*;
+import Servlet.MainServlet;
 
 import static Datenbank.DBLog.logHinzufuegen;
 
@@ -18,17 +18,22 @@ public class OnlineBankingZugang implements Zugangsweg {
         return dbBezeichnung;
     }
 
-    public static void doOnlineBankingUeberweisung(Session session, User kunde, String eingabeBetrag) {
+    public static void doOnlineBankingUeberweisung(Session session, String empfaenger, String empfaengerBankID, String eingabeBetrag) {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
-        if (!DBUser.existiertKunde(kunde.getBenutzername())) {
+        empfaengerBankID = empfaengerBankID.trim().length() == 0 ? MainServlet.getBankID() : empfaengerBankID;
+        Bank empfaengerBank = new Bank(empfaengerBankID);
+
+        if (!DBUser.existiertKunde(empfaenger, empfaengerBank.getBankID())) {
             throw new IllegalArgumentException();
         }
 
-        ((Kunde) session.getUser()).getKonto().ueberweisen(session.getUser(), kunde, betrag);
+        Kunde empfaengerUser = new Kunde(new Konto(DBKontostand.kontostandLesen(empfaenger, empfaengerBankID)), empfaenger, empfaengerBankID);
+        Kunde senderUser = (Kunde) session.getUser();
 
-        Transaction transactionUeberweisung = new Transaction(session.getUser(), kunde, -betrag, session.getZugangsweg(), 1);
-        Transaction transactionUeberweisungErhalten = new Transaction(kunde, session.getUser(), betrag, session.getZugangsweg(), 2);
+        Konto.ueberweisen(senderUser, empfaengerUser, betrag);
 
+        Transaction transactionUeberweisung = new Transaction(senderUser, empfaengerUser, -betrag, session.getZugangsweg(), 1);
+        Transaction transactionUeberweisungErhalten = new Transaction(empfaengerUser, senderUser, betrag, session.getZugangsweg(), 2);
         logHinzufuegen(transactionUeberweisung);
         logHinzufuegen(transactionUeberweisungErhalten);
     }

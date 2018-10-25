@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static Datenbank.DBHelper.replaceFirst;
-import static Datenbank.DBHelper.replaceFirstWithNulll;
+import static Datenbank.DBHelper.replaceFirstWithNull;
 
 public class DBLog {
     //TODO Log anpassen für Empfänger Bank
@@ -23,8 +23,8 @@ public class DBLog {
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
         if (transaction.getEmpfaenger() == null) {
-            sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
-            sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
+            sqlAnfrage = replaceFirstWithNull(sqlAnfrage);
+            sqlAnfrage = replaceFirstWithNull(sqlAnfrage);
         } else {
             sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
             sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBank().getBankID());

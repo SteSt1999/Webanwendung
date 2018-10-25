@@ -17,29 +17,18 @@ public class Konto {
         this.kontostand = kontostand;
     }
 
-    public void abheben(User user, long betrag) {
-        this.kontostand += betrag;
-        kontostandAnpassen(user.getBenutzername(), kontostand);
-    }
-
-    public void einzahlen(User user, long betrag) {
-        this.kontostand += betrag;
-        kontostandAnpassen(user.getBenutzername(), kontostand);
-    }
-
-    public void abhebenNeu(Kunde kunde, long betrag) {
+    public void abheben(Kunde kunde, long betrag) {
         this.kontostand -= betrag;
         kontostandAnpassen(kunde, kontostand);
     }
 
-    public void einzahlenNeu(Kunde kunde, long betrag) {
+    public void einzahlen(Kunde kunde, long betrag) {
         this.kontostand += betrag;
         kontostandAnpassen(kunde, kontostand);
     }
 
-    public void ueberweisen(User sender, User empfaenger, long betrag) {
-        ((Kunde) empfaenger).getKonto().einzahlen(empfaenger, betrag);
-        this.kontostand -= betrag;
-        kontostandAnpassen(sender.getBenutzername(), kontostand);
+    public static void ueberweisen(Kunde sender, Kunde empfaenger, long betrag) {
+        sender.getKonto().abheben(sender, betrag);
+        empfaenger.getKonto().einzahlen(empfaenger, betrag);
     }
 }

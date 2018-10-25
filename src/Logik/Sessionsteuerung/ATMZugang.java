@@ -33,8 +33,7 @@ public class ATMZugang implements Zugangsweg {
         Kunde empfaengerUser = new Kunde(new Konto(DBKontostand.kontostandLesen(empfaenger, empfaengerBankID)), empfaenger, empfaengerBankID);
         Kunde senderUser = (Kunde) session.getUser();
 
-        senderUser.getKonto().abhebenNeu(senderUser, betrag);
-        empfaengerUser.getKonto().einzahlenNeu(empfaengerUser, betrag);
+        Konto.ueberweisen(senderUser, empfaengerUser, betrag);
 
         Transaction transactionUeberweisung = new Transaction(senderUser, empfaengerUser, -betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(empfaengerUser, senderUser, betrag, session.getZugangsweg(), 2);
@@ -46,7 +45,7 @@ public class ATMZugang implements Zugangsweg {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
 
         Kunde kunde = (Kunde) session.getUser();
-        kunde.getKonto().abhebenNeu(kunde, betrag);
+        kunde.getKonto().abheben(kunde, betrag);
 
         Transaction transaction = new Transaction(session.getUser(), null, -betrag, session.getZugangsweg(), 3);
         logHinzufuegen(transaction);
@@ -56,7 +55,7 @@ public class ATMZugang implements Zugangsweg {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
 
         Kunde kunde = (Kunde) session.getUser();
-        kunde.getKonto().einzahlenNeu(kunde, betrag);
+        kunde.getKonto().einzahlen(kunde, betrag);
 
         Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 4);
         logHinzufuegen(transaction);

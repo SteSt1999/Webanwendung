@@ -1,6 +1,7 @@
 package Servlet;
 
 import Datenbank.DBUser;
+import Logik.Sessionsteuerung.ATMZugang;
 import Logik.Sessionsteuerung.OnlineBankingZugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
@@ -59,8 +60,7 @@ public class OBServlet extends HttpServlet {
             request.getRequestDispatcher("OnlineBanking/OBUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             try {
-                User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-                OnlineBankingZugang.doOnlineBankingUeberweisung(session, user, request.getParameter("Summe"));
+                OnlineBankingZugang.doOnlineBankingUeberweisung(session, request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Summe"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("OnlineBanking/OBFehler.jsp").forward(request, response);
             }
