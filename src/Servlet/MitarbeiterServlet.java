@@ -59,7 +59,7 @@ public class MitarbeiterServlet extends HttpServlet {
         } else if (request.getParameter("AnzeigenATM") != null) {
 
 
-            ATMLogauswahl = request.getParameter("number");
+            ATMLogauswahl = request.getParameter("ATM-ID");
             request.getRequestDispatcher("Mitarbeiter/MAATMLogs.jsp").forward(request, response);
 
         }
