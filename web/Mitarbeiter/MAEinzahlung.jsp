@@ -12,7 +12,7 @@
             <input type="text" name="Empfänger" size=20 maxlength=50>
             <p>Betrag: </p>
             <input type="text" name="Betrag" size=20 maxlength=50>
-            <br><br>
+            €<br><br>
             <input type="submit" name="Einzahlen" value="Einzahlen"/>
             <br>
         </form>
