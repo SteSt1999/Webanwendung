@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: hostbank
+-- Host: localhost    Database: mukabank
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -35,7 +35,7 @@ CREATE TABLE `konto` (
 
 LOCK TABLES `konto` WRITE;
 /*!40000 ALTER TABLE `konto` DISABLE KEYS */;
-INSERT INTO `konto` VALUES ('holzmann.julia',100000000),('otto.ben',12),('otto.ben2',-67823),('stump.stefan',1116071);
+INSERT INTO `konto` VALUES ('kambeck.marcel',517),('mueller.david',-10788);
 /*!40000 ALTER TABLE `konto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 11:27:05
+-- Dump completed on 2018-10-25 11:27:06

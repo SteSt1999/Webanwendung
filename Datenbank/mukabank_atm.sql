@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: hostbank
+-- Host: localhost    Database: mukabank
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -16,27 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `konto`
+-- Table structure for table `atm`
 --
 
-DROP TABLE IF EXISTS `konto`;
+DROP TABLE IF EXISTS `atm`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `konto` (
-  `Kunden_ID` varchar(95) NOT NULL,
-  `Kontostand` int(20) NOT NULL,
-  UNIQUE KEY `Kunden_ID_UNIQUE` (`Kunden_ID`)
+CREATE TABLE `atm` (
+  `ATM_ID` varchar(45) NOT NULL,
+  PRIMARY KEY (`ATM_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `konto`
+-- Dumping data for table `atm`
 --
 
-LOCK TABLES `konto` WRITE;
-/*!40000 ALTER TABLE `konto` DISABLE KEYS */;
-INSERT INTO `konto` VALUES ('holzmann.julia',100000000),('otto.ben',12),('otto.ben2',-67823),('stump.stefan',1116071);
-/*!40000 ALTER TABLE `konto` ENABLE KEYS */;
+LOCK TABLES `atm` WRITE;
+/*!40000 ALTER TABLE `atm` DISABLE KEYS */;
+INSERT INTO `atm` VALUES ('11'),('22'),('33'),('44');
+/*!40000 ALTER TABLE `atm` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 11:27:05
+-- Dump completed on 2018-10-25 11:27:07

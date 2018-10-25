@@ -34,7 +34,7 @@ CREATE TABLE `banken` (
 
 LOCK TABLES `banken` WRITE;
 /*!40000 ALTER TABLE `banken` DISABLE KEYS */;
-INSERT INTO `banken` VALUES ('hostbank'),('kamubank');
+INSERT INTO `banken` VALUES ('hostbank'),('mukabank');
 /*!40000 ALTER TABLE `banken` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -47,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 10:32:29
+-- Dump completed on 2018-10-25 11:27:08
