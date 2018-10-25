@@ -1,5 +1,7 @@
 package Datenbank;
 
+import Servlet.MainServlet;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,8 +11,8 @@ import java.sql.*;
 class DBHelper {
     private static String user;
     private static String password;
+    private static String url = null;
     final private static String driver = "com.mysql.cj.jdbc.Driver";
-    final private static String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     static {
         File f = new File("Webanwendung/DBDaten.txt");
@@ -23,7 +25,8 @@ class DBHelper {
         }
     }
 
-    public static ResultSet sqlGetResultSet(String sqlAnfrage) {
+    public static ResultSet sqlGetResultSet(String sqlAnfrage, String dbID) {
+        setUrl(dbID);
         ResultSet resultSet = null;
         try {
             Class.forName(driver);
@@ -36,7 +39,12 @@ class DBHelper {
         return resultSet;
     }
 
-    public static void sqlAusfuehren(String sqlAnfrage) {
+    public static ResultSet sqlGetResultSet(String sqlAnfrage) {
+        return sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
+    }
+
+    public static void sqlAusfuehren(String sqlAnfrage, String dbID) {
+        setUrl(dbID);
         try {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url, user, password);
@@ -47,14 +55,23 @@ class DBHelper {
         }
     }
 
-    public static boolean existiert(String sqlAnfrage) {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+    public static void sqlAusfuehren(String sqlAnfrage) {
+        sqlAusfuehren(sqlAnfrage, MainServlet.getBankID());
+    }
+
+    public static boolean existiert(String sqlAnfrage, String dbID) {
+        setUrl(dbID);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, dbID);
         try {
             return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean existiert(String sqlAnfrage) {
+        return existiert(sqlAnfrage, MainServlet.getBankID());
     }
 
     public static String replaceFirst(String sqlAnfrage, String eingabe) {
@@ -65,5 +82,12 @@ class DBHelper {
     public static String replaceFirstWithNulll(String sqlAnfrage) {
         int n = sqlAnfrage.indexOf("\"(?)\"");
         return sqlAnfrage.substring(0, n) + "NULL" + sqlAnfrage.substring(n + 5);
+    }
+
+    private static void setUrl(String schemaID) {
+        url = "jdbc:mysql://localhost:3306/"
+                + schemaID +
+                "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        System.out.println(url);
     }
 }
