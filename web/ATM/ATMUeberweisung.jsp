@@ -10,6 +10,8 @@
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <p>Empfänger: </p>
             <input type="text" name="Empfaenger" size=20 maxlength=50>
+            <p>Bank des Empfängers (nur wenn andere Bank): </p>
+            <input type="text" name="EmpfaengerBank" size=20 maxlength=50>
             <p>Summe: </p>
             <input type="number" max="10000000" min="0" step="0.01" data-number-to-be-fixed="2"
                    data-number-stepfactor="100" name="Summe" size=20 maxlength=50>

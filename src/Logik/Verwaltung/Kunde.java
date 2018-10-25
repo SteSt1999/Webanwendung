@@ -9,7 +9,11 @@ public class Kunde extends User {
     public Kunde(Konto konto, String benutzername) {
         super(benutzername);
         setKonto(konto);
+    }
 
+    public Kunde(Konto konto, String benutzername, String bankID) {
+        super(benutzername, bankID);
+        setKonto(konto);
     }
 
     public Konto getKonto() {

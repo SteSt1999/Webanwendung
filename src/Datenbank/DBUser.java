@@ -39,4 +39,10 @@ public class DBUser {
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         return DBHelper.existiert(sqlAnfrage);
     }
+
+    public static boolean existiertKunde(String kundenID, String bankID) {
+        String sqlAnfrage = sqlExistiertKunde;
+        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
+        return DBHelper.existiert(sqlAnfrage, bankID);
+    }
 }

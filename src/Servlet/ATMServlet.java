@@ -61,8 +61,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             try {
-                User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-                ATMZugang.doATMUeberweisen(session, user, request.getParameter("Summe"));
+                ATMZugang.doATMUeberweisen(session, request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Summe"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }

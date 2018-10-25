@@ -88,6 +88,5 @@ class DBHelper {
         url = "jdbc:mysql://localhost:3306/"
                 + schemaID +
                 "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        System.out.println(url);
     }
 }

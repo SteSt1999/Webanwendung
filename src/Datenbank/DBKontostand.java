@@ -1,5 +1,7 @@
 package Datenbank;
 
+import Logik.Verwaltung.Kunde;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,10 +18,31 @@ public class DBKontostand {
         DBHelper.sqlAusfuehren(sqlAnfrage);
     }
 
+    public static void kontostandAnpassen(Kunde kunde, long betrag) {
+        String sqlAnfrage = sqlKontostandAendern;
+        sqlAnfrage = replaceFirst(sqlAnfrage, betrag + "");
+        sqlAnfrage = replaceFirst(sqlAnfrage, kunde.getBenutzername());
+        DBHelper.sqlAusfuehren(sqlAnfrage, kunde.getBank().getBankID());
+    }
+
     public static long kontostandLesen(String kundenID) {
         String sqlAnfrage = sqlKontostandLesen;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+        try {
+            if (resultSet.next()) {
+                return resultSet.getInt("KONTOSTAND");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Das Konto \"" + kundenID + "\" existiert nicht.");
+    }
+
+    public static long kontostandLesen(String kundenID, String bankID) {
+        String sqlAnfrage = sqlKontostandLesen;
+        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, bankID);
         try {
             if (resultSet.next()) {
                 return resultSet.getInt("KONTOSTAND");

@@ -1,12 +1,12 @@
 package Logik.Verwaltung;
 
+import Datenbank.DBBank;
+
 public class Bank {
     private String bankID;
-    private long guthaben;
 
     public Bank(String bankID) {
         setBankID(bankID);
-        guthaben = 0;
     }
 
     public String getBankID() {
@@ -14,10 +14,9 @@ public class Bank {
     }
 
     public void setBankID(String bankID) {
+        if(!DBBank.existiertBank(bankID)) {
+            throw new IllegalArgumentException();
+        }
         this.bankID = bankID;
-    }
-
-    public boolean existiertKunde(String kunde) {
-        return true;
     }
 }

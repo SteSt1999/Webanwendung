@@ -27,6 +27,16 @@ public class Konto {
         kontostandAnpassen(user.getBenutzername(), kontostand);
     }
 
+    public void abhebenNeu(Kunde kunde, long betrag) {
+        this.kontostand += betrag;
+        kontostandAnpassen(kunde, kontostand);
+    }
+
+    public void einzahlenNeu(Kunde kunde, long betrag) {
+        this.kontostand += betrag;
+        kontostandAnpassen(kunde, kontostand);
+    }
+
     public void ueberweisen(User sender, User empfaenger, long betrag) {
         ((Kunde) empfaenger).getKonto().einzahlen(empfaenger, betrag);
         this.kontostand -= betrag;

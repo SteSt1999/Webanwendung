@@ -9,23 +9,31 @@ import static Datenbank.DBHelper.replaceFirst;
 import static Datenbank.DBHelper.replaceFirstWithNulll;
 
 public class DBLog {
-    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
+    //TODO Log anpassen für Empfänger Bank
+
+    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
     final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
-    public static void logHinzufuegen(Transaction transaction) {
+    public static void logHinzufuegen(Transaction transaction, String bankID) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        if (transaction.getEmpfaenger() != null) {
-            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
-        } else {
+        if (transaction.getEmpfaenger() == null) {
             sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
+            sqlAnfrage = replaceFirstWithNulll(sqlAnfrage);
+        } else {
+            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
+            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBank().getBankID());
         }
-        DBHelper.sqlAusfuehren(sqlAnfrage);
+        DBHelper.sqlAusfuehren(sqlAnfrage, bankID);
+    }
+
+    public static void logHinzufuegen(Transaction transaction) {
+        logHinzufuegen(transaction, transaction.getSender().getBank().getBankID());
     }
 
     public static String getUserLog(String kundenID) {
