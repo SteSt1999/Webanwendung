@@ -112,13 +112,13 @@ public class DBLog {
     private static String getTextTransaktionsDaten(int transaktionsID, String empfaengerID, long betrag) {
         String geld = betrag / 100. + "€      ";
         if (transaktionsID == 1) {
-            return geld + "Geld überwiesen an " + empfaengerID;
+            return geld + " überwiesen an " + empfaengerID;
         } else if (transaktionsID == 2) {
-            return geld + "Geld erhalten von " + empfaengerID;
+            return geld + " erhalten von " + empfaengerID;
         } else if (transaktionsID == 3) {
-            return geld + "Geld abgehoben";
+            return geld + " abgehoben";
         } else if (transaktionsID == 4) {
-            return geld + "Geld eingezahlt";
+            return geld + " eingezahlt";
         }
         return geld + "Unbekannte Transaktion ";
     }

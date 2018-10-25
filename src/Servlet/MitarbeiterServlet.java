@@ -1,8 +1,10 @@
 package Servlet;
 
+import Datenbank.DBATM;
 import Datenbank.DBUser;
 import Logik.Sessionsteuerung.MitarbeiterZugang;
 import Logik.Sessionsteuerung.Session;
+import Logik.Umwandlung;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Mitarbeiter;
@@ -36,13 +38,14 @@ public class MitarbeiterServlet extends HttpServlet {
 
                 request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
             } else {
-                request.getRequestDispatcher("ATM/LoginFehlgeschlagen.jsp").forward(request, response);
+                request.getRequestDispatcher("Mitarbeiter/MALoginFehlgeschlagen.jsp").forward(request, response);
             }
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
-
-
+        if (session == null) {
+            request.getRequestDispatcher("Mitarbeiter/MAAusgeloggt.jsp").forward(request, response);
+        }
         //AllLos
         else if (request.getParameter("AllLogs") != null) {
 
@@ -56,10 +59,13 @@ public class MitarbeiterServlet extends HttpServlet {
 
         } else if (request.getParameter("AnzeigenATM") != null) {
 
+            if (DBATM.existiertATM(request.getParameter("ATM-ID"))) {
+                ATMLogauswahl = request.getParameter("ATM-ID");
+                request.getRequestDispatcher("Mitarbeiter/MAATMLogs.jsp").forward(request, response);
 
-            ATMLogauswahl = request.getParameter("ATM-ID");
-            request.getRequestDispatcher("Mitarbeiter/MAATMLogs.jsp").forward(request, response);
-
+            } else {
+                request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
+            }
         }
         //UserLog
         else if (request.getParameter("UserLogs") != null) {
@@ -67,13 +73,16 @@ public class MitarbeiterServlet extends HttpServlet {
 
         } else if (request.getParameter("AnzeigenUser") != null) {
 
+            if (DBUser.existiertKunde(request.getParameter("Empfaenger"))) {
 
-            userLogauswahl = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-            request.getRequestDispatcher("Mitarbeiter/MAUserLogs.jsp").forward(request, response);
+                userLogauswahl = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
+                request.getRequestDispatcher("Mitarbeiter/MAUserLogs.jsp").forward(request, response);
+
+            } else {
+                request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
+            }
 
         }
-
-
         // Einzahlung
         else if (request.getParameter("Einzahlung") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAEinzahlung.jsp").forward(request, response);
