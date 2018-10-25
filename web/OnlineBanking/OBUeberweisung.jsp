@@ -7,7 +7,7 @@
         <h1>Online-Banking</h1>
         <br>Hier können Sie eine Überweisung tätigen.
         <br>
-        <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
+        <form action="${pageContext.request.contextPath}/OBServlet" method="post">
             <p>Empfänger: </p>
             <input type="text" name="Empfaenger" size=20 maxlength=50>
             <p>Summe: </p>

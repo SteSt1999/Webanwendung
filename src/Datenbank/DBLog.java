@@ -85,16 +85,16 @@ public class DBLog {
     }
 
     private static String userTransaktionToString(String zugangsweg, int transaktionsID, long betrag, String empfaengerID) {
-        return getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + getTextZugangsweg(zugangsweg) + "\n";
+        return getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
     private static String atmTtransaktionToString(String kundenID, int transaktionsID, long betrag, String empfaengerID) {
-        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + "\n";
+        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + "<br>";
     }
 
     private static String bankTransaktionToString(String kundenID, String zugangsweg, int transaktionsID, long betrag, String empfaengerID) {
         return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag)
-                + getTextZugangsweg(zugangsweg) + "\n";
+                + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
     private static String getTextKundenDaten(String kundenID) {

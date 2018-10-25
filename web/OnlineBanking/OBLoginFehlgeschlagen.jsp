@@ -7,7 +7,7 @@
         <h1>Online-Banking</h1>
         <br>Der Login war nicht erfolgreich.
         <br>Bitte probieren Sie es erneut.
-        <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
+        <form action="${pageContext.request.contextPath}/OBServlet" method="post">
             <input type="submit" name="LoginFehlgeschlagenZurueck" value="Zurück"/>
         </form>
     </body>

@@ -7,7 +7,7 @@
         <h1>Online-Banking</h1>
         <br>Die Überweisung ist erfolgt!
         <br>
-        <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
+        <form action="${pageContext.request.contextPath}/OBServlet" method="post">
             <br><br>
             <input type="submit" name="Ueberweisung" value="Weitere Überweisung"/>
             <br><br>

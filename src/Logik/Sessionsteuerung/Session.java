@@ -45,9 +45,16 @@ public class Session {
     }
 
     public long getKontostand() {
-        if(!(user instanceof Kunde)) {
-            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto.");
+        if (!(user instanceof Kunde)) {
+            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto!");
         }
         return ((Kunde) user).getKontostand();
+    }
+
+    public String getKontoLog() {
+        if (!(user instanceof Kunde)) {
+            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto!");
+        }
+        return ((Kunde) user).getKontoLog();
     }
 }

@@ -1,4 +1,4 @@
-<%@ page import="Servlet.OnlineBankingServlet" %>
+<%@ page import="Servlet.OBServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -10,11 +10,11 @@
         <br>
         <br>Kontostand:
         <%
-            out.println(OnlineBankingServlet.getKontostandInEuro());
+            out.println(OBServlet.getKontostandInEuro());
         %>
         €
         <br>
-        <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
+        <form action="${pageContext.request.contextPath}/OBServlet" method="post">
             <br><br>
             <input type="submit" name="Ueberweisung" value="Überweisen"/>
             <br><br>

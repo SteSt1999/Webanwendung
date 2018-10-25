@@ -1,5 +1,7 @@
 package Logik.Verwaltung;
 
+import Datenbank.DBLog;
+
 public class Kunde extends User {
     //Konto und Kunde bei welcher Bank
     private Konto konto;
@@ -20,5 +22,9 @@ public class Kunde extends User {
 
     public long getKontostand() {
         return konto.getKontostand();
+    }
+
+    public String getKontoLog() {
+        return DBLog.getUserLog(benutzername);
     }
 }

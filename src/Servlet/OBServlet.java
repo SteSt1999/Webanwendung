@@ -17,8 +17,8 @@ import java.io.IOException;
 import static Datenbank.DBKontostand.kontostandLesen;
 
 
-@WebServlet("/OnlineBankingServlet")
-public class OnlineBankingServlet extends HttpServlet {
+@WebServlet("/OBServlet")
+public class OBServlet extends HttpServlet {
     private static Session session;
 
     @Override
@@ -81,5 +81,9 @@ public class OnlineBankingServlet extends HttpServlet {
 
     public static double getKontostandInEuro() {
         return session.getKontostand() / 100.;
+    }
+
+    public static String getKontoLog() {
+        return session.getKontoLog();
     }
 }
