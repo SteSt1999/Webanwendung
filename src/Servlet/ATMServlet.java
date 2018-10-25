@@ -6,7 +6,6 @@ import Logik.Sessionsteuerung.ATMZugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static Datenbank.DBKontostand.kontostandLesen;
-
 
 @WebServlet("/ATMServlet")
 public class ATMServlet extends HttpServlet {

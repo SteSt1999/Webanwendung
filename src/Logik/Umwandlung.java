@@ -25,7 +25,6 @@ public class Umwandlung {
             throw new NumberFormatException();
         }
 
-        System.out.println(n);
         return n;
     }
 }

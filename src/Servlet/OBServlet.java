@@ -1,12 +1,10 @@
 package Servlet;
 
 import Datenbank.DBUser;
-import Logik.Sessionsteuerung.ATMZugang;
 import Logik.Sessionsteuerung.OnlineBankingZugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
-import Logik.Verwaltung.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

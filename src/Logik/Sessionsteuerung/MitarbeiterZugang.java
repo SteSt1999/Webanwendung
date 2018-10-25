@@ -6,7 +6,7 @@ import Logik.Verwaltung.Transaction;
 
 import static Datenbank.DBLog.*;
 
-public class Mitarbeiter_Zugang implements Zugangsweg {
+public class MitarbeiterZugang implements Zugangsweg {
     final private String dbBezeichnung = "1";
 
     public static void doMitarbeiterEinzahlen(Session session, Kunde kunde, String eingabeBetrag) {

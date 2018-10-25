@@ -1,10 +1,8 @@
 package Servlet;
 
 import Datenbank.DBUser;
-import Logik.Sessionsteuerung.ATMZugang;
-import Logik.Sessionsteuerung.Mitarbeiter_Zugang;
+import Logik.Sessionsteuerung.MitarbeiterZugang;
 import Logik.Sessionsteuerung.Session;
-import Logik.Umwandlung;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Mitarbeiter;
@@ -34,7 +32,7 @@ public class MitarbeiterServlet extends HttpServlet {
 
                 User mitarbeiter = new Mitarbeiter(request.getParameter("LogInID"));
 
-                this.session = new Session(mitarbeiter, new Mitarbeiter_Zugang());
+                this.session = new Session(mitarbeiter, new MitarbeiterZugang());
 
                 request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
             } else {
@@ -85,7 +83,7 @@ public class MitarbeiterServlet extends HttpServlet {
             try {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
 
-                Mitarbeiter_Zugang.doMitarbeiterEinzahlen(session, kunde, (request.getParameter("Betrag")));
+                MitarbeiterZugang.doMitarbeiterEinzahlen(session, kunde, (request.getParameter("Betrag")));
 
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
@@ -102,7 +100,7 @@ public class MitarbeiterServlet extends HttpServlet {
             try {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
 
-                Mitarbeiter_Zugang.doMitarbeiterAbheben(session, kunde, (request.getParameter("Betrag")));
+                MitarbeiterZugang.doMitarbeiterAbheben(session, kunde, (request.getParameter("Betrag")));
 
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
@@ -123,14 +121,15 @@ public class MitarbeiterServlet extends HttpServlet {
 
 
     public static String getAllLogs() {
-        return Mitarbeiter_Zugang.doAusgabeBankLog();
+        return MitarbeiterZugang.doAusgabeBankLog();
     }
 
     public static String getUserLogs() {
-        return Mitarbeiter_Zugang.doAusgabeUserLog(userLogauswahl);
+        return MitarbeiterZugang.doAusgabeUserLog(userLogauswahl);
     }
-    public static  String getATMLogs(){
-        return Mitarbeiter_Zugang.doAusgabeATMLog(ATMLogauswahl);
+
+    public static String getATMLogs() {
+        return MitarbeiterZugang.doAusgabeATMLog(ATMLogauswahl);
     }
 }
 
