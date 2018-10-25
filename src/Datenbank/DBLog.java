@@ -10,7 +10,7 @@ import static Datenbank.DBHelper.replaceFirstWithNulll;
 
 public class DBLog {
     final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
-    final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFÄNGER_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
+    final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFÄNGER_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
@@ -39,7 +39,7 @@ public class DBLog {
                         resultSet.getString("ZUGANGSWEG"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFÄNGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class DBLog {
                         resultSet.getString("KUNDEN_ID"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFÄNGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class DBLog {
                         resultSet.getString("ZUGANGSWEG"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFÄNGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

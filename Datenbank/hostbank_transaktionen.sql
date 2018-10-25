@@ -27,7 +27,7 @@ CREATE TABLE `transaktionen` (
   `Zugangsweg` int(11) NOT NULL COMMENT '0: Geld erhalten\\\\n1: Mitarbeiter\\\\n2: Online-Banking\\\\nZahl > 2: ATM-ID',
   `Transaktions_ID` int(11) NOT NULL COMMENT '1: Ueberweisung senden\\n2. Ueberweisung erhalten\\n3: Abheben\\n4: Einzahlen',
   `Betrag` int(20) NOT NULL,
-  `Empfänger_ID` varchar(45) DEFAULT NULL
+  `Empfaenger_ID` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,7 +37,7 @@ CREATE TABLE `transaktionen` (
 
 LOCK TABLES `transaktionen` WRITE;
 /*!40000 ALTER TABLE `transaktionen` DISABLE KEYS */;
-INSERT INTO `transaktionen` VALUES ('otto.ben2',2,1,-123456789,'otto.ben'),('stump.stefan',42,1,-50000,'holzmann.julia'),('stump.stefan',5,3,-7500,NULL),('holzmann.julia',1,3,-1212,NULL),('stump.stefan',42,4,1234,''),('holzmann.julia',0,2,50000,'stump.stefan'),('otto.ben',0,2,123456789,'otto.ben2');
+INSERT INTO `transaktionen` VALUES ('otto.ben2',2,1,-123456789,'otto.ben'),('stump.stefan',42,1,-50000,'holzmann.julia'),('stump.stefan',5,3,-7500,NULL),('holzmann.julia',1,3,-1212,NULL),('stump.stefan',42,4,1234,NULL),('holzmann.julia',0,2,50000,'stump.stefan'),('otto.ben',0,2,123456789,'otto.ben2');
 /*!40000 ALTER TABLE `transaktionen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-24 10:42:26
+-- Dump completed on 2018-10-25  8:06:47
