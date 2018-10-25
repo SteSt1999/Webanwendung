@@ -35,7 +35,7 @@ CREATE TABLE `konto` (
 
 LOCK TABLES `konto` WRITE;
 /*!40000 ALTER TABLE `konto` DISABLE KEYS */;
-INSERT INTO `konto` VALUES ('holzmann.julia',100000000),('otto.ben',12),('otto.ben2',-67823),('stump.stefan',123456);
+INSERT INTO `konto` VALUES ('holzmann.julia',100000000),('otto.ben',12),('otto.ben2',-67823),('stump.stefan',1116071);
 /*!40000 ALTER TABLE `konto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25  8:06:47
+-- Dump completed on 2018-10-25 10:32:28

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: hostbank
+-- Host: localhost    Database: banken
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -16,29 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `transaktionen`
+-- Table structure for table `banken`
 --
 
-DROP TABLE IF EXISTS `transaktionen`;
+DROP TABLE IF EXISTS `banken`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `transaktionen` (
-  `Kunden_ID` varchar(95) NOT NULL,
-  `Zugangsweg` int(11) NOT NULL COMMENT '0: Geld erhalten\\\\n1: Mitarbeiter\\\\n2: Online-Banking\\\\nZahl > 2: ATM-ID',
-  `Transaktions_ID` int(11) NOT NULL COMMENT '1: Ueberweisung senden\\n2. Ueberweisung erhalten\\n3: Abheben\\n4: Einzahlen',
-  `Betrag` int(20) NOT NULL,
-  `Empfaenger_ID` varchar(45) DEFAULT NULL
+CREATE TABLE `banken` (
+  `Bank_ID` varchar(45) NOT NULL,
+  PRIMARY KEY (`Bank_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `transaktionen`
+-- Dumping data for table `banken`
 --
 
-LOCK TABLES `transaktionen` WRITE;
-/*!40000 ALTER TABLE `transaktionen` DISABLE KEYS */;
-INSERT INTO `transaktionen` VALUES ('otto.ben2',2,1,-123456789,'otto.ben'),('stump.stefan',42,1,-50000,'holzmann.julia'),('stump.stefan',5,3,-7500,NULL),('holzmann.julia',1,3,-1212,NULL),('stump.stefan',42,4,1234,NULL),('holzmann.julia',0,2,50000,'stump.stefan'),('otto.ben',0,2,123456789,'otto.ben2'),('stump.stefan',3,3,-123456,NULL),('stump.stefan',42,4,4500,NULL),('stump.stefan',42,4,230,NULL),('stump.stefan',42,4,230,NULL);
-/*!40000 ALTER TABLE `transaktionen` ENABLE KEYS */;
+LOCK TABLES `banken` WRITE;
+/*!40000 ALTER TABLE `banken` DISABLE KEYS */;
+INSERT INTO `banken` VALUES ('hostbank'),('kamubank');
+/*!40000 ALTER TABLE `banken` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
