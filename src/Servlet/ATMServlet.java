@@ -3,6 +3,7 @@ package Servlet;
 import Datenbank.DBATM;
 import Datenbank.DBUser;
 import Logik.Sessionsteuerung.ATMZugang;
+import Logik.Sessionsteuerung.GeldBewegung;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
@@ -59,7 +60,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             try {
-                ATMZugang.doATMUeberweisen(session, request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Summe"));
+                GeldBewegung.ueberweisen(session, request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Summe"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }
@@ -76,7 +77,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
             try {
-                ATMZugang.doATMEinzahlen(session, request.getParameter("Betrag"));
+                GeldBewegung.einzahlen(session, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }
@@ -88,7 +89,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Auszahlen") != null) {
             try {
-                ATMZugang.doATMabheben(session, request.getParameter("Betrag"));
+                GeldBewegung.abheben(session, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("ATM/ATMFehler.jsp").forward(request, response);
             }
