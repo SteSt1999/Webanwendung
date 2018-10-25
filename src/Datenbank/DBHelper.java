@@ -1,12 +1,27 @@
 package Datenbank;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
-public class DBHelper {
-    final private static String user = "root";
-    final static private String password = Passwort.dbPasswort;
+class DBHelper {
+    private static String user;
+    private static String password;
     final private static String driver = "com.mysql.cj.jdbc.Driver";
-    final static private String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    final private static String url = "jdbc:mysql://localhost:3306/hostbank?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
+    static {
+        File f = new File("Webanwendung/DBDaten.txt");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            user = br.readLine();
+            password = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static ResultSet sqlGetResultSet(String sqlAnfrage) {
         ResultSet resultSet = null;
