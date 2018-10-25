@@ -28,7 +28,7 @@ public class Konto {
     }
 
     public void abhebenNeu(Kunde kunde, long betrag) {
-        this.kontostand += betrag;
+        this.kontostand -= betrag;
         kontostandAnpassen(kunde, kontostand);
     }
 

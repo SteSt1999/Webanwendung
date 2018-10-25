@@ -33,31 +33,32 @@ public class ATMZugang implements Zugangsweg {
         Kunde empfaengerUser = new Kunde(new Konto(DBKontostand.kontostandLesen(empfaenger, empfaengerBankID)), empfaenger, empfaengerBankID);
         Kunde senderUser = (Kunde) session.getUser();
 
-        empfaengerUser.getKonto().abhebenNeu(empfaengerUser, betrag);
-        senderUser.getKonto().einzahlenNeu(senderUser, -betrag);
+        senderUser.getKonto().abhebenNeu(senderUser, betrag);
+        empfaengerUser.getKonto().einzahlenNeu(empfaengerUser, betrag);
 
         Transaction transactionUeberweisung = new Transaction(senderUser, empfaengerUser, -betrag, session.getZugangsweg(), 1);
         Transaction transactionUeberweisungErhalten = new Transaction(empfaengerUser, senderUser, betrag, session.getZugangsweg(), 2);
-
         logHinzufuegen(transactionUeberweisung);
         logHinzufuegen(transactionUeberweisungErhalten);
     }
 
     public static void doATMabheben(Session session, String eingabeBetrag) {
-        long betrag = -1 * Umwandlung.stringToLong(eingabeBetrag);
+        long betrag = Umwandlung.stringToLong(eingabeBetrag);
 
-        ((Kunde) session.getUser()).getKonto().abheben(session.getUser(), betrag);
-        Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 3);
+        Kunde kunde = (Kunde) session.getUser();
+        kunde.getKonto().abhebenNeu(kunde, betrag);
 
+        Transaction transaction = new Transaction(session.getUser(), null, -betrag, session.getZugangsweg(), 3);
         logHinzufuegen(transaction);
     }
 
     public static void doATMEinzahlen(Session session, String eingabeBetrag) {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
 
-        ((Kunde) session.getUser()).getKonto().einzahlen(session.getUser(), betrag);
-        Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 4);
+        Kunde kunde = (Kunde) session.getUser();
+        kunde.getKonto().einzahlenNeu(kunde, betrag);
 
+        Transaction transaction = new Transaction(session.getUser(), null, betrag, session.getZugangsweg(), 4);
         logHinzufuegen(transaction);
     }
 }
