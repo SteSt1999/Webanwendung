@@ -11,13 +11,6 @@ public class DBKontostand {
     final private static String sqlKontostandAendern = "UPDATE KONTO SET KONTOSTAND = \"(?)\" WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlKontostandLesen = "SELECT KONTOSTAND FROM KONTO WHERE KUNDEN_ID = \"(?)\";";
 
-    public static void kontostandAnpassen(String kundenID, long betrag) {
-        String sqlAnfrage = sqlKontostandAendern;
-        sqlAnfrage = replaceFirst(sqlAnfrage, betrag + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        DBHelper.sqlAusfuehren(sqlAnfrage);
-    }
-
     public static void kontostandAnpassen(Kunde kunde, long betrag) {
         String sqlAnfrage = sqlKontostandAendern;
         sqlAnfrage = replaceFirst(sqlAnfrage, betrag + "");

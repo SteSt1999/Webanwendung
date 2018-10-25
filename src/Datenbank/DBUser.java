@@ -1,5 +1,7 @@
 package Datenbank;
 
+import Servlet.MainServlet;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -38,5 +40,9 @@ public class DBUser {
         String sqlAnfrage = sqlExistiertKunde;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         return DBHelper.existiert(sqlAnfrage, bankID);
+    }
+
+    public static boolean existiertKunde(String kundenID) {
+        return existiertKunde(kundenID, MainServlet.getBankID());
     }
 }
