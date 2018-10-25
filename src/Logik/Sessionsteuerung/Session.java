@@ -1,5 +1,6 @@
 package Logik.Sessionsteuerung;
 
+import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.User;
 
 import java.util.Random;
@@ -39,7 +40,14 @@ public class Session {
         return user;
     }
 
-    public void setUser(User user) {
+    private void setUser(User user) {
         this.user = user;
+    }
+
+    public long getKontostand() {
+        if(!(user instanceof Kunde)) {
+            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto.");
+        }
+        return ((Kunde) user).getKontostand();
     }
 }

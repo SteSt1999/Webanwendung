@@ -1,3 +1,4 @@
+<%@ page import="Servlet.OnlineBankingServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -7,7 +8,11 @@
         <h1>Online-Banking</h1>
         <br>Sie sind eingeloggt.
         <br>
-        <br>Kontostand: unbekannt
+        <br>Kontostand:
+        <%
+            out.println(OnlineBankingServlet.getKontostandInEuro());
+        %>
+        €
         <br>
         <form action="${pageContext.request.contextPath}/OnlineBankingServlet" method="post">
             <br><br>

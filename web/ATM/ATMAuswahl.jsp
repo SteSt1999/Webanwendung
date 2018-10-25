@@ -1,3 +1,4 @@
+<%@ page import="Servlet.ATMServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -7,7 +8,11 @@
         <h1>ATM</h1>
         <br>Sie sind eingeloggt.
         <br>
-        <br>Kontostand: unbekannt
+        <br>Kontostand:
+        <%
+            out.println(ATMServlet.getKontostandInEuro());
+        %>
+        €
         <br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <br><br>

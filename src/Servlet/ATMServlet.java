@@ -20,7 +20,7 @@ import static Datenbank.DBKontostand.kontostandLesen;
 
 @WebServlet("/ATMServlet")
 public class ATMServlet extends HttpServlet {
-    private Session session;
+    private static Session session;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,7 @@ public class ATMServlet extends HttpServlet {
         if (request.getParameter("Login") != null) {
             if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort")) && DBATM.existiertATM(request.getParameter("ATM-ID"))) {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
-                this.session = new Session(kunde, new ATMZugang(Integer.parseInt(request.getParameter("ATM-ID"))));
+                session = new Session(kunde, new ATMZugang(Integer.parseInt(request.getParameter("ATM-ID"))));
                 request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
@@ -102,5 +102,9 @@ public class ATMServlet extends HttpServlet {
         else if (request.getParameter("Hauptmenu") != null) {
             request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
         }
+    }
+
+    public static double getKontostandInEuro() {
+        return session.getKontostand() / 100.;
     }
 }

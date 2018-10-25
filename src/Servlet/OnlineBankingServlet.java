@@ -19,7 +19,7 @@ import static Datenbank.DBKontostand.kontostandLesen;
 
 @WebServlet("/OnlineBankingServlet")
 public class OnlineBankingServlet extends HttpServlet {
-    private Session session;
+    private static Session session;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class OnlineBankingServlet extends HttpServlet {
         if (request.getParameter("Login") != null) {
             if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
-                this.session = new Session(kunde, new OnlineBankingZugang());
+                session = new Session(kunde, new OnlineBankingZugang());
                 request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("OnlineBanking/OBLoginFehlgeschlagen.jsp").forward(request, response);
@@ -77,5 +77,9 @@ public class OnlineBankingServlet extends HttpServlet {
         else if (request.getParameter("Hauptmenu") != null) {
             request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
         }
+    }
+
+    public static double getKontostandInEuro() {
+        return session.getKontostand() / 100.;
     }
 }

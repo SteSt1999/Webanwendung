@@ -17,4 +17,8 @@ public class Kunde extends User {
     public void setKonto(Konto konto) {
         this.konto = konto;
     }
+
+    public long getKontostand() {
+        return konto.getKontostand();
+    }
 }
