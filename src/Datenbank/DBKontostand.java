@@ -27,6 +27,6 @@ public class DBKontostand {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("Das Konto \"" + kundenID + "\" existiert nicht.");
+        throw new IllegalArgumentException("Das Konto \"" + kundenID + "\" existiert nicht.");
     }
 }

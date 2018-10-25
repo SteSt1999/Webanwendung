@@ -59,8 +59,8 @@ public class OBServlet extends HttpServlet {
         else if (request.getParameter("Ueberweisung") != null) {
             request.getRequestDispatcher("OnlineBanking/OBUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
-            User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
             try {
+                User user = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
                 OnlineBankingZugang.doOnlineBankingUeberweisung(session, user, request.getParameter("Summe"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("OnlineBanking/OBFehler.jsp").forward(request, response);
