@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import static Datenbank.DBKontostand.kontostandLesen;
 
-
 @WebServlet("/OBServlet")
 public class OBServlet extends HttpServlet {
     private static Session session;
