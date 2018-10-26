@@ -1,6 +1,7 @@
 package Datenbank;
 
 import Logik.Verwaltung.*;
+import Servlet.MainServlet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
-    public static void logHinzufuegen(Transaction transaction, String bankID) {
+    public static void logHinzufuegen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
@@ -26,17 +27,13 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
             sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
             sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBank().getBankID());
         }
-        DBHelper.sqlAusfuehren(sqlAnfrage, bankID);
-    }
-
-    public static void logHinzufuegen(Transaction transaction) {
-        logHinzufuegen(transaction, transaction.getSender().getBank().getBankID());
+        DBHelper.sqlAusfuehren(sqlAnfrage, transaction.getSender().getBank().getBankID());
     }
 
     public static String getUserLog(String kundenID) {
         String sqlAnfrage = sqlGetTransactionsKunde;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {
@@ -56,7 +53,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     public static String getZugangswegLog(String ATMID) {
         String sqlAnfrage = sqlGetTransactionsATM;
         sqlAnfrage = replaceFirst(sqlAnfrage, ATMID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {
@@ -74,7 +71,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     }
 
     public static String getBankLog() {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlGetAllTransactions);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlGetAllTransactions, MainServlet.getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {

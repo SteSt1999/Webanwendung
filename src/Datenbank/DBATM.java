@@ -1,5 +1,7 @@
 package Datenbank;
 
+import Servlet.MainServlet;
+
 import static Datenbank.DBHelper.replaceFirst;
 
 public class DBATM {
@@ -8,6 +10,6 @@ public class DBATM {
     public static boolean existiertATM(String atmID) {
         String sqlAnfrage = sqlExistiertATM;
         sqlAnfrage = replaceFirst(sqlAnfrage, atmID);
-        return DBHelper.existiert(sqlAnfrage);
+        return DBHelper.existiert(sqlAnfrage, MainServlet.getBankID());
     }
 }

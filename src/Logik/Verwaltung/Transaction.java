@@ -3,7 +3,6 @@ package Logik.Verwaltung;
 import Logik.Sessionsteuerung.Zugangsweg;
 
 public class Transaction {
-
     private Zugangsweg zugangsweg;
     private User sender;
     private User empfaenger;

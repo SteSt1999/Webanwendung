@@ -6,7 +6,7 @@ public class ATM {
     private int id;
 
     public ATM(int id) {
-        this.id = id;
+        setId(id);
     }
 
     public int getId() {

@@ -1,6 +1,7 @@
 package Datenbank;
 
 import Logik.Verwaltung.Kunde;
+import Servlet.MainServlet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,17 +20,7 @@ public class DBKontostand {
     }
 
     public static long kontostandLesen(String kundenID) {
-        String sqlAnfrage = sqlKontostandLesen;
-        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
-        try {
-            if (resultSet.next()) {
-                return resultSet.getInt("KONTOSTAND");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        throw new IllegalArgumentException("Das Konto \"" + kundenID + "\" existiert nicht.");
+        return kontostandLesen(kundenID, MainServlet.getBankID());
     }
 
     public static long kontostandLesen(String kundenID, String bankID) {

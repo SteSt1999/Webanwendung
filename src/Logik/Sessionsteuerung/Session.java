@@ -5,9 +5,7 @@ import Logik.Verwaltung.User;
 
 public class Session {
     private Zugangsweg zugangsweg;
-    //aktuell eingeloggter User
     private User user;
-
 
     public Session(User user, Zugangsweg zugangsweg) {
         setUser(user);

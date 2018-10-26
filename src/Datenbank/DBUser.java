@@ -26,7 +26,7 @@ public class DBUser {
     }
 
     private static boolean checkPasswort(String sqlAnfrage, String passwort) {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
         try {
             if (resultSet.next() && passwort.equals(resultSet.getString("KENNWORT"))) {
                 return true;
@@ -47,13 +47,9 @@ public class DBUser {
         return existiertKunde(kundenID, MainServlet.getBankID());
     }
 
-    public static boolean existiertMitarbeiter(String mitarbeiterID, String bankID) {
+    public static boolean existiertMitarbeiter(String mitarbeiterID) {
         String sqlAnfrage = sqlExistiertMitarbeiter;
         sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
-        return DBHelper.existiert(sqlAnfrage, bankID);
-    }
-
-    public static boolean existiertMitarbeiter(String mitarbeiterID) {
-        return existiertMitarbeiter(mitarbeiterID, MainServlet.getBankID());
+        return DBHelper.existiert(sqlAnfrage, MainServlet.getBankID());
     }
 }
