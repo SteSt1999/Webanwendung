@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
-        <title>Online-Banking</title>
+        <title>Auswahl Fehlgeschlagen</title>
     </head>
     <body>
-        <h1>Online-Banking</h1>
+        <h1>Bank</h1>
         <p>Die eingegebene Bank existiert nicht.</p>
         <p>Probieren Sie es erneut</p>
         <br>
