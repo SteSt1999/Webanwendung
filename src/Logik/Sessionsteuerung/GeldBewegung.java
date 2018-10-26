@@ -27,7 +27,7 @@ public class GeldBewegung {
         Konto.ueberweisen(senderUser, empfaengerUser, betrag);
 
         Transaction transactionUeberweisung = new Transaction(senderUser, empfaengerUser, -betrag, session.getZugangsweg(), 1);
-        Transaction transactionUeberweisungErhalten = new Transaction(empfaengerUser, senderUser, betrag, session.getZugangsweg(), 2);
+        Transaction transactionUeberweisungErhalten = new Transaction(empfaengerUser, senderUser, betrag, new UeberweisungErhalten(), 2);
         logHinzufuegen(transactionUeberweisung);
         logHinzufuegen(transactionUeberweisungErhalten);
     }

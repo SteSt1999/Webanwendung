@@ -21,7 +21,6 @@
             <input type="submit" name="UserLogs" value="Kunden-Transaktionen anzeigen"/>
             <br><br>
             <br><br>
-            <br><br>
             <input type="submit" name="Abmelden" value="Abmelden"/>
         </form>
     </body>

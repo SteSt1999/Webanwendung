@@ -5,7 +5,6 @@ import Logik.Verwaltung.User;
 
 import java.util.Random;
 
-
 public class Session {
     private int id;
     private Zugangsweg zugangsweg;
@@ -17,7 +16,6 @@ public class Session {
         setId(new Random().nextInt());
         setUser(user);
         setZugangsweg(zugangsweg);
-
     }
 
     public int getId() {

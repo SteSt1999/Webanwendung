@@ -38,7 +38,7 @@ CREATE TABLE `transaktionen` (
 
 LOCK TABLES `transaktionen` WRITE;
 /*!40000 ALTER TABLE `transaktionen` DISABLE KEYS */;
-INSERT INTO `transaktionen` VALUES ('otto.ben2',2,1,-123456789,'otto.ben',NULL),('stump.stefan',42,1,-50000,'holzmann.julia',NULL),('stump.stefan',5,3,-7500,NULL,NULL),('holzmann.julia',1,3,-1212,NULL,NULL),('stump.stefan',42,4,1234,NULL,NULL),('holzmann.julia',0,2,50000,'stump.stefan',NULL),('otto.ben',0,2,123456789,'otto.ben2',NULL),('stump.stefan',3,3,-123456,NULL,NULL),('stump.stefan',42,4,4500,NULL,NULL),('stump.stefan',42,4,230,NULL,NULL),('stump.stefan',42,4,230,NULL,NULL);
+INSERT INTO `transaktionen` VALUES ('otto.ben2',2,1,-123456789,'otto.ben','hostbank'),('stump.stefan',42,1,-50000,'holzmann.julia','hostbank'),('stump.stefan',5,3,-7500,NULL,NULL),('holzmann.julia',1,3,-1212,NULL,NULL),('stump.stefan',42,4,1234,NULL,NULL),('holzmann.julia',0,2,50000,'stump.stefan','hostbank'),('otto.ben',0,2,123456789,'otto.ben2','hostbank'),('stump.stefan',3,3,-123456,NULL,NULL),('stump.stefan',42,4,4500,NULL,NULL),('stump.stefan',42,4,230,NULL,NULL),('stump.stefan',42,4,230,NULL,NULL);
 /*!40000 ALTER TABLE `transaktionen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 11:59:24
+-- Dump completed on 2018-10-26  6:30:55

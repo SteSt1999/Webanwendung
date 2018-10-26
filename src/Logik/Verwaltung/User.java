@@ -8,13 +8,13 @@ public abstract class User {
     Bank bank;
 
     public User(String benutzername) {
-        setBenutzername(benutzername);
         bank = new Bank(MainServlet.getBankID());
+        setBenutzername(benutzername);
     }
 
     public User(String benutzername, String bankID) {
-        setBenutzername(benutzername);
         bank = new Bank(bankID);
+        setBenutzername(benutzername);
     }
 
     public String getBenutzername() {

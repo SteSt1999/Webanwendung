@@ -16,6 +16,8 @@ public class Kunde extends User {
         setKonto(konto);
     }
 
+
+
     public Konto getKonto() {
         return konto;
     }

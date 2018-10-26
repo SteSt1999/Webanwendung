@@ -38,7 +38,7 @@ CREATE TABLE `transaktionen` (
 
 LOCK TABLES `transaktionen` WRITE;
 /*!40000 ALTER TABLE `transaktionen` DISABLE KEYS */;
-INSERT INTO `transaktionen` VALUES ('kambeck.marcel',11,3,-98765,NULL,NULL),('kambeck.marcel',1,3,-12345,NULL,NULL),('kambeck.marcel',2,1,-555,'mueller.david',NULL),('mueller.david',0,2,555,'kambeck.marcel',NULL),('mueller.david',22,4,666,NULL,NULL);
+INSERT INTO `transaktionen` VALUES ('kambeck.marcel',11,3,-98765,NULL,NULL),('kambeck.marcel',1,3,-12345,NULL,NULL),('kambeck.marcel',2,1,-555,'mueller.david','mukabank'),('mueller.david',0,2,555,'kambeck.marcel','mukabank'),('mueller.david',22,4,666,NULL,NULL);
 /*!40000 ALTER TABLE `transaktionen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-25 11:59:22
+-- Dump completed on 2018-10-26  6:30:53

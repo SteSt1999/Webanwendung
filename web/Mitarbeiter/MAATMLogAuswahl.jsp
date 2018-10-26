@@ -12,10 +12,8 @@
             <input type="number" max="100" min="3" step="0.01" data-number-to-be-fixed="2" data-number-stepfactor="100"
                    name="ATM-ID" size=20 maxlength=50>
             <br><br>
-            <br><br>
             <input type="submit" name="AnzeigenATM" value="Anzeigen"/>
             <br>
-            <br><br>
             <br><br>
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
             <br><br>

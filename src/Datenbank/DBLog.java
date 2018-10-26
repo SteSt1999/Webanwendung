@@ -8,12 +8,9 @@ import java.sql.SQLException;
 import static Datenbank.DBHelper.replaceFirst;
 import static Datenbank.DBHelper.replaceFirstWithNull;
 
-public class DBLog {
-    //TODO Log anpassen für Empfänger Bank
-
-    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
-    final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
-    final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
+public class DBLog {final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
+    final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
+    final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
     public static void logHinzufuegen(Transaction transaction, String bankID) {
@@ -47,7 +44,8 @@ public class DBLog {
                         resultSet.getString("ZUGANGSWEG"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID"),
+                        resultSet.getString("EMPFAENGERBANK_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +64,8 @@ public class DBLog {
                         resultSet.getString("KUNDEN_ID"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID"),
+                        resultSet.getString("EMPFAENGERBANK_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,7 +83,8 @@ public class DBLog {
                         resultSet.getString("ZUGANGSWEG"),
                         resultSet.getInt("TRANSAKTIONS_ID"),
                         resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID")));
+                        resultSet.getString("EMPFAENGER_ID"),
+                        resultSet.getString("EMPFAENGERBANK_ID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,16 +92,16 @@ public class DBLog {
         return sb.toString();
     }
 
-    private static String userTransaktionToString(String zugangsweg, int transaktionsID, long betrag, String empfaengerID) {
-        return getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
+    private static String userTransaktionToString(String zugangsweg, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+        return getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
-    private static String atmTtransaktionToString(String kundenID, int transaktionsID, long betrag, String empfaengerID) {
-        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag) + "<br>";
+    private static String atmTtransaktionToString(String kundenID, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + "<br>";
     }
 
-    private static String bankTransaktionToString(String kundenID, String zugangsweg, int transaktionsID, long betrag, String empfaengerID) {
-        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, betrag)
+    private static String bankTransaktionToString(String kundenID, String zugangsweg, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag)
                 + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
@@ -109,12 +109,12 @@ public class DBLog {
         return kundenID + ":    ";
     }
 
-    private static String getTextTransaktionsDaten(int transaktionsID, String empfaengerID, long betrag) {
+    private static String getTextTransaktionsDaten(int transaktionsID, String empfaengerID, String empfaengerBank, long betrag) {
         String geld = betrag / 100. + "€      ";
         if (transaktionsID == 1) {
-            return geld + " überwiesen an " + empfaengerID;
+            return geld + " überwiesen an " + empfaengerID + " von der Bank " + empfaengerBank;
         } else if (transaktionsID == 2) {
-            return geld + " erhalten von " + empfaengerID;
+            return geld + " erhalten von " + empfaengerID + " von der Bank " + empfaengerBank;
         } else if (transaktionsID == 3) {
             return geld + " abgehoben";
         } else if (transaktionsID == 4) {
