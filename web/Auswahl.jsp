@@ -6,7 +6,6 @@
     <body>
         <h1>Bank</h1>
         <p>Wählen Sie Ihre Anwendung aus.</p>
-        <br>
         <form action="${pageContext.request.contextPath}/MainServlet" method="post">
             <br><br>
             <input type="submit" name="ATM" value="ATM"/>
