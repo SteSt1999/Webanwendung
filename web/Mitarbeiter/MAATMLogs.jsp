@@ -5,7 +5,7 @@
         <title>ATM-Transaktionen</title>
     </head>
     <body>
-        <h1>ATM-Transaktionen</h1>
+        <h1>Mitarbeiter</h1>
         <br>Hier sehen Sie die Transaktionen des ATMs.
         <br><br>
         <%

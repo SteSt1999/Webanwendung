@@ -39,8 +39,8 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    public static String getBankID() {
-        return bank.getBankID();
+    public static Bank getBank() {
+        return bank;
     }
 
     public static void setBank(String bankID) {

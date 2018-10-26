@@ -5,7 +5,7 @@
         <title>Kunden-Transaktionen</title>
     </head>
     <body>
-        <h1>Kunden-Transaktionen</h1>
+        <h1>Mitarbeiter</h1>
         <br>Hier sehen Sie die gesamten Transaktionen des Kunden.
         <br><br>
         <%

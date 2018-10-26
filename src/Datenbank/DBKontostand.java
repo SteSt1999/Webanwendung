@@ -1,7 +1,6 @@
 package Datenbank;
 
 import Logik.Verwaltung.Kunde;
-import Servlet.MainServlet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +16,6 @@ public class DBKontostand {
         sqlAnfrage = replaceFirst(sqlAnfrage, betrag + "");
         sqlAnfrage = replaceFirst(sqlAnfrage, kunde.getBenutzername());
         DBHelper.sqlAusfuehren(sqlAnfrage, kunde.getBank().getBankID());
-    }
-
-    public static long kontostandLesen(String kundenID) {
-        return kontostandLesen(kundenID, MainServlet.getBankID());
     }
 
     public static long kontostandLesen(String kundenID, String bankID) {

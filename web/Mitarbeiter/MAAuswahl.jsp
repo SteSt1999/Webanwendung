@@ -6,9 +6,8 @@
     <body>
         <h1>Mitarbeiter</h1>
         <br>Sie sind eingeloggt.
-        <br>
+        <br><br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
-            <br><br>
             <input type="submit" name="Einzahlung" value="Auf Kundenkonto einzahlen"/>
             <br><br>
             <input type="submit" name="Abhebung" value="Von Kundenkonto abheben"/>

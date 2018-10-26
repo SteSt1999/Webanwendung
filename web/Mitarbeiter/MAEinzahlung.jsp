@@ -4,7 +4,7 @@
         <title>Einzahlung</title>
     </head>
     <body>
-        <h1>Mitarbeiter-Konto</h1>
+        <h1>Mitarbeiter</h1>
         <br>Hier können Sie Geld auf ein Kundenkonto einzahlen.
         <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">

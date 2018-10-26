@@ -4,7 +4,7 @@
         <title>Kunden-Transaktionen</title>
     </head>
     <body>
-        <h1>Kunden-Transaktionen</h1>
+        <h1>Mitarbeiter</h1>
         <br>Bitte wählen Sie einen bestimmten Kunden, um sich seine Transaktionen anzeigen zu lassen
         <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">

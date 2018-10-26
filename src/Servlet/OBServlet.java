@@ -1,11 +1,6 @@
 package Servlet;
 
-import Datenbank.DBUser;
-import Logik.Sessionsteuerung.GeldBewegung;
-import Logik.Sessionsteuerung.OnlineBankingZugang;
-import Logik.Sessionsteuerung.Session;
-import Logik.Verwaltung.Konto;
-import Logik.Verwaltung.Kunde;
+import Logik.Sessionsteuerung.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,23 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static Datenbank.DBKontostand.kontostandLesen;
-
 @WebServlet("/OBServlet")
 public class OBServlet extends HttpServlet {
-    private static Session session;
+    private static SessionKunde session;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            if (DBUser.checkPasswortKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
-                Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("LogInID"))), request.getParameter("LogInID"));
-                session = new Session(kunde, new OnlineBankingZugang());
-                request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
-            } else {
+            try {
+                session = new SessionKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"), new ZugangOnlineBanking());
+            } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("OnlineBanking/OBLoginFehlgeschlagen.jsp").forward(request, response);
             }
+            request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("OnlineBanking/OBLogin.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
@@ -59,7 +51,8 @@ public class OBServlet extends HttpServlet {
             request.getRequestDispatcher("OnlineBanking/OBUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             try {
-                GeldBewegung.ueberweisen((Kunde) session.getUser(), session.getZugangsweg(), request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Summe"));
+                GeldBewegung.ueberweisen(session.getUser(), session.getZugangsweg(),
+                        request.getParameter("Empfaenger"), request.getParameter("EmpfaengerBank"), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("OnlineBanking/OBFehler.jsp").forward(request, response);
             }

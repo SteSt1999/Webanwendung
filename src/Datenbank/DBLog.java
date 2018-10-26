@@ -33,7 +33,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     public static String getUserLog(String kundenID) {
         String sqlAnfrage = sqlGetTransactionsKunde;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {
@@ -53,7 +53,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     public static String getZugangswegLog(String ATMID) {
         String sqlAnfrage = sqlGetTransactionsATM;
         sqlAnfrage = replaceFirst(sqlAnfrage, ATMID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {
@@ -71,7 +71,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
     }
 
     public static String getBankLog() {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlGetAllTransactions, MainServlet.getBankID());
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlGetAllTransactions, MainServlet.getBank().getBankID());
         StringBuilder sb = new StringBuilder();
         try {
             while (resultSet.next()) {

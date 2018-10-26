@@ -1,16 +1,9 @@
 package Logik.Sessionsteuerung;
 
-import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.User;
 
-public class Session {
+abstract class Session {
     private Zugangsweg zugangsweg;
-    private User user;
-
-    public Session(User user, Zugangsweg zugangsweg) {
-        setUser(user);
-        setZugangsweg(zugangsweg);
-    }
 
     public Zugangsweg getZugangsweg() {
         return zugangsweg;
@@ -20,25 +13,7 @@ public class Session {
         this.zugangsweg = zugangsweg;
     }
 
-    public User getUser() {
-        return user;
-    }
+    abstract User getUser();
 
-    private void setUser(User user) {
-        this.user = user;
-    }
-
-    public long getKontostand() {
-        if (!(user instanceof Kunde)) {
-            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto!");
-        }
-        return ((Kunde) user).getKontostand();
-    }
-
-    public String getKontoLog() {
-        if (!(user instanceof Kunde)) {
-            throw new IllegalArgumentException("Mitarbeiter besitzen kein Konto!");
-        }
-        return ((Kunde) user).getKontoLog();
-    }
+    abstract void setUser(String id);
 }

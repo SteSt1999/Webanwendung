@@ -8,7 +8,7 @@ public abstract class User {
     Bank bank;
 
     public User(String benutzername) {
-        bank = new Bank(MainServlet.getBankID());
+        bank = new Bank(MainServlet.getBank().getBankID());
         setBenutzername(benutzername);
     }
 

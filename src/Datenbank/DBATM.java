@@ -10,6 +10,6 @@ public class DBATM {
     public static boolean existiertATM(String atmID) {
         String sqlAnfrage = sqlExistiertATM;
         sqlAnfrage = replaceFirst(sqlAnfrage, atmID);
-        return DBHelper.existiert(sqlAnfrage, MainServlet.getBankID());
+        return DBHelper.existiert(sqlAnfrage, MainServlet.getBank().getBankID());
     }
 }

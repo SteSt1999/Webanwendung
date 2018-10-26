@@ -2,10 +2,10 @@ package Logik.Sessionsteuerung;
 
 import Logik.Verwaltung.*;
 
-public class ATMZugang implements Zugangsweg {
+public class ZugangATM implements Zugangsweg {
     private ATM atm;
 
-    public ATMZugang(int id) {
+    public ZugangATM(int id) {
         atm = new ATM(id);
     }
 

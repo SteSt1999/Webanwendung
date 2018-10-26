@@ -14,19 +14,16 @@ public class DBUser {
     final private static String sqlExistiertMitarbeiter = "SELECT ID FROM MITARBEITER WHERE ID = \"(?)\";";
 
     public static boolean checkPasswortKunde(String kundenID, String passwort) {
-        String sqlAnfrage = sqlCheckPasswortKunde;
-        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        return checkPasswort(sqlAnfrage, passwort);
+        return checkPasswort(sqlCheckPasswortKunde, kundenID, passwort);
     }
 
     public static boolean checkPasswortMitarbeiter(String mitarbeiterID, String passwort) {
-        String sqlAnfrage = sqlCheckPasswortMitarbeiter;
-        sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
-        return checkPasswort(sqlAnfrage, passwort);
+        return checkPasswort(sqlCheckPasswortMitarbeiter, mitarbeiterID, passwort);
     }
 
-    private static boolean checkPasswort(String sqlAnfrage, String passwort) {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBankID());
+    private static boolean checkPasswort(String sqlAnfrage, String id, String passwort) {
+        sqlAnfrage = replaceFirst(sqlAnfrage, id);
+        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
         try {
             if (resultSet.next() && passwort.equals(resultSet.getString("KENNWORT"))) {
                 return true;
@@ -43,13 +40,9 @@ public class DBUser {
         return DBHelper.existiert(sqlAnfrage, bankID);
     }
 
-    public static boolean existiertKunde(String kundenID) {
-        return existiertKunde(kundenID, MainServlet.getBankID());
-    }
-
     public static boolean existiertMitarbeiter(String mitarbeiterID) {
         String sqlAnfrage = sqlExistiertMitarbeiter;
         sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
-        return DBHelper.existiert(sqlAnfrage, MainServlet.getBankID());
+        return DBHelper.existiert(sqlAnfrage, MainServlet.getBank().getBankID());
     }
 }

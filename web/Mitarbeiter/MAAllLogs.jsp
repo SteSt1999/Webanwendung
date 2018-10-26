@@ -5,7 +5,7 @@
         <title>Bank-Transaktionen</title>
     </head>
     <body>
-        <h1>Bank-Transaktionen</h1>
+        <h1>Mitarbeiter</h1>
         <br>Hier sehen Sie die gesamten Transaktionen der Bank.
         <br><br>
         <%

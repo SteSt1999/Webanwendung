@@ -1,24 +1,24 @@
 package Logik.Verwaltung;
 
+import Datenbank.DBKontostand;
 import Datenbank.DBLog;
 import Datenbank.DBUser;
 
 public class Kunde extends User {
-    //Konto und Kunde bei welcher Bank
     private Konto konto;
 
-    public Kunde(Konto konto, String benutzername) {
+    public Kunde(String benutzername) {
         super(benutzername);
-        setKonto(konto);
+        setKonto(new Konto(DBKontostand.kontostandLesen(benutzername, bank.getBankID())));
     }
 
-    public Kunde(Konto konto, String benutzername, String bankID) {
+    public Kunde(String benutzername, String bankID) {
         super(benutzername, bankID);
-        setKonto(konto);
+        setKonto(new Konto(DBKontostand.kontostandLesen(benutzername, bank.getBankID())));
     }
 
     public void setBenutzername(String benutzername) {
-        if(!DBUser.existiertKunde(benutzername, bank.getBankID())) {
+        if (!DBUser.existiertKunde(benutzername, bank.getBankID())) {
             throw new IllegalArgumentException();
         }
         this.benutzername = benutzername;
