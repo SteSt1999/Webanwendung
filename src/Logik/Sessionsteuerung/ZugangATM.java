@@ -5,8 +5,8 @@ import Logik.Verwaltung.*;
 public class ZugangATM implements Zugangsweg {
     private ATM atm;
 
-    public ZugangATM(int id) {
-        atm = new ATM(id);
+    public ZugangATM(String atmID) {
+        atm = new ATM(atmID);
     }
 
     @Override

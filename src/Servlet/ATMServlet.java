@@ -18,7 +18,7 @@ public class ATMServlet extends HttpServlet {
         // Login
         if (request.getParameter("Login") != null) {
             try {
-                Zugangsweg zugangsweg = new ZugangATM(Integer.parseInt(request.getParameter("ATM-ID")));
+                Zugangsweg zugangsweg = new ZugangATM(request.getParameter("ATM-ID"));
                 session = new SessionKunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"), zugangsweg);
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
