@@ -1,5 +1,5 @@
 <%@ page import="Servlet.ATMServlet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <title>Kontoverlauf</title>

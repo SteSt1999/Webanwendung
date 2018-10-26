@@ -2,6 +2,7 @@ package Servlet;
 
 import Datenbank.DBATM;
 import Datenbank.DBUser;
+import Logik.Sessionsteuerung.GeldBewegung;
 import Logik.Sessionsteuerung.MitarbeiterZugang;
 import Logik.Sessionsteuerung.Session;
 import Logik.Verwaltung.Konto;
@@ -90,7 +91,7 @@ public class MitarbeiterServlet extends HttpServlet {
         } else if (request.getParameter("Einzahlen") != null) {
             try {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-                MitarbeiterZugang.doMitarbeiterEinzahlen(session, kunde, (request.getParameter("Betrag")));
+                GeldBewegung.einzahlen(kunde, session.getZugangsweg(), request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -103,7 +104,7 @@ public class MitarbeiterServlet extends HttpServlet {
         } else if (request.getParameter("Abheben") != null) {
             try {
                 Kunde kunde = new Kunde(new Konto(kontostandLesen(request.getParameter("Empfaenger"))), request.getParameter("Empfaenger"));
-                MitarbeiterZugang.doMitarbeiterAbheben(session, kunde, (request.getParameter("Betrag")));
+                GeldBewegung.abheben(kunde, session.getZugangsweg(), request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
