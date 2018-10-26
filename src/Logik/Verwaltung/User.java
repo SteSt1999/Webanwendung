@@ -3,7 +3,6 @@ package Logik.Verwaltung;
 import Servlet.MainServlet;
 
 public abstract class User {
-    //Login-Daten
     String benutzername;
     Bank bank;
 

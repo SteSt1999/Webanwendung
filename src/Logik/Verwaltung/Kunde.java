@@ -1,7 +1,6 @@
 package Logik.Verwaltung;
 
 import Datenbank.DBKontostand;
-import Datenbank.DBLog;
 import Datenbank.DBUser;
 
 public class Kunde extends User {
@@ -34,9 +33,5 @@ public class Kunde extends User {
 
     public long getKontostand() {
         return konto.getKontostand();
-    }
-
-    public String getKontoLog() {
-        return DBLog.getUserLog(benutzername);
     }
 }

@@ -100,6 +100,6 @@ public class ATMServlet extends HttpServlet {
     }
 
     public static String getKontoLog() {
-        return session.getKontoLog();
+        return Log.ausgabeKundenLog(session.getUser());
     }
 }

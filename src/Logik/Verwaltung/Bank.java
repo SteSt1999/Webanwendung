@@ -14,7 +14,7 @@ public class Bank {
     }
 
     public void setBankID(String bankID) {
-        if(!DBBank.existiertBank(bankID)) {
+        if (!DBBank.existiertBank(bankID)) {
             throw new IllegalArgumentException();
         }
         this.bankID = bankID;

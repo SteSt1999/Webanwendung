@@ -40,9 +40,9 @@ public class DBUser {
         return DBHelper.existiert(sqlAnfrage, bankID);
     }
 
-    public static boolean existiertMitarbeiter(String mitarbeiterID) {
+    public static boolean existiertMitarbeiter(String mitarbeiterID, String bankID) {
         String sqlAnfrage = sqlExistiertMitarbeiter;
         sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
-        return DBHelper.existiert(sqlAnfrage, MainServlet.getBank().getBankID());
+        return DBHelper.existiert(sqlAnfrage, bankID);
     }
 }

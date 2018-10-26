@@ -25,8 +25,4 @@ public class SessionKunde extends Session {
     public long getKontostand() {
         return kunde.getKontostand();
     }
-
-    public String getKontoLog() {
-        return kunde.getKontoLog();
-    }
 }

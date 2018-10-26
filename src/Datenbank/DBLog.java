@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import static Datenbank.DBHelper.replaceFirst;
 import static Datenbank.DBHelper.replaceFirstWithNull;
 
-public class DBLog {final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
+public class DBLog {
+    final private static String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
     final private static String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     final private static String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     final private static String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
@@ -30,7 +31,7 @@ public class DBLog {final private static String sqlTransactionHinzufuegen = "INS
         DBHelper.sqlAusfuehren(sqlAnfrage, transaction.getSender().getBank().getBankID());
     }
 
-    public static String getUserLog(String kundenID) {
+    public static String getKundenLog(String kundenID) {
         String sqlAnfrage = sqlGetTransactionsKunde;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());

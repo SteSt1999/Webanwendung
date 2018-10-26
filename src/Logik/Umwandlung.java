@@ -9,9 +9,9 @@ public class Umwandlung {
             throw new NumberFormatException();
         }
         if (split.length == 2) {
-            if(split[1].length() == 1) {
+            if (split[1].length() == 1) {
                 betrag = split[0] + split[1] + "0";
-            } else if(split[1].length() == 2) {
+            } else if (split[1].length() == 2) {
                 betrag = split[0] + split[1];
             } else {
                 betrag = split[0];

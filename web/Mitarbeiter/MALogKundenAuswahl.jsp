@@ -1,4 +1,3 @@
-<%@ page import="Servlet.MitarbeiterServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -6,13 +5,15 @@
     </head>
     <body>
         <h1>Mitarbeiter</h1>
-        <br>Hier sehen Sie die gesamten Transaktionen des Kunden.
-        <br><br>
-        <%
-            out.println(MitarbeiterServlet.getUserLogs());
-        %>
-        <br><br>
+        <br>Bitte wählen Sie einen bestimmten Kunden, um sich seine Transaktionen anzeigen zu lassen
+        <br>
         <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+            <p>Kunden-Benutzername:</p>
+            <input type="text" name="Kunde" size=20 maxlength=50>
+            <br><br>
+            <input type="submit" name="AnzeigenUser" value="Anzeigen"/>
+            <br>
+            <br><br>
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
             <br><br>
             <input type="submit" name="Abmelden" value="Abmelden"/>
