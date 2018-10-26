@@ -1,11 +1,12 @@
 package Logik.Verwaltung;
 
+import Datenbank.DBATM;
+
 public class ATM {
     private int id;
 
     public ATM(int id) {
         this.id = id;
-        //@TODO atms in Datenbank schreiben?
     }
 
     public int getId() {
@@ -13,6 +14,9 @@ public class ATM {
     }
 
     public void setId(int id) {
+        if(!DBATM.existiertATM(id + "")) {
+            throw new IllegalArgumentException("Der Automat existiert nicht!");
+        }
         this.id = id;
     }
 }

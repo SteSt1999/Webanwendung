@@ -1,12 +1,6 @@
 package Logik.Sessionsteuerung;
 
-import Datenbank.DBKontostand;
-import Datenbank.DBUser;
-import Logik.Umwandlung;
 import Logik.Verwaltung.*;
-import Servlet.MainServlet;
-
-import static Datenbank.DBLog.logHinzufuegen;
 
 public class ATMZugang implements Zugangsweg {
     private ATM atm;
