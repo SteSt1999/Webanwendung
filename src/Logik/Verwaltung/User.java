@@ -21,9 +21,7 @@ public abstract class User {
         return benutzername;
     }
 
-    public void setBenutzername(String benutzername) {
-        this.benutzername = benutzername;
-    }
+    public abstract void setBenutzername(String benutzername);
 
     public Bank getBank() {
         return bank;

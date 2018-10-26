@@ -67,7 +67,7 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMUeberweisungErfolgt.jsp").forward(request, response);
         }
 
-        // Transactions
+        // Transaktionen
         else if (request.getParameter("Transactions") != null) {
             request.getRequestDispatcher("ATM/ATMTransactions.jsp").forward(request, response);
         }

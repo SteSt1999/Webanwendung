@@ -11,6 +11,7 @@ public class DBUser {
     final private static String sqlCheckPasswortKunde = "SELECT KENNWORT FROM KUNDEN WHERE ID = \"(?)\";";
     final private static String sqlCheckPasswortMitarbeiter = "SELECT KENNWORT FROM MITARBEITER WHERE ID = \"(?)\";";
     final private static String sqlExistiertKunde = "SELECT ID FROM KUNDEN WHERE ID = \"(?)\";";
+    final private static String sqlExistiertMitarbeiter = "SELECT ID FROM MITARBEITER WHERE ID = \"(?)\";";
 
     public static boolean checkPasswortKunde(String kundenID, String passwort) {
         String sqlAnfrage = sqlCheckPasswortKunde;
@@ -44,5 +45,15 @@ public class DBUser {
 
     public static boolean existiertKunde(String kundenID) {
         return existiertKunde(kundenID, MainServlet.getBankID());
+    }
+
+    public static boolean existiertMitarbeiter(String mitarbeiterID, String bankID) {
+        String sqlAnfrage = sqlExistiertMitarbeiter;
+        sqlAnfrage = replaceFirst(sqlAnfrage, mitarbeiterID);
+        return DBHelper.existiert(sqlAnfrage, bankID);
+    }
+
+    public static boolean existiertMitarbeiter(String mitarbeiterID) {
+        return existiertMitarbeiter(mitarbeiterID, MainServlet.getBankID());
     }
 }

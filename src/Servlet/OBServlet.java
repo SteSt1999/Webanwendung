@@ -66,7 +66,7 @@ public class OBServlet extends HttpServlet {
             request.getRequestDispatcher("OnlineBanking/OBUeberweisungErfolgt.jsp").forward(request, response);
         }
 
-        // Transactions
+        // Transaktionen
         else if (request.getParameter("Transactions") != null) {
             request.getRequestDispatcher("OnlineBanking/OBTransactions.jsp").forward(request, response);
         }

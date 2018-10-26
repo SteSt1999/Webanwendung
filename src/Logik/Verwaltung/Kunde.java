@@ -1,6 +1,7 @@
 package Logik.Verwaltung;
 
 import Datenbank.DBLog;
+import Datenbank.DBUser;
 
 public class Kunde extends User {
     //Konto und Kunde bei welcher Bank
@@ -16,7 +17,12 @@ public class Kunde extends User {
         setKonto(konto);
     }
 
-
+    public void setBenutzername(String benutzername) {
+        if(!DBUser.existiertKunde(benutzername, bank.getBankID())) {
+            throw new IllegalArgumentException();
+        }
+        this.benutzername = benutzername;
+    }
 
     public Konto getKonto() {
         return konto;
