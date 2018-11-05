@@ -1,5 +1,6 @@
 package Datenbank;
 
+import Logik.Umwandlung;
 import Logik.Verwaltung.*;
 import Servlet.MainServlet;
 
@@ -15,7 +16,6 @@ public class DBLog {
     private static final String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
     private static final String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     private static final String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
-    private static final DecimalFormat df = new DecimalFormat("#0.00");
 
     public static void logHinzufuegen(Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
@@ -110,7 +110,7 @@ public class DBLog {
     }
 
     private static String getTextTransaktionsDaten(int transaktionsID, String empfaengerID, String empfaengerBank, long betrag) {
-        String geld = df.format(betrag / 100.) + "€      ";
+        String geld = Umwandlung.centToEuroString(betrag) + "      ";
         if (transaktionsID == 1) {
             return geld + " überwiesen an " + empfaengerID + " von der Bank " + empfaengerBank;
         } else if (transaktionsID == 2) {

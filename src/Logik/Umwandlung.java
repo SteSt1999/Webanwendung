@@ -1,7 +1,10 @@
 package Logik;
 
+import java.text.DecimalFormat;
+
 public class Umwandlung {
     private static final long MAXIMUM = 10_000_000; //100.000 €
+    private static final DecimalFormat df = new DecimalFormat("#0.00");
 
     public static long stringToLong(String betrag) {
         String[] split = betrag.split("\\.");
@@ -26,5 +29,9 @@ public class Umwandlung {
         }
 
         return n;
+    }
+
+    public static String centToEuroString(long betrag) {
+        return df.format(betrag / 100.) + "€";
     }
 }

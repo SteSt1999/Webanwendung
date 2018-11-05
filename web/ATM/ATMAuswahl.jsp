@@ -1,4 +1,5 @@
 <%@ page import="Servlet.ATMServlet" %>
+<%@ page import="Logik.Umwandlung" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -10,7 +11,7 @@
         <br>
         <br>Kontostand:
         <%
-            out.println(ATMServlet.getKontostandInEuro());
+            out.println(Umwandlung.centToEuroString(ATMServlet.getKontostand()));
         %>
         €
         <br>

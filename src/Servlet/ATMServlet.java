@@ -95,8 +95,8 @@ public class ATMServlet extends HttpServlet {
         }
     }
 
-    public static double getKontostandInEuro() {
-        return session.getKontostand() / 100.;
+    public static long getKontostand() {
+        return session.getKontostand();
     }
 
     public static String getKontoLog() {
