@@ -4,7 +4,7 @@ import Servlet.MainServlet;
 
 public abstract class User {
     String benutzername;
-    Bank bank;
+    final Bank bank;
 
     public User(String benutzername) {
         bank = new Bank(MainServlet.getBank().getBankID());

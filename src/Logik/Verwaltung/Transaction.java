@@ -3,15 +3,15 @@ package Logik.Verwaltung;
 import Logik.Sessionsteuerung.Zugangsweg;
 
 public class Transaction {
-    private Zugangsweg zugangsweg;
-    private User sender;
-    private User empfaenger;
+    private final Zugangsweg zugangsweg;
+    private final User sender;
+    private final User empfaenger;
 
     // 1 = überweisung,2 = überweisung erhalten, 3 = abheben, 4 = einzahlen
-    private int transaktionsID;
-    private long betrag;
+    private final int transaktionsID;
+    private final long betrag;
 
-    public Transaction(User sender, User empfaenger, long betrag, Zugangsweg zugangsweg, int transaktionsID) {
+    public Transaction(final User sender, final User empfaenger, final long betrag, final Zugangsweg zugangsweg, final int transaktionsID) {
         this.sender = sender;
         this.empfaenger = empfaenger;
         this.betrag = betrag;

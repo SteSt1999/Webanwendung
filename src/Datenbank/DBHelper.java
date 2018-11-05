@@ -8,8 +8,8 @@ import java.sql.*;
 
 class DBHelper {
     private static String user;
-    private static String password = null;
-    final private static String driver = "com.mysql.cj.jdbc.Driver";
+    private static String password;
+    private static final String driver = "com.mysql.cj.jdbc.Driver";
 
     static {
         File f = new File("Webanwendung/DBDaten.txt");

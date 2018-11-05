@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import static Datenbank.DBHelper.replaceFirst;
 
 public class DBKontostand {
-    final private static String sqlKontostandAendern = "UPDATE KONTO SET KONTOSTAND = \"(?)\" WHERE KUNDEN_ID = \"(?)\";";
-    final private static String sqlKontostandLesen = "SELECT KONTOSTAND FROM KONTO WHERE KUNDEN_ID = \"(?)\";";
+    private static final String sqlKontostandAendern = "UPDATE KONTO SET KONTOSTAND = \"(?)\" WHERE KUNDEN_ID = \"(?)\";";
+    private static final String sqlKontostandLesen = "SELECT KONTOSTAND FROM KONTO WHERE KUNDEN_ID = \"(?)\";";
 
     public static void kontostandAnpassen(Kunde kunde, long betrag) {
         String sqlAnfrage = sqlKontostandAendern;

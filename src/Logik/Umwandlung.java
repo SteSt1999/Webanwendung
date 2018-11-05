@@ -1,7 +1,7 @@
 package Logik;
 
 public class Umwandlung {
-    final private static long MAXIMUM = 10_000_000; //100.000 €
+    private static final long MAXIMUM = 10_000_000; //100.000 €
 
     public static long stringToLong(String betrag) {
         String[] split = betrag.split("\\.");

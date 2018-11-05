@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import static Datenbank.DBHelper.replaceFirst;
 
 public class DBUser {
-    final private static String sqlCheckPasswortKunde = "SELECT KENNWORT FROM KUNDEN WHERE ID = \"(?)\";";
-    final private static String sqlCheckPasswortMitarbeiter = "SELECT KENNWORT FROM MITARBEITER WHERE ID = \"(?)\";";
-    final private static String sqlExistiertKunde = "SELECT ID FROM KUNDEN WHERE ID = \"(?)\";";
-    final private static String sqlExistiertMitarbeiter = "SELECT ID FROM MITARBEITER WHERE ID = \"(?)\";";
+    private static final String sqlCheckPasswortKunde = "SELECT KENNWORT FROM KUNDEN WHERE ID = \"(?)\";";
+    private static final String sqlCheckPasswortMitarbeiter = "SELECT KENNWORT FROM MITARBEITER WHERE ID = \"(?)\";";
+    private static final String sqlExistiertKunde = "SELECT ID FROM KUNDEN WHERE ID = \"(?)\";";
+    private static final String sqlExistiertMitarbeiter = "SELECT ID FROM MITARBEITER WHERE ID = \"(?)\";";
 
     public static boolean checkPasswortKunde(String kundenID, String passwort) {
         return checkPasswort(sqlCheckPasswortKunde, kundenID, passwort);

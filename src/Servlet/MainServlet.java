@@ -43,7 +43,7 @@ public class MainServlet extends HttpServlet {
         return bank;
     }
 
-    public static void setBank(String bankID) {
+    private static void setBank(String bankID) {
         bank = new Bank(bankID);
     }
 }
