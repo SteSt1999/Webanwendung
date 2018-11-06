@@ -1,6 +1,5 @@
 package Servlet;
 
-import Datenbank.DBBank;
 import Logik.Verwaltung.Bank;
 
 import javax.servlet.ServletException;
@@ -19,12 +18,12 @@ public class MainServlet extends HttpServlet {
         // Auswahl der Bank
         if (request.getParameter("WahlBank") != null) {
             String bankID = request.getParameter("BankID");
-            if (DBBank.existiertBank(bankID)) {
+            try {
                 setBank(bankID);
-                request.getRequestDispatcher("Auswahl.jsp").forward(request, response);
-            } else {
+            } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("BankAuswahlFehlgeschlagen.jsp").forward(request, response);
             }
+            request.getRequestDispatcher("Auswahl.jsp").forward(request, response);
         } else if (request.getParameter("Zurueck") != null) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
