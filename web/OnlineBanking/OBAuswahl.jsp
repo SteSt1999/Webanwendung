@@ -13,7 +13,6 @@
         <%
             out.println(Umwandlung.centToEuroString(OBServlet.getKontostand()));
         %>
-        €
         <br>
         <form action="${pageContext.request.contextPath}/OBServlet" method="post">
             <br><br>

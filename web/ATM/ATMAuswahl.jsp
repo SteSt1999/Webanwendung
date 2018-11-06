@@ -13,7 +13,6 @@
         <%
             out.println(Umwandlung.centToEuroString(ATMServlet.getKontostand()));
         %>
-        €
         <br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <br><br>
