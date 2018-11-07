@@ -1,9 +1,9 @@
 package Logik.Sessionsteuerung;
 
 public class ZugangOnlineBanking implements Zugangsweg {
-    private final String dbBezeichnung = "2";
+    private final String DB_BEZEICHNUNG = "2";
 
     public String getdbBezeichnung() {
-        return dbBezeichnung;
+        return DB_BEZEICHNUNG;
     }
 }

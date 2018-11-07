@@ -6,7 +6,6 @@ import Servlet.MainServlet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 
 import static Datenbank.DBHelper.replaceFirst;
 import static Datenbank.DBHelper.replaceFirstWithNull;
@@ -17,7 +16,7 @@ public class DBLog {
     private static final String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
     private static final String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
-    public static void logHinzufuegen(Transaction transaction) {
+    public static void logHinzufuegen(final Transaction transaction) {
         String sqlAnfrage = sqlTransactionHinzufuegen;
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
         sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
@@ -33,7 +32,7 @@ public class DBLog {
         DBHelper.sqlAusfuehren(sqlAnfrage, transaction.getSender().getBank().getBankID());
     }
 
-    public static String getKundenLog(String kundenID) {
+    public static String getKundenLog(final String kundenID) {
         String sqlAnfrage = sqlGetTransactionsKunde;
         sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
@@ -53,7 +52,7 @@ public class DBLog {
         return sb.toString();
     }
 
-    public static String getZugangswegLog(String ATMID) {
+    public static String getZugangswegLog(final String ATMID) {
         String sqlAnfrage = sqlGetTransactionsATM;
         sqlAnfrage = replaceFirst(sqlAnfrage, ATMID);
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
@@ -92,24 +91,24 @@ public class DBLog {
         return sb.toString();
     }
 
-    private static String userTransaktionToString(String zugangsweg, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+    private static String userTransaktionToString(final String zugangsweg, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
         return getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
-    private static String atmTtransaktionToString(String kundenID, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+    private static String atmTtransaktionToString(final String kundenID, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
         return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + "<br>";
     }
 
-    private static String bankTransaktionToString(String kundenID, String zugangsweg, int transaktionsID, long betrag, String empfaengerID, String empfaengerBank) {
+    private static String bankTransaktionToString(final String kundenID, final String zugangsweg, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
         return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag)
                 + getTextZugangsweg(zugangsweg) + "<br>";
     }
 
-    private static String getTextKundenDaten(String kundenID) {
+    private static String getTextKundenDaten(final String kundenID) {
         return kundenID + ":    ";
     }
 
-    private static String getTextTransaktionsDaten(int transaktionsID, String empfaengerID, String empfaengerBank, long betrag) {
+    private static String getTextTransaktionsDaten(final int transaktionsID, final String empfaengerID, final String empfaengerBank, final long betrag) {
         String geld = Umwandlung.centToEuroString(betrag) + "      ";
         if (transaktionsID == 1) {
             return geld + " überwiesen an " + empfaengerID + " von der Bank " + empfaengerBank;
@@ -123,7 +122,7 @@ public class DBLog {
         return geld + "Unbekannte Transaktion ";
     }
 
-    private static String getTextZugangsweg(String zugangsweg) {
+    private static String getTextZugangsweg(final String zugangsweg) {
         switch (zugangsweg) {
             case "0":
                 return "";

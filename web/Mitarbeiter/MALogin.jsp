@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Mitarbeiter</h1>
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <p>Benutzername: </p>
             <input type="text" name="LogInID" size=20 maxlength=50>
             <p>Passwort: </p>

@@ -30,10 +30,13 @@ public class MainServlet extends HttpServlet {
 
         // Auswahl des Zugangsweg
         else if (request.getParameter("ATM") != null) {
+            System.out.println("A");
             request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         } else if (request.getParameter("OnlineBanking") != null) {
+            System.out.println("B");
             request.getRequestDispatcher("OnlineBanking/OBLogin.jsp").forward(request, response);
         } else if (request.getParameter("Mitarbeiter") != null) {
+            System.out.println("C");
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
     }

@@ -7,7 +7,7 @@
         <h1>Mitarbeiter</h1>
         <br>Der Login war nicht erfolgreich.
         <br>Bitte probieren Sie es erneut.
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <input type="submit" name="LoginFehlgeschlagenZurueck" value="Zurück"/>
         </form>
     </body>

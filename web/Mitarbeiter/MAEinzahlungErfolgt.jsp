@@ -8,7 +8,7 @@
         <br>Die Einzahlung ist erfolgt!
         <br>
         <br><br>
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
             <br><br>
             <input type="submit" name="Abmelden" value="Abmelden"/>

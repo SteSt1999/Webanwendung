@@ -1,6 +1,9 @@
 package Servlet;
 
-import Logik.Sessionsteuerung.*;
+import Logik.GeldBewegung;
+import Logik.Sessionsteuerung.Log;
+import Logik.Sessionsteuerung.SessionKunde;
+import Logik.Sessionsteuerung.ZugangOnlineBanking;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

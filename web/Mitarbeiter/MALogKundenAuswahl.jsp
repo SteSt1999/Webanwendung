@@ -7,7 +7,7 @@
         <h1>Mitarbeiter</h1>
         <br>Bitte wählen Sie einen bestimmten Kunden, um sich seine Transaktionen anzeigen zu lassen
         <br>
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <p>Kunden-Benutzername:</p>
             <input type="text" name="Kunde" size=20 maxlength=50>
             <br><br>

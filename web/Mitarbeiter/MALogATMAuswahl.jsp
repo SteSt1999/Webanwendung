@@ -7,7 +7,7 @@
         <h1>Mitarbeiter</h1>
         <br>Bitte wählen Sie einen bestimmten ATM, um sich seine Transaktionen anzeigen zu lassen
         <br>
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <p>ATM-ID: </p>
             <input type="number" min="3" step="1" name="ATM-ID" size=20 maxlength=50>
             <br><br>

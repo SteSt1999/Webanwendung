@@ -1,9 +1,9 @@
 package Logik.Sessionsteuerung;
 
 public class ZugangMitarbeiter implements Zugangsweg {
-    private final String dbBezeichnung = "1";
+    private final String DB_BEZEICHNUNG = "1";
 
     public String getdbBezeichnung() {
-        return dbBezeichnung;
+        return DB_BEZEICHNUNG;
     }
 }

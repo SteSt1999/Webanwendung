@@ -7,7 +7,7 @@
         <h1>Mitarbeiter</h1>
         <br>Hier können Sie Geld von einem Kundenkonto abheben.
         <br>
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <p>Kunde: </p>
             <input type="text" name="Empfaenger" size=20 maxlength=50>
             <p>Betrag: </p>

@@ -7,7 +7,8 @@
         <h1>Mitarbeiter</h1>
         <br>Ihre Eingabe war leider nicht korrekt
         <br>Bitte kehren Sie zum Hauptmenü zurück
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <br><br>
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
         </form>
     </body>

@@ -7,6 +7,7 @@
         <h1>ATM</h1>
         <br>Ihre Eingabe war leider nicht korrekt
         <br>Bitte kehren Sie zum Hauptmenü zurück
+        <br><br>
         <form action="${pageContext.request.contextPath}/ATMServlet" method="post">
             <input type="submit" name="Hauptmenu" value="Hauptmenü"/>
         </form>

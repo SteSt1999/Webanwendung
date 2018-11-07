@@ -7,7 +7,7 @@
         <h1>Mitarbeiter</h1>
         <br>Sie sind nicht eingeloggt.
         <br>Bitte melden Sie sich erneut an.
-        <form action="${pageContext.request.contextPath}/MitarbeiterServlet" method="post">
+        <form action="${pageContext.request.contextPath}/MAServlet" method="post">
             <input type="submit" name="Abmelden" value="Zum Start"/>
         </form>
     </body>

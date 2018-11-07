@@ -1,6 +1,6 @@
 package Logik.Verwaltung;
 
-import static Datenbank.DBKontostand.kontostandAnpassen;
+import static Datenbank.DBKonto.kontostandAnpassen;
 
 public class Konto {
     private long kontostand;

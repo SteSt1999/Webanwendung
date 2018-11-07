@@ -22,7 +22,7 @@ class DBHelper {
         }
     }
 
-    public static ResultSet sqlGetResultSet(String sqlAnfrage, String dbID) {
+    static ResultSet sqlGetResultSet(final String sqlAnfrage, final String dbID) {
         ResultSet resultSet = null;
         try {
             Class.forName(driver);
@@ -35,7 +35,7 @@ class DBHelper {
         return resultSet;
     }
 
-    public static void sqlAusfuehren(String sqlAnfrage, String dbID) {
+    static void sqlAusfuehren(final String sqlAnfrage, final String dbID) {
         try {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(getUrl(dbID), user, password);
@@ -46,7 +46,7 @@ class DBHelper {
         }
     }
 
-    public static boolean existiert(String sqlAnfrage, String dbID) {
+    static boolean existiert(final String sqlAnfrage, final String dbID) {
         ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, dbID);
         try {
             return resultSet.next();
@@ -56,17 +56,17 @@ class DBHelper {
         return false;
     }
 
-    public static String replaceFirst(String sqlAnfrage, String eingabe) {
+    static String replaceFirst(final String sqlAnfrage, final String eingabe) {
         int n = sqlAnfrage.indexOf("(?)");
         return sqlAnfrage.substring(0, n) + eingabe + sqlAnfrage.substring(n + 3);
     }
 
-    public static String replaceFirstWithNull(String sqlAnfrage) {
+    static String replaceFirstWithNull(final String sqlAnfrage) {
         int n = sqlAnfrage.indexOf("\"(?)\"");
         return sqlAnfrage.substring(0, n) + "NULL" + sqlAnfrage.substring(n + 5);
     }
 
-    private static String getUrl(String schemaID) {
+    private static String getUrl(final String schemaID) {
         return "jdbc:mysql://localhost:3306/"
                 + schemaID +
                 "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
