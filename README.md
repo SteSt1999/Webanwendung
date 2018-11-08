@@ -9,12 +9,13 @@
 6.  a)  Öffne MySQL Command Line Client
     b)  Passwort von der Installation eingeben
     c)  Eingeben: „CREATE DATABASE *;“ * = hostbank, mukabank, banken
-7.	MySQL Workbench
+7.  Project Structure --> Modules --> Dependencies --> New --> Library... --> Tomcat auswahälen
+8.	MySQL Workbench
     a)	Local instance anklicken
     b)	Data Import/Restore
     c)	Bei „Import from Dump Project Folder“ „Projekt Ordner“\Webanwendung\Datenbank“ wählen
     d)	Start Import
-8.  a) Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
+9.  a) Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
     b) In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten"
     c) In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welches man bei der Installation von MySQL angegeben hat
-    9. Die Webanwendung sollte funktionieren
+10. Die Webanwendung sollte funktionieren
