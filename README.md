@@ -21,8 +21,8 @@
 10. Die Webanwendung sollte funktionieren
 
 Versionen:
-    Tomcat 9.0.12
-    MySQL Server 8.0.12
-    MySQL Workbench 8.0.12
-    Connector/J 8.0.12
-    JDK 11.0.1
+- JDK 11.0.1
+- Tomcat 9.0.12
+- MySQL Server 8.0.12
+- MySQL Workbench 8.0.12
+- Connector/J 8.0.12
