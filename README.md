@@ -22,6 +22,7 @@
 
 Verwendete Versionen:
 - JDK 11.0.1
+- IntelliJ 2018.2.5 (Ultimate Edition)
 - Tomcat 9.0.12
 - MySQL Server 8.0.12
 - MySQL Workbench 8.0.12
