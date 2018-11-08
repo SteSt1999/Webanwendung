@@ -7,7 +7,7 @@
 - Unten auf Fix klicken
 - New --> Web Application: Exploded --> From Modules…  
 6.  Project Structure --> Modules --> Dependencies --> New --> Library... --> Tomcat auswählen
-Falls Tomcat dort nicht auswählbar ist:
+- Falls Tomcat dort nicht auswählbar ist:
 - Project Structure --> Modules --> Dependencies --> New --> Library... --> Java
 - In dem geöffneten Fenster aus dem lib-Ordner von Tomcat "servlet-api.jar" auswählen (standardmäßig C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib)
 - Anschließend auf Plus klicken und im selben Ordner "jsp-api.jar" auswählen
