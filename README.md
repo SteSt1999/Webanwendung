@@ -20,7 +20,7 @@
   - Start Import
 8. Anlegen der Anmeldedaten für die Datenbank
   - Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
-  - In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten.txt"
+  - In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten"
   - In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welche man bei der Installation von MySQL angegeben hat
 9. Die Webanwendung sollte funktionieren
 
