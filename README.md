@@ -5,17 +5,16 @@
     a)	New Configuration --> Tomcat Server --> Local
     b)	Unten auf Fix klicken
     c)	New --> Web Application: Exploded --> From Modules…
-5.	Webanwendung sollte laufen
-6.	Project Structure --> Libraries --> New --> Java --> mysql-connector-java-8.0.12.jar wählen (standardmäßig  C:\Program Files (x86)\MySQL\Connector J 8.0\mysql-connector-java-8.0.12.jar)
-7.  a)  Öffne MySQL Command Line Client
+5.	Project Structure --> Libraries --> New --> Java --> mysql-connector-java-8.0.12.jar wählen (standardmäßig  C:\Program Files (x86)\MySQL\Connector J 8.0\mysql-connector-java-8.0.12.jar)
+6.  a)  Öffne MySQL Command Line Client
     b)  Passwort von der Installation eingeben
     c)  Eingeben: „CREATE DATABASE *;“ * = hostbank, mukabank, banken
-8.	MySQL Workbench
+7.	MySQL Workbench
     a)	Local instance anklicken
     b)	Data Import/Restore
     c)	Bei „Import from Dump Project Folder“ „Projekt Ordner“\Webanwendung\Datenbank“ wählen
     d)	Start Import
-9.  a) Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
+8.  a) Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
     b) In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten"
     c) In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welches man bei der Installation von MySQL angegeben hat
-10.	Datenbank sollte funktionieren
+    9. Die Webanwendung sollte funktionieren
