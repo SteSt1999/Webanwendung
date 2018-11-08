@@ -20,7 +20,7 @@
     c) In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welche man bei der Installation von MySQL angegeben hat
 10. Die Webanwendung sollte funktionieren
 
-Versionen:
+Verwendete Versionen:
 - JDK 11.0.1
 - Tomcat 9.0.12
 - MySQL Server 8.0.12
