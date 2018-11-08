@@ -16,6 +16,6 @@
     c)	Bei „Import from Dump Project Folder“ „Projekt Ordner“\Webanwendung\Datenbank“ wählen
     d)	Start Import
 9.  a) Im bin-Ordner von Tomcat (bspw. "C:\Program Files\Apache Software Foundation\Tomcat 9.0\bin") den Ordner "Webanwendung" anlegen
-    b) In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten"
+    b) In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten.txt"
     c) In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welches man bei der Installation von MySQL angegeben hat
 10. Die Webanwendung sollte funktionieren
