@@ -3,13 +3,13 @@
 3.	Importieren des Projekts
 4.	Project Structure --> Libraries --> New --> Java --> mysql-connector-java-8.0.12.jar wählen (standardmäßig  C:\Program Files (x86)\MySQL\Connector J 8.0\mysql-connector-java-8.0.12.jar)
 5.	Neue Run Configuration erstellen
-- New Configuration --> Tomcat Server --> Local
-- Unten auf Fix klicken
-- New --> Web Application: Exploded --> From Modules…  
+  - New Configuration --> Tomcat Server --> Local
+  - Unten auf Fix klicken
+  - New --> Web Application: Exploded --> From Modules…  
 6.  Project Structure --> Modules --> Dependencies --> New --> Library... --> Tomcat auswählen
-- Falls Tomcat dort nicht auswählbar ist:
-  - Project Structure --> Modules --> Dependencies --> New --> Library... --> Java
-  - In dem geöffneten Fenster aus dem lib-Ordner von Tomcat "servlet-api.jar" auswählen (standardmäßig C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib)
+  - Falls Tomcat dort nicht auswählbar ist:
+    - Project Structure --> Modules --> Dependencies --> New --> Library... --> Java
+    - In dem geöffneten Fenster aus dem lib-Ordner von Tomcat "servlet-api.jar" auswählen (standardmäßig C:\Program Files\Apache Software Foundation\Tomcat 9.0\lib)
   - Anschließend auf Plus klicken und im selben Ordner "jsp-api.jar" auswählen
   - Bestätigen und die gerade hinzugefügt Library beim scope von "Compile" auf "Provided" umstellen
 7.	Öffne MySQL Workbench
