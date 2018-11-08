@@ -19,3 +19,10 @@
     b) In diesem Ordner eine .txt-Datei anlegen mit dem Namen "DBDaten.txt"
     c) In die erste Zeile den Benutzernamen und in die zweite Zeile das Passwort eintragen, welche man bei der Installation von MySQL angegeben hat
 10. Die Webanwendung sollte funktionieren
+
+Genutzte Versionen:
+Tomcat 9.0.12
+MySQL Server 8.0.12
+MySQL Workbench 8.0.12
+Connector/J 8.0.12
+JDK 11
