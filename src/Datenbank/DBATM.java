@@ -1,11 +1,8 @@
 package Datenbank;
 
 import Logik.Verwaltung.Bank;
-import Servlet.MainServlet;
 
 import java.sql.*;
-
-import static Datenbank.DBHelper.replaceFirst;
 
 public class DBATM {
     private static final String sqlExistiertATM = "SELECT * FROM ATM WHERE ATM_ID = ?;";

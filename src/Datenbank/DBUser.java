@@ -1,11 +1,8 @@
 package Datenbank;
 
 import Logik.Verwaltung.Bank;
-import Servlet.MainServlet;
 
 import java.sql.*;
-
-import static Datenbank.DBHelper.replaceFirst;
 
 public class DBUser {
 

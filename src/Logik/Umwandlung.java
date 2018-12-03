@@ -2,7 +2,6 @@ package Logik;
 
 import Datenbank.DBUser;
 import Logik.Verwaltung.Bank;
-import Servlet.MainServlet;
 
 import java.text.DecimalFormat;
 

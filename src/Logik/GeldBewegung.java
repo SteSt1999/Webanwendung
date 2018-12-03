@@ -7,7 +7,6 @@ import Logik.Verwaltung.Bank;
 import Logik.Verwaltung.Konto;
 import Logik.Verwaltung.Kunde;
 import Logik.Verwaltung.Transaction;
-import Servlet.MainServlet;
 
 import static Datenbank.DBLog.logHinzufuegen;
 

@@ -4,16 +4,20 @@ import Datenbank.DBKonto;
 import Datenbank.DBUser;
 import Logik.Umwandlung;
 
-public class Kunde extends User {
+public class Kunde {
+    final Bank bank;
+    String benutzername;
     private Konto konto;
 
     public Kunde(String benutzername, Bank bank) {
-        super(benutzername, bank);
+        this.bank = bank;
+        setBenutzername(benutzername);
         setKonto(new Konto(DBKonto.kontostandLesen(this)));
     }
 
     public Kunde(String benutzername, String passwort, Bank bank) {
-        super(benutzername, passwort, bank);
+        this.bank = bank;
+        this.benutzername = benutzername;
         setKonto(new Konto(DBKonto.kontostandLesen(this)));
         if(!DBUser.checkPasswortKunde(benutzername, passwort, bank)) {
             throw new IllegalArgumentException("Kun");
@@ -27,12 +31,20 @@ public class Kunde extends User {
         this.benutzername = benutzername;
     }
 
-    public Konto getKonto() {
-        return konto;
+    public Bank getBank() {
+        return bank;
+    }
+
+    public String getBenutzername() {
+        return benutzername;
     }
 
     public void setKonto(Konto konto) {
         this.konto = konto;
+    }
+
+    public Konto getKonto() {
+        return konto;
     }
 
     public long getKontostand() {
