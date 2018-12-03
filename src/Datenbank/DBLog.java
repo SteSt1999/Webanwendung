@@ -26,6 +26,13 @@ public class DBLog {
             preparedSQL.setString(2, transaction.getZugangsweg().getdbBezeichnung() + "");
             preparedSQL.setString(3, transaction.getTransaktionsID() + "");
             preparedSQL.setString(4, transaction.getBetrag() + "");
+            if (transaction.getEmpfaenger() != null) {
+                preparedSQL.setString(5,  transaction.getEmpfaenger().getBenutzername());
+                preparedSQL.setString(6,transaction.getEmpfaenger().getBank().getBankID());
+            } else {
+                preparedSQL.setString(5,  null);
+                preparedSQL.setString(6,  null);
+            }
 
             preparedSQL.executeUpdate();
 

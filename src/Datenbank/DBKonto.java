@@ -18,8 +18,8 @@ public class DBKonto {
             Class.forName(DBHelper.getDriver());
             Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlKontostandAendern);
-            preparedSQL.setString(1,kunde.getBenutzername());
-            preparedSQL.setString(2, betrag+"");
+            preparedSQL.setString(2,kunde.getBenutzername());
+            preparedSQL.setString(1, betrag+"");
              preparedSQL.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
