@@ -11,6 +11,7 @@
         <error-code>405</error-code>
         <location>/fehler/Fehler405.html</location>
     </error-page>
+    <!-- TODO Wird angezeigt beim Ausloggen -->
     <!--<error-page>
         <error-code>500</error-code>
         <location>/fehler/Fehler500.html</location>

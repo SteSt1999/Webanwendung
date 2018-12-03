@@ -51,6 +51,7 @@ public class Kunde {
         return konto.getKontostand();
     }
 
+    //TODO Kunde wird erstellt, aber es wird eine Fehlermeldung angezeigt
     public static void erstelleKunden(final String vorname, final String nachname, final String passwort, final String passwortWiederholung, Bank bank) {
         if (!passwort.equals(passwortWiederholung) || vorname.length() == 0 || nachname.length() == 0 || passwort.length() < 5) {
             throw new IllegalArgumentException();
