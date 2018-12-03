@@ -4,6 +4,7 @@ import Datenbank.DBUser;
 import Logik.GeldBewegung;
 import Logik.Sessionsteuerung.*;
 import Logik.Verwaltung.ATM;
+import Logik.Verwaltung.Bank;
 import Logik.Verwaltung.Kunde;
 
 import javax.servlet.ServletException;
@@ -20,15 +21,9 @@ public class MAServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            String loginID = request.getParameter("LogInID");
-            if(!DBUser.checkPasswortMitarbeiter(loginID, request.getParameter("LogInPasswort"))) {
+            if(!DBUser.checkPasswortMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
                 request.getRequestDispatcher("Mitarbeiter/MALoginFehlgeschlagen.jsp").forward(request, response);
             }
-
-            HttpSession session = request.getSession();
-            //TODO in Session direkt den Mitarbeiter speichern
-            session.setAttribute("mitarbeiter", loginID);
-
             request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
@@ -41,12 +36,9 @@ public class MAServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        //TODO
-        /*
-        if (session == null) {
+        if (!request.isRequestedSessionIdValid()) {
             request.getRequestDispatcher("Mitarbeiter/MAAusgeloggt.jsp").forward(request, response);
         }
-        */
         /*
 
 
@@ -83,7 +75,7 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("AnzeigenUser") != null) {
             Kunde kunde = null;
             try {
-                kunde = new Kunde(request.getParameter("Kunde"));
+                kunde = new Kunde(request.getParameter("Kunde"), ((Bank) request.getSession().getAttribute("bank")).getBankID());
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -98,7 +90,9 @@ public class MAServlet extends HttpServlet {
             request.getRequestDispatcher("Mitarbeiter/MAEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
             try {
-                GeldBewegung.einzahlen(new Kunde(request.getParameter("Empfaenger")), new ZugangMitarbeiter(), request.getParameter("Betrag"));
+                GeldBewegung.einzahlen(new Kunde(request.getParameter("Empfaenger"),
+                                ((Bank) request.getSession().getAttribute("bank")).getBankID()),
+                        new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -110,7 +104,9 @@ public class MAServlet extends HttpServlet {
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Abheben") != null) {
             try {
-                GeldBewegung.abheben(new Kunde(request.getParameter("Empfaenger")), new ZugangMitarbeiter(), request.getParameter("Betrag"));
+                GeldBewegung.abheben(new Kunde(request.getParameter("Empfaenger"),
+                                ((Bank) request.getSession().getAttribute("bank")).getBankID()),
+                        new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -122,7 +118,8 @@ public class MAServlet extends HttpServlet {
             request.getRequestDispatcher("Mitarbeiter/MAKundenErstellung.jsp").forward(request, response);
         } else if (request.getParameter("KundenErstellen") != null) {
             try {
-                Kunde.erstelleKunden(request.getParameter("Vorname"), request.getParameter("Nachname"), request.getParameter("Passwort"), request.getParameter("PasswortWiederholung"));
+                Kunde.erstelleKunden(request.getParameter("Vorname"), request.getParameter("Nachname"),
+                        request.getParameter("Passwort"), request.getParameter("PasswortWiederholung"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }

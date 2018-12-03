@@ -4,6 +4,7 @@ import Datenbank.DBUser;
 import Logik.GeldBewegung;
 import Logik.Sessionsteuerung.ZugangATM;
 import Logik.Sessionsteuerung.Zugangsweg;
+import Logik.Verwaltung.Bank;
 import Logik.Verwaltung.Kunde;
 
 import javax.servlet.ServletException;
@@ -24,17 +25,17 @@ public class ATMServlet extends HttpServlet {
             if(!DBUser.checkPasswortKunde(loginID, request.getParameter("LogInPasswort"))) {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
             }
+            HttpSession session = request.getSession();
+            Kunde kunde = new Kunde(loginID, ((Bank) session.getAttribute("bank")).getBankID());
+            session.setAttribute("kunde", kunde);
+
             Zugangsweg zugangsweg = null;
             try {
                 zugangsweg = new ZugangATM(request.getParameter("ATM-ID"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
             }
-
-            HttpSession session = request.getSession();
-            //TODO in Session direkt den Kunden und Zugangsweg speichern
-            session.setAttribute("kunde", loginID);
-            session.setAttribute("zugangsweg", zugangsweg.getdbBezeichnung());
+            session.setAttribute("zugangsweg", zugangsweg);
 
             request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
@@ -48,11 +49,10 @@ public class ATMServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        //TODO
-        /*
-        if (session == null) {
+        //TODO funktioniert nicht (auch bei den anderen Servlets nicht)
+        if (!request.isRequestedSessionIdValid()) {
             request.getRequestDispatcher("ATM/ATMAusgeloggt.jsp").forward(request, response);
-        }*/
+        }
         /*
 
 
@@ -67,8 +67,8 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
-            Zugangsweg zugangsweg = new ZugangATM((String) session.getAttribute("zugangsweg"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
+            Zugangsweg zugangsweg = (Zugangsweg) session.getAttribute("zugangsweg");
             try {
                 GeldBewegung.ueberweisen(kunde, zugangsweg, request.getParameter("Empfaenger"),
                         request.getParameter("EmpfaengerBank"), request.getParameter("Betrag"));
@@ -88,8 +88,8 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
-            Zugangsweg zugangsweg = new ZugangATM((String) session.getAttribute("zugangsweg"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
+            Zugangsweg zugangsweg = (Zugangsweg) session.getAttribute("zugangsweg");
             try {
                 GeldBewegung.einzahlen(kunde, zugangsweg, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {
@@ -103,8 +103,8 @@ public class ATMServlet extends HttpServlet {
             request.getRequestDispatcher("ATM/ATMAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Auszahlen") != null) {
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
-            Zugangsweg zugangsweg = new ZugangATM((String) session.getAttribute("zugangsweg"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
+            Zugangsweg zugangsweg = (Zugangsweg) session.getAttribute("zugangsweg");
             try {
                 GeldBewegung.abheben(kunde, zugangsweg, request.getParameter("Betrag"));
             } catch (NumberFormatException e) {

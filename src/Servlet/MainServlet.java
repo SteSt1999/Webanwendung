@@ -12,21 +12,23 @@ import java.io.IOException;
 
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
+    //TODO
     private static Bank bank;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Auswahl der Bank
         if (request.getParameter("WahlBank") != null) {
-            String bankID = request.getParameter("BankID");
+            Bank bank = null;
             try {
-                setBank(bankID);
+                bank = new Bank(request.getParameter("BankID"));
+                setBank(request.getParameter("BankID"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("BankAuswahlFehlgeschlagen.jsp").forward(request, response);
             }
 
             HttpSession session=request.getSession();
-            session.setAttribute("bank", bankID);
+            session.setAttribute("bank", bank);
 
             request.getRequestDispatcher("Auswahl.jsp").forward(request, response);
         } else if (request.getParameter("Zurueck") != null) {
@@ -43,7 +45,6 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    //TODO
     public static Bank getBank() {
         return bank;
     }
