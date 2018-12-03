@@ -4,134 +4,175 @@ import Logik.Umwandlung;
 import Logik.Verwaltung.*;
 import Servlet.MainServlet;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static Datenbank.DBHelper.replaceFirst;
 import static Datenbank.DBHelper.replaceFirstWithNull;
 
 public class DBLog {
-    private static final String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (\"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\", \"(?)\");";
-    private static final String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = \"(?)\";";
-    private static final String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = \"(?)\";";
+    private static final String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (?, ?, ?, ?, ?, ?);";
+    private static final String sqlGetTransactionsKunde = "SELECT ZUGANGSWEG, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE KUNDEN_ID = ?;";
+    private static final String sqlGetTransactionsATM = "SELECT KUNDEN_ID, TRANSAKTIONS_ID, BETRAG, EMPFAENGER_ID, EMPFAENGERBANK_ID FROM TRANSAKTIONEN WHERE ZUGANGSWEG = ?;";
     private static final String sqlGetAllTransactions = "SELECT * FROM TRANSAKTIONEN;";
 
     public static void logHinzufuegen(final Transaction transaction) {
-        String sqlAnfrage = sqlTransactionHinzufuegen;
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getSender().getBenutzername());
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getZugangsweg().getdbBezeichnung() + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getTransaktionsID() + "");
-        sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getBetrag() + "");
-        if (transaction.getEmpfaenger() == null) {
-            sqlAnfrage = replaceFirstWithNull(sqlAnfrage);
-            sqlAnfrage = replaceFirstWithNull(sqlAnfrage);
-        } else {
-            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBenutzername());
-            sqlAnfrage = replaceFirst(sqlAnfrage, transaction.getEmpfaenger().getBank().getBankID());
+
+        try {
+            Class.forName(DBHelper.getDriver());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+
+            PreparedStatement preparedSQL = conn.prepareStatement(sqlTransactionHinzufuegen);
+            preparedSQL.setString(1, transaction.getSender().getBenutzername());
+            preparedSQL.setString(2, transaction.getZugangsweg().getdbBezeichnung() + "");
+            preparedSQL.setString(3, transaction.getTransaktionsID() + "");
+            preparedSQL.setString(4, transaction.getBetrag() + "");
+
+            preparedSQL.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+
         }
-        DBHelper.sqlAusfuehren(sqlAnfrage, transaction.getSender().getBank().getBankID());
     }
 
     public static String getKundenLog(final String kundenID) {
-        String sqlAnfrage = sqlGetTransactionsKunde;
-        sqlAnfrage = replaceFirst(sqlAnfrage, kundenID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
-        StringBuilder sb = new StringBuilder();
+        ResultSet resultSet = null;
         try {
-            while (resultSet.next()) {
-                sb.append(userTransaktionToString(
-                        resultSet.getString("ZUGANGSWEG"),
-                        resultSet.getInt("TRANSAKTIONS_ID"),
-                        resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID"),
-                        resultSet.getString("EMPFAENGERBANK_ID")));
-            }
-        } catch (SQLException e) {
+            Class.forName(DBHelper.getDriver());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            PreparedStatement preparedSQL = conn.prepareStatement(sqlGetTransactionsKunde);
+            preparedSQL.setString(1, kundenID);
+
+
+            resultSet = preparedSQL.executeQuery();
+
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return sb.toString();
-    }
-
-    public static String getZugangswegLog(final String ATMID) {
-        String sqlAnfrage = sqlGetTransactionsATM;
-        sqlAnfrage = replaceFirst(sqlAnfrage, ATMID);
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlAnfrage, MainServlet.getBank().getBankID());
-        StringBuilder sb = new StringBuilder();
-        try {
-            while (resultSet.next()) {
-                sb.append(atmTtransaktionToString(
-                        resultSet.getString("KUNDEN_ID"),
-                        resultSet.getInt("TRANSAKTIONS_ID"),
-                        resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID"),
-                        resultSet.getString("EMPFAENGERBANK_ID")));
+            StringBuilder sb = new StringBuilder();
+            try {
+                while (resultSet.next()) {
+                    sb.append(userTransaktionToString(
+                            resultSet.getString("ZUGANGSWEG"),
+                            resultSet.getInt("TRANSAKTIONS_ID"),
+                            resultSet.getLong("Betrag"),
+                            resultSet.getString("EMPFAENGER_ID"),
+                            resultSet.getString("EMPFAENGERBANK_ID")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
-    }
 
-    public static String getBankLog() {
-        ResultSet resultSet = DBHelper.sqlGetResultSet(sqlGetAllTransactions, MainServlet.getBank().getBankID());
-        StringBuilder sb = new StringBuilder();
-        try {
-            while (resultSet.next()) {
-                sb.append(bankTransaktionToString(
-                        resultSet.getString("KUNDEN_ID"),
-                        resultSet.getString("ZUGANGSWEG"),
-                        resultSet.getInt("TRANSAKTIONS_ID"),
-                        resultSet.getLong("Betrag"),
-                        resultSet.getString("EMPFAENGER_ID"),
-                        resultSet.getString("EMPFAENGERBANK_ID")));
+            return sb.toString();
+        }
+
+        public static String getZugangswegLog ( final String ATMID){
+            ResultSet resultSet = null;
+            try {
+                Class.forName(DBHelper.getDriver());
+                Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+                PreparedStatement preparedSQL = conn.prepareStatement(sqlGetTransactionsATM);
+                preparedSQL.setString(1, ATMID);
+
+
+                resultSet = preparedSQL.executeQuery();
+
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            StringBuilder sb = new StringBuilder();
+            try {
+
+                while (resultSet.next()) {
+                    sb.append(atmTtransaktionToString(
+                            resultSet.getString("KUNDEN_ID"),
+                            resultSet.getInt("TRANSAKTIONS_ID"),
+                            resultSet.getLong("Betrag"),
+                            resultSet.getString("EMPFAENGER_ID"),
+                            resultSet.getString("EMPFAENGERBANK_ID")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
         }
-        return sb.toString();
-    }
 
-    private static String userTransaktionToString(final String zugangsweg, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
-        return getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
-    }
+        public static String getBankLog () {
+            ResultSet resultSet = null;
+            try {
+                Class.forName(DBHelper.getDriver());
+                Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+                PreparedStatement preparedSQL = conn.prepareStatement(sqlGetAllTransactions);
 
-    private static String atmTtransaktionToString(final String kundenID, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
-        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + "<br>";
-    }
 
-    private static String bankTransaktionToString(final String kundenID, final String zugangsweg, final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank) {
-        return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag)
-                + getTextZugangsweg(zugangsweg) + "<br>";
-    }
 
-    private static String getTextKundenDaten(final String kundenID) {
-        return kundenID + ":    ";
-    }
+                resultSet = preparedSQL.executeQuery();
 
-    private static String getTextTransaktionsDaten(final int transaktionsID, final String empfaengerID, final String empfaengerBank, final long betrag) {
-        String geld = Umwandlung.centToEuroString(betrag) + "      ";
-        if (transaktionsID == 1) {
-            return geld + " überwiesen an " + empfaengerID + " von der Bank " + empfaengerBank;
-        } else if (transaktionsID == 2) {
-            return geld + " erhalten von " + empfaengerID + " von der Bank " + empfaengerBank;
-        } else if (transaktionsID == 3) {
-            return geld + " abgehoben";
-        } else if (transaktionsID == 4) {
-            return geld + " eingezahlt";
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            StringBuilder sb = new StringBuilder();
+            try {
+                while (resultSet.next()) {
+                    sb.append(bankTransaktionToString(
+                            resultSet.getString("KUNDEN_ID"),
+                            resultSet.getString("ZUGANGSWEG"),
+                            resultSet.getInt("TRANSAKTIONS_ID"),
+                            resultSet.getLong("Betrag"),
+                            resultSet.getString("EMPFAENGER_ID"),
+                            resultSet.getString("EMPFAENGERBANK_ID")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
         }
-        return geld + "Unbekannte Transaktion ";
-    }
 
-    private static String getTextZugangsweg(final String zugangsweg) {
-        switch (zugangsweg) {
-            case "0":
-                return "";
-            case "1":
-                return " von einem Mitarbeiter der Bank";
-            case "2":
-                return " über Online-Banking";
-            default:
-                return " an ATM " + zugangsweg;
+        private static String userTransaktionToString ( final String zugangsweg, final int transaktionsID,
+        final long betrag, final String empfaengerID, final String empfaengerBank){
+            return getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + getTextZugangsweg(zugangsweg) + "<br>";
+        }
+
+        private static String atmTtransaktionToString ( final String kundenID, final int transaktionsID,
+        final long betrag, final String empfaengerID, final String empfaengerBank){
+            return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag) + "<br>";
+        }
+
+        private static String bankTransaktionToString ( final String kundenID, final String zugangsweg,
+        final int transaktionsID, final long betrag, final String empfaengerID, final String empfaengerBank){
+            return getTextKundenDaten(kundenID) + getTextTransaktionsDaten(transaktionsID, empfaengerID, empfaengerBank, betrag)
+                    + getTextZugangsweg(zugangsweg) + "<br>";
+        }
+
+        private static String getTextKundenDaten ( final String kundenID){
+            return kundenID + ":    ";
+        }
+
+        private static String getTextTransaktionsDaten ( final int transaktionsID, final String empfaengerID,
+        final String empfaengerBank, final long betrag){
+            String geld = Umwandlung.centToEuroString(betrag) + "      ";
+            if (transaktionsID == 1) {
+                return geld + " überwiesen an " + empfaengerID + " von der Bank " + empfaengerBank;
+            } else if (transaktionsID == 2) {
+                return geld + " erhalten von " + empfaengerID + " von der Bank " + empfaengerBank;
+            } else if (transaktionsID == 3) {
+                return geld + " abgehoben";
+            } else if (transaktionsID == 4) {
+                return geld + " eingezahlt";
+            }
+            return geld + "Unbekannte Transaktion ";
+        }
+
+        private static String getTextZugangsweg ( final String zugangsweg){
+            switch (zugangsweg) {
+                case "0":
+                    return "";
+                case "1":
+                    return " von einem Mitarbeiter der Bank";
+                case "2":
+                    return " über Online-Banking";
+                default:
+                    return " an ATM " + zugangsweg;
+            }
         }
     }
-}

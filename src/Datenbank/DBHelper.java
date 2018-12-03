@@ -9,6 +9,19 @@ import java.sql.*;
 class DBHelper {
     private static String user;
     private static String password;
+
+    public static String getUser() {
+        return user;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static String getDriver() {
+        return driver;
+    }
+
     private static final String driver = "com.mysql.cj.jdbc.Driver";
 
     static {
@@ -66,7 +79,7 @@ class DBHelper {
         return sqlAnfrage.substring(0, n) + "NULL" + sqlAnfrage.substring(n + 5);
     }
 
-    private static String getUrl(final String schemaID) {
+     static String getUrl(final String schemaID) {
         return "jdbc:mysql://localhost:3306/"
                 + schemaID +
                 "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
