@@ -1,9 +1,8 @@
 package Servlet;
 
+import Datenbank.DBUser;
 import Logik.GeldBewegung;
-import Logik.Sessionsteuerung.Log;
-import Logik.Sessionsteuerung.SessionMitarbeiter;
-import Logik.Sessionsteuerung.ZugangMitarbeiter;
+import Logik.Sessionsteuerung.*;
 import Logik.Verwaltung.ATM;
 import Logik.Verwaltung.Kunde;
 
@@ -12,28 +11,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/MAServlet")
 public class MAServlet extends HttpServlet {
-    private static SessionMitarbeiter session;
-    private static Kunde userLogauswahl;
-    private static ATM ATMLogauswahl;
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            try {
-                session = new SessionMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort"), new ZugangMitarbeiter());
-            } catch (IllegalArgumentException e) {
+            String loginID = request.getParameter("LogInID");
+            if(!DBUser.checkPasswortMitarbeiter(loginID, request.getParameter("LogInPasswort"))) {
                 request.getRequestDispatcher("Mitarbeiter/MALoginFehlgeschlagen.jsp").forward(request, response);
             }
+
+            HttpSession session = request.getSession();
+            //TODO in Session direkt den Mitarbeiter speichern
+            session.setAttribute("mitarbeiter", loginID);
+
             request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
-            session = null;
+            request.getSession().invalidate();
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
 
@@ -41,9 +41,12 @@ public class MAServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
+        //TODO
+        /*
         if (session == null) {
             request.getRequestDispatcher("Mitarbeiter/MAAusgeloggt.jsp").forward(request, response);
         }
+        */
         /*
 
 
@@ -62,11 +65,15 @@ public class MAServlet extends HttpServlet {
         else if (request.getParameter("ATMLogs") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogATMAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("AnzeigenATM") != null) {
+            ATM atm = null;
             try {
-                ATMLogauswahl = new ATM(request.getParameter("ATM-ID"));
+                atm = new ATM(request.getParameter("ATM-ID"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
+            HttpSession session = request.getSession();
+            //TODO ATM direkt speichern
+            session.setAttribute("atmAuswahl", atm.getId());
             request.getRequestDispatcher("Mitarbeiter/MALogATM.jsp").forward(request, response);
         }
 
@@ -74,11 +81,15 @@ public class MAServlet extends HttpServlet {
         else if (request.getParameter("UserLogs") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogKundenAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("AnzeigenUser") != null) {
+            Kunde kunde = null;
             try {
-                userLogauswahl = new Kunde(request.getParameter("Kunde"));
+                kunde = new Kunde(request.getParameter("Kunde"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
+            HttpSession session = request.getSession();
+            //TODO Kunden direkt speichern
+            session.setAttribute("userAuswahl", kunde.getBenutzername());
             request.getRequestDispatcher("Mitarbeiter/MALogKunden.jsp").forward(request, response);
         }
 
@@ -87,7 +98,7 @@ public class MAServlet extends HttpServlet {
             request.getRequestDispatcher("Mitarbeiter/MAEinzahlung.jsp").forward(request, response);
         } else if (request.getParameter("Einzahlen") != null) {
             try {
-                GeldBewegung.einzahlen(new Kunde(request.getParameter("Empfaenger")), session.getZugangsweg(), request.getParameter("Betrag"));
+                GeldBewegung.einzahlen(new Kunde(request.getParameter("Empfaenger")), new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -99,7 +110,7 @@ public class MAServlet extends HttpServlet {
             request.getRequestDispatcher("Mitarbeiter/MAAuszahlung.jsp").forward(request, response);
         } else if (request.getParameter("Abheben") != null) {
             try {
-                GeldBewegung.abheben(new Kunde(request.getParameter("Empfaenger")), session.getZugangsweg(), request.getParameter("Betrag"));
+                GeldBewegung.abheben(new Kunde(request.getParameter("Empfaenger")), new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
@@ -122,17 +133,5 @@ public class MAServlet extends HttpServlet {
         else if (request.getParameter("Hauptmenu") != null) {
             request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
         }
-    }
-
-    public static String getAllLogs() {
-        return Log.ausgabeBankLog();
-    }
-
-    public static String getKundenLogs() {
-        return Log.ausgabeKundenLog(userLogauswahl);
-    }
-
-    public static String getATMLogs() {
-        return Log.ausgabeATMLog(ATMLogauswahl);
     }
 }

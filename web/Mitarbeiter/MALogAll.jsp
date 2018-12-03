@@ -1,4 +1,4 @@
-<%@ page import="Servlet.MAServlet" %>
+<%@ page import="Logik.Sessionsteuerung.Log" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -9,7 +9,7 @@
         <br>Hier sehen Sie die gesamten Transaktionen der Bank.
         <br><br>
         <%
-            out.println(MAServlet.getAllLogs());
+            out.println(Log.ausgabeBankLog());
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">

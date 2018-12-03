@@ -23,7 +23,6 @@ public class OBServlet extends HttpServlet {
             if(!DBUser.checkPasswortKunde(loginID, request.getParameter("LogInPasswort"))) {
                 request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
             }
-            Zugangsweg zugangsweg = new ZugangOnlineBanking();
 
             HttpSession session = request.getSession();
             //TODO in Session direkt den Kunden speichern
@@ -61,9 +60,8 @@ public class OBServlet extends HttpServlet {
         } else if (request.getParameter("Ueberweisen") != null) {
             HttpSession session = request.getSession();
             Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
-            Zugangsweg zugangsweg = new ZugangOnlineBanking();
             try {
-                GeldBewegung.ueberweisen(kunde, zugangsweg, request.getParameter("Empfaenger"),
+                GeldBewegung.ueberweisen(kunde, new ZugangOnlineBanking(), request.getParameter("Empfaenger"),
                         request.getParameter("EmpfaengerBank"), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("OnlineBanking/OBFehler.jsp").forward(request, response);

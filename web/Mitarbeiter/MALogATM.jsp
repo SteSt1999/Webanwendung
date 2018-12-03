@@ -1,4 +1,5 @@
-<%@ page import="Servlet.MAServlet" %>
+<%@ page import="Logik.Sessionsteuerung.Log" %>
+<%@ page import="Logik.Verwaltung.ATM" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -9,7 +10,8 @@
         <br>Hier sehen Sie die Transaktionen des ATMs.
         <br><br>
         <%
-            out.println(MAServlet.getATMLogs());
+            ATM atm = new ATM((String) session.getAttribute("atmAuswahl"));
+            out.println(Log.ausgabeATMLog(atm));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">

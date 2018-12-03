@@ -1,4 +1,5 @@
-<%@ page import="Servlet.MAServlet" %>
+<%@ page import="Logik.Verwaltung.Kunde" %>
+<%@ page import="Logik.Sessionsteuerung.Log" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -9,7 +10,8 @@
         <br>Hier sehen Sie die gesamten Transaktionen des Kunden.
         <br><br>
         <%
-            out.println(MAServlet.getKundenLogs());
+            Kunde kunde = new Kunde((String) session.getAttribute("userAuswahl"));
+            out.println(Log.ausgabeKundenLog(kunde));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">
