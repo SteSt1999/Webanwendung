@@ -3,6 +3,7 @@ package Servlet;
 import Datenbank.DBUser;
 import Logik.GeldBewegung;
 import Logik.Sessionsteuerung.*;
+import Logik.Verwaltung.Bank;
 import Logik.Verwaltung.Kunde;
 
 import javax.servlet.ServletException;
@@ -23,10 +24,9 @@ public class OBServlet extends HttpServlet {
             if(!DBUser.checkPasswortKunde(loginID, request.getParameter("LogInPasswort"))) {
                 request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
             }
-
             HttpSession session = request.getSession();
-            //TODO in Session direkt den Kunden speichern
-            session.setAttribute("kunde", loginID);
+            Kunde kunde = new Kunde(loginID, ((Bank) session.getAttribute("bank")).getBankID());
+            session.setAttribute("kunde", kunde);
 
             request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
@@ -40,11 +40,9 @@ public class OBServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        //TODO
-        /*
-        if (session == null) {
+        if (!request.isRequestedSessionIdValid()) {
             request.getRequestDispatcher("OnlineBanking/OBAusgeloggt.jsp").forward(request, response);
-        }*/
+        }
         /*
 
 
@@ -59,7 +57,7 @@ public class OBServlet extends HttpServlet {
             request.getRequestDispatcher("OnlineBanking/OBUeberweisung.jsp").forward(request, response);
         } else if (request.getParameter("Ueberweisen") != null) {
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
             try {
                 GeldBewegung.ueberweisen(kunde, new ZugangOnlineBanking(), request.getParameter("Empfaenger"),
                         request.getParameter("EmpfaengerBank"), request.getParameter("Betrag"));

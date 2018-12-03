@@ -11,7 +11,7 @@
         <br>
         <br>Kontostand:
         <%
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
             out.println(Umwandlung.centToEuroString(kunde.getKontostand()));
         %>
         <br>

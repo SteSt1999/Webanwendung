@@ -10,7 +10,7 @@
         <br>Hier sehen Sie alle Ihre Transaktionen:
         <br><br>
         <%
-            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
+            Kunde kunde = (Kunde) session.getAttribute("kunde");
             out.println(Log.ausgabeKundenLog(kunde));
         %>
         <br><br>
