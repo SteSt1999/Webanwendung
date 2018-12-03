@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/MainServlet")
@@ -23,6 +24,10 @@ public class MainServlet extends HttpServlet {
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("BankAuswahlFehlgeschlagen.jsp").forward(request, response);
             }
+
+            HttpSession session=request.getSession();
+            session.setAttribute("bank", bankID);
+
             request.getRequestDispatcher("Auswahl.jsp").forward(request, response);
         } else if (request.getParameter("Zurueck") != null) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -38,6 +43,7 @@ public class MainServlet extends HttpServlet {
         }
     }
 
+    //TODO
     public static Bank getBank() {
         return bank;
     }

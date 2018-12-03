@@ -1,5 +1,5 @@
-<%@ page import="Servlet.OBServlet" %>
 <%@ page import="Logik.Umwandlung" %>
+<%@ page import="Logik.Verwaltung.Kunde" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -11,7 +11,8 @@
         <br>
         <br>Kontostand:
         <%
-            out.println(Umwandlung.centToEuroString(OBServlet.getKontostand()));
+            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
+            out.println(Umwandlung.centToEuroString(kunde.getKontostand()));
         %>
         <br>
         <form action="${pageContext.request.contextPath}/OBServlet" method="post">

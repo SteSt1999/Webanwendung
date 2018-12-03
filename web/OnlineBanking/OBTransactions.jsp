@@ -1,4 +1,5 @@
-<%@ page import="Servlet.OBServlet" %>
+<%@ page import="Logik.Verwaltung.Kunde" %>
+<%@ page import="Logik.Sessionsteuerung.Log" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -9,7 +10,8 @@
         <br>Hier sehen Sie alle Ihre Transaktionen:
         <br><br>
         <%
-            out.println(OBServlet.getKontoLog());
+            Kunde kunde = new Kunde((String) session.getAttribute("kunde"), (String) session.getAttribute("bank"));
+            out.println(Log.ausgabeKundenLog(kunde));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/OBServlet" method="post">
