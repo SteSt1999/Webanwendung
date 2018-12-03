@@ -1,11 +1,8 @@
 package Datenbank;
 
 import Logik.Verwaltung.Kunde;
-import Servlet.MainServlet;
 
 import java.sql.*;
-
-import static Datenbank.DBHelper.replaceFirst;
 
 public class DBKonto {
     private static final String sqlKontostandAendern = "UPDATE KONTO SET KONTOSTAND = ? WHERE KUNDEN_ID = ?;";
@@ -16,7 +13,7 @@ public class DBKonto {
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(kunde.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlKontostandAendern);
             preparedSQL.setString(2,kunde.getBenutzername());
             preparedSQL.setString(1, betrag+"");
@@ -27,15 +24,15 @@ public class DBKonto {
         }
     }
 
-    public static long kontostandLesen(final String kundenID, final String bankID) {
+    public static long kontostandLesen(final Kunde kunde) {
         ResultSet resultSet = null;
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(kunde.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlKontostandLesen);
 
-            preparedSQL.setString(1, kundenID);
+            preparedSQL.setString(1, kunde.getBenutzername());
             resultSet = preparedSQL.executeQuery();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -50,16 +47,16 @@ public class DBKonto {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("Das Konto \"" + kundenID + "\" existiert nicht.");
+        throw new IllegalArgumentException("Das Konto \"" + kunde.getBenutzername() + "\" existiert nicht.");
     }
 
-    public static void erstelleKonto(final String kundenID) {
+    public static void erstelleKonto(final Kunde kunde) {
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(kunde.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlErstelleKonto);
-            preparedSQL.setString(1,kundenID);
+            preparedSQL.setString(1,kunde.getBenutzername());
             preparedSQL.setString(2, "0");
             preparedSQL.executeUpdate();
 

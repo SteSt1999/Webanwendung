@@ -1,4 +1,5 @@
 <%@ page import="Logik.Sessionsteuerung.Log" %>
+<%@ page import="Logik.Verwaltung.Bank" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -9,7 +10,7 @@
         <br>Hier sehen Sie die gesamten Transaktionen der Bank.
         <br><br>
         <%
-            out.println(Log.ausgabeBankLog());
+            out.println(Log.ausgabeBankLog((Bank) session.getAttribute("bank")));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">

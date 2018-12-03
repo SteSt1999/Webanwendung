@@ -1,19 +1,17 @@
 package Logik.Verwaltung;
 
-import Servlet.MainServlet;
-
 public abstract class User {
     String benutzername;
     final Bank bank;
 
-    public User(String benutzername) {
-        bank = new Bank(MainServlet.getBank().getBankID());
+    public User(String benutzername, Bank bank) {
+        this.bank = bank;
         setBenutzername(benutzername);
     }
 
-    public User(String benutzername, String bankID) {
-        bank = new Bank(bankID);
-        setBenutzername(benutzername);
+    public User(String benutzername, String passwort, Bank bank) {
+        this.bank = bank;
+        this.benutzername = benutzername;
     }
 
     public String getBenutzername() {

@@ -1,6 +1,7 @@
 package Logik;
 
 import Datenbank.DBUser;
+import Logik.Verwaltung.Bank;
 import Servlet.MainServlet;
 
 import java.text.DecimalFormat;
@@ -38,11 +39,11 @@ public class Umwandlung {
         return df.format(betrag / 100.) + "€";
     }
 
-    public static String namenZuKundenID(final String vorname, final String nachname) {
+    public static String namenZuKundenID(final String vorname, final String nachname, final Bank bank) {
         final String kundenIDOhneZahl = nachname.toLowerCase() + "." + vorname.toLowerCase();
         String kundenID = kundenIDOhneZahl;
         int i = 1;
-        while (DBUser.existiertKunde(kundenID, MainServlet.getBank().getBankID())) {
+        while (DBUser.existiertKunde(kundenID, bank)) {
             i++;
             kundenID = kundenIDOhneZahl + i;
         }

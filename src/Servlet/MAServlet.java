@@ -21,14 +21,18 @@ public class MAServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            if(!DBUser.checkPasswortMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort"))) {
+            if(!DBUser.checkPasswortMitarbeiter(request.getParameter("LogInID"), request.getParameter("LogInPasswort"),
+                    (Bank) request.getSession().getAttribute("bank"))) {
                 request.getRequestDispatcher("Mitarbeiter/MALoginFehlgeschlagen.jsp").forward(request, response);
             }
+            HttpSession session = request.getSession();
+            session.setAttribute("mitarbeiter", true);
+
             request.getRequestDispatcher("Mitarbeiter/MAAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
-            request.getSession().invalidate();
+            MainServlet.ausloggen(request);
             request.getRequestDispatcher("Mitarbeiter/MALogin.jsp").forward(request, response);
         }
 
@@ -36,7 +40,7 @@ public class MAServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        if (!request.isRequestedSessionIdValid()) {
+        if (request.getSession().getAttribute("mitarbeiter") == null) {
             request.getRequestDispatcher("Mitarbeiter/MAAusgeloggt.jsp").forward(request, response);
         }
         /*
@@ -59,13 +63,12 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("AnzeigenATM") != null) {
             ATM atm = null;
             try {
-                atm = new ATM(request.getParameter("ATM-ID"));
+                atm = new ATM(request.getParameter("ATM-ID"), (Bank) request.getSession().getAttribute("bank"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
             HttpSession session = request.getSession();
-            //TODO ATM direkt speichern
-            session.setAttribute("atmAuswahl", atm.getId());
+            session.setAttribute("atmAuswahl", atm);
             request.getRequestDispatcher("Mitarbeiter/MALogATM.jsp").forward(request, response);
         }
 
@@ -75,13 +78,12 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("AnzeigenUser") != null) {
             Kunde kunde = null;
             try {
-                kunde = new Kunde(request.getParameter("Kunde"), ((Bank) request.getSession().getAttribute("bank")).getBankID());
+                kunde = new Kunde(request.getParameter("Kunde"), (Bank) request.getSession().getAttribute("bank"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }
             HttpSession session = request.getSession();
-            //TODO Kunden direkt speichern
-            session.setAttribute("userAuswahl", kunde.getBenutzername());
+            session.setAttribute("userAuswahl", kunde);
             request.getRequestDispatcher("Mitarbeiter/MALogKunden.jsp").forward(request, response);
         }
 
@@ -91,7 +93,7 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("Einzahlen") != null) {
             try {
                 GeldBewegung.einzahlen(new Kunde(request.getParameter("Empfaenger"),
-                                ((Bank) request.getSession().getAttribute("bank")).getBankID()),
+                                (Bank) request.getSession().getAttribute("bank")),
                         new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
@@ -105,7 +107,7 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("Abheben") != null) {
             try {
                 GeldBewegung.abheben(new Kunde(request.getParameter("Empfaenger"),
-                                ((Bank) request.getSession().getAttribute("bank")).getBankID()),
+                                (Bank) request.getSession().getAttribute("bank")),
                         new ZugangMitarbeiter(), request.getParameter("Betrag"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
@@ -119,7 +121,8 @@ public class MAServlet extends HttpServlet {
         } else if (request.getParameter("KundenErstellen") != null) {
             try {
                 Kunde.erstelleKunden(request.getParameter("Vorname"), request.getParameter("Nachname"),
-                        request.getParameter("Passwort"), request.getParameter("PasswortWiederholung"));
+                        request.getParameter("Passwort"), request.getParameter("PasswortWiederholung"),
+                        (Bank) request.getSession().getAttribute("bank"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("Mitarbeiter/MAFehler.jsp").forward(request, response);
             }

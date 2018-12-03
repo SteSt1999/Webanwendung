@@ -2,12 +2,8 @@ package Datenbank;
 
 import Logik.Umwandlung;
 import Logik.Verwaltung.*;
-import Servlet.MainServlet;
 
 import java.sql.*;
-
-import static Datenbank.DBHelper.replaceFirst;
-import static Datenbank.DBHelper.replaceFirstWithNull;
 
 public class DBLog {
     private static final String sqlTransactionHinzufuegen = "INSERT INTO TRANSAKTIONEN VALUES (?, ?, ?, ?, ?, ?);";
@@ -19,7 +15,7 @@ public class DBLog {
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(transaction.getSender().getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
 
             PreparedStatement preparedSQL = conn.prepareStatement(sqlTransactionHinzufuegen);
             preparedSQL.setString(1, transaction.getSender().getBenutzername());
@@ -42,13 +38,13 @@ public class DBLog {
         }
     }
 
-    public static String getKundenLog(final String kundenID) {
+    public static String getKundenLog(final Kunde kunde) {
         ResultSet resultSet = null;
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(kunde.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlGetTransactionsKunde);
-            preparedSQL.setString(1, kundenID);
+            preparedSQL.setString(1, kunde.getBenutzername());
 
 
             resultSet = preparedSQL.executeQuery();
@@ -73,13 +69,13 @@ public class DBLog {
             return sb.toString();
         }
 
-        public static String getZugangswegLog ( final String ATMID){
+        public static String getZugangswegLog (final ATM atm){
             ResultSet resultSet = null;
             try {
                 Class.forName(DBHelper.getDriver());
-                Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+                Connection conn = DriverManager.getConnection(DBHelper.getUrl(atm.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
                 PreparedStatement preparedSQL = conn.prepareStatement(sqlGetTransactionsATM);
-                preparedSQL.setString(1, ATMID);
+                preparedSQL.setString(1, atm.getId());
 
 
                 resultSet = preparedSQL.executeQuery();
@@ -104,11 +100,11 @@ public class DBLog {
             return sb.toString();
         }
 
-        public static String getBankLog () {
+        public static String getBankLog(final Bank bank) {
             ResultSet resultSet = null;
             try {
                 Class.forName(DBHelper.getDriver());
-                Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+                Connection conn = DriverManager.getConnection(DBHelper.getUrl(bank.getBankID()), DBHelper.getUser(), DBHelper.getPassword());
                 PreparedStatement preparedSQL = conn.prepareStatement(sqlGetAllTransactions);
 
 

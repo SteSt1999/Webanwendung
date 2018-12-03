@@ -10,8 +10,7 @@
         <br>Hier sehen Sie die Transaktionen des ATMs.
         <br><br>
         <%
-            ATM atm = new ATM((String) session.getAttribute("atmAuswahl"));
-            out.println(Log.ausgabeATMLog(atm));
+            out.println(Log.ausgabeATMLog((ATM) session.getAttribute("atmAuswahl")));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">

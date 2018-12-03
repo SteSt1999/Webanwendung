@@ -1,6 +1,5 @@
 package Servlet;
 
-import Datenbank.DBUser;
 import Logik.GeldBewegung;
 import Logik.Sessionsteuerung.*;
 import Logik.Verwaltung.Bank;
@@ -20,19 +19,21 @@ public class OBServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            String loginID = request.getParameter("LogInID");
-            if(!DBUser.checkPasswortKunde(loginID, request.getParameter("LogInPasswort"))) {
-                request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
-            }
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde(loginID, ((Bank) session.getAttribute("bank")).getBankID());
+            Kunde kunde = null;
+            try {
+                kunde = new Kunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"),
+                        ((Bank) session.getAttribute("bank")));
+            } catch (IllegalArgumentException e) {
+                request.getRequestDispatcher("OnlineBanking/OBLoginFehlgeschlagen.jsp").forward(request, response);
+            }
             session.setAttribute("kunde", kunde);
 
             request.getRequestDispatcher("OnlineBanking/OBAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("OnlineBanking/OBLogin.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
-            request.getSession().invalidate();
+            MainServlet.ausloggen(request);
             request.getRequestDispatcher("OnlineBanking/OBLogin.jsp").forward(request, response);
         }
 
@@ -40,7 +41,7 @@ public class OBServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        if (!request.isRequestedSessionIdValid()) {
+        if (request.getSession().getAttribute("kunde") == null) {
             request.getRequestDispatcher("OnlineBanking/OBAusgeloggt.jsp").forward(request, response);
         }
         /*

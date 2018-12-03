@@ -14,14 +14,14 @@ import static Datenbank.DBLog.logHinzufuegen;
 public class GeldBewegung {
     public static void ueberweisen(Kunde kunde, Zugangsweg zugangsweg, String empfaenger, String empfaengerBankID, String eingabeBetrag) {
         long betrag = Umwandlung.stringToLong(eingabeBetrag);
-        empfaengerBankID = empfaengerBankID.trim().length() == 0 ? MainServlet.getBank().getBankID() : empfaengerBankID;
+        empfaengerBankID = empfaengerBankID.trim().length() == 0 ? kunde.getBank().getBankID() : empfaengerBankID;
         Bank empfaengerBank = new Bank(empfaengerBankID);
 
-        if (!DBUser.existiertKunde(empfaenger, empfaengerBank.getBankID())) {
+        if (!DBUser.existiertKunde(empfaenger, empfaengerBank)) {
             throw new IllegalArgumentException();
         }
 
-        Kunde empfaengerUser = new Kunde(empfaenger, empfaengerBankID);
+        Kunde empfaengerUser = new Kunde(empfaenger, empfaengerBank);
 
         Konto.ueberweisen(kunde, empfaengerUser, betrag);
 

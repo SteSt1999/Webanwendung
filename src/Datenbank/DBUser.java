@@ -1,5 +1,6 @@
 package Datenbank;
 
+import Logik.Verwaltung.Bank;
 import Servlet.MainServlet;
 
 import java.sql.*;
@@ -14,20 +15,20 @@ public class DBUser {
     private static final String sqlExistiertMitarbeiter = "SELECT ID FROM MITARBEITER WHERE ID = ?;";
     private static final String sqlErstelleKunden = "INSERT INTO KUNDEN VALUES(?, ?, ?, ?);";
 
-    public static boolean checkPasswortKunde(final String kundenID, final String passwort) {
-        return checkPasswort(sqlCheckPasswortKunde, kundenID, passwort);
+    public static boolean checkPasswortKunde(final String kundenID, final String passwort, final Bank bank) {
+        return checkPasswort(sqlCheckPasswortKunde, kundenID, passwort, bank);
     }
 
-    public static boolean checkPasswortMitarbeiter(final String mitarbeiterID, final String passwort) {
-        return checkPasswort(sqlCheckPasswortMitarbeiter, mitarbeiterID, passwort);
+    public static boolean checkPasswortMitarbeiter(final String mitarbeiterID, final String passwort, final Bank bank) {
+        return checkPasswort(sqlCheckPasswortMitarbeiter, mitarbeiterID, passwort, bank);
     }
 
-    private static boolean checkPasswort(String sqlAnfrage, final String id, final String passwort) {
+    private static boolean checkPasswort(String sqlAnfrage, final String id, final String passwort, final Bank bank) {
         ResultSet resultSet = null;
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(bank.getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlAnfrage);
             preparedSQL.setString(1, id);
             resultSet = preparedSQL.executeQuery();
@@ -47,12 +48,12 @@ public class DBUser {
         return false;
     }
 
-    public static boolean existiertKunde(final String kundenID, final String bankID) {
+    public static boolean existiertKunde(final String kundenID, final Bank bank) {
         ResultSet resultSet = null;
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(bank.getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlExistiertKunde);
             preparedSQL.setString(1, kundenID);
             resultSet = preparedSQL.executeQuery();
@@ -70,12 +71,12 @@ public class DBUser {
     }
 
 
-    public static boolean existiertMitarbeiter(final String mitarbeiterID, final String bankID) {
+    public static boolean existiertMitarbeiter(final String mitarbeiterID, final Bank bank) {
         ResultSet resultSet = null;
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(bank.getBankID()), DBHelper.getUser(), DBHelper.getPassword());
             PreparedStatement preparedSQL = conn.prepareStatement(sqlExistiertMitarbeiter);
             preparedSQL.setString(1, mitarbeiterID);
             resultSet = preparedSQL.executeQuery();
@@ -92,11 +93,11 @@ public class DBUser {
         return false;
     }
 
-    public static void erstelleKunden(final String vorname, final String nachname, final String kundenID, final String passwort) {
+    public static void erstelleKunden(final String vorname, final String nachname, final String kundenID, final String passwort, final Bank bank) {
 
         try {
             Class.forName(DBHelper.getDriver());
-            Connection conn = DriverManager.getConnection(DBHelper.getUrl(MainServlet.getBank().getBankID()), DBHelper.getUser(), DBHelper.getPassword());
+            Connection conn = DriverManager.getConnection(DBHelper.getUrl(bank.getBankID()), DBHelper.getUser(), DBHelper.getPassword());
 
             PreparedStatement preparedSQL = conn.prepareStatement(sqlErstelleKunden);
             preparedSQL.setString(1, kundenID);

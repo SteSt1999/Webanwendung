@@ -1,6 +1,5 @@
 package Servlet;
 
-import Datenbank.DBUser;
 import Logik.GeldBewegung;
 import Logik.Sessionsteuerung.ZugangATM;
 import Logik.Sessionsteuerung.Zugangsweg;
@@ -21,27 +20,25 @@ public class ATMServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Login
         if (request.getParameter("Login") != null) {
-            String loginID = request.getParameter("LogInID");
-            if(!DBUser.checkPasswortKunde(loginID, request.getParameter("LogInPasswort"))) {
-                request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
-            }
             HttpSession session = request.getSession();
-            Kunde kunde = new Kunde(loginID, ((Bank) session.getAttribute("bank")).getBankID());
-            session.setAttribute("kunde", kunde);
-
+            Kunde kunde = null;
             Zugangsweg zugangsweg = null;
             try {
-                zugangsweg = new ZugangATM(request.getParameter("ATM-ID"));
+                kunde = new Kunde(request.getParameter("LogInID"), request.getParameter("LogInPasswort"),
+                    ((Bank) session.getAttribute("bank")));
+                zugangsweg = new ZugangATM(request.getParameter("ATM-ID"), (Bank) session.getAttribute("bank"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("ATM/ATMLoginFehlgeschlagen.jsp").forward(request, response);
             }
+
+            session.setAttribute("kunde", kunde);
             session.setAttribute("zugangsweg", zugangsweg);
 
             request.getRequestDispatcher("ATM/ATMAuswahl.jsp").forward(request, response);
         } else if (request.getParameter("LoginFehlgeschlagenZurueck") != null) {
             request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         } else if (request.getParameter("Abmelden") != null) {
-            request.getSession().invalidate();
+            MainServlet.ausloggen(request);
             request.getRequestDispatcher("ATM/ATMLogin.jsp").forward(request, response);
         }
 
@@ -49,8 +46,7 @@ public class ATMServlet extends HttpServlet {
         /*
             Methode die zur Fehlerseite leitet, falls man nicht mehr eingeloggt ist
          */
-        //TODO funktioniert nicht (auch bei den anderen Servlets nicht)
-        if (!request.isRequestedSessionIdValid()) {
+        if (request.getSession().getAttribute("kunde") == null) {
             request.getRequestDispatcher("ATM/ATMAusgeloggt.jsp").forward(request, response);
         }
         /*

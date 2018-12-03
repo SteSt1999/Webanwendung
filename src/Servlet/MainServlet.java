@@ -12,9 +12,6 @@ import java.io.IOException;
 
 @WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
-    //TODO
-    private static Bank bank;
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Auswahl der Bank
@@ -22,7 +19,6 @@ public class MainServlet extends HttpServlet {
             Bank bank = null;
             try {
                 bank = new Bank(request.getParameter("BankID"));
-                setBank(request.getParameter("BankID"));
             } catch (IllegalArgumentException e) {
                 request.getRequestDispatcher("BankAuswahlFehlgeschlagen.jsp").forward(request, response);
             }
@@ -45,11 +41,11 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    public static Bank getBank() {
-        return bank;
-    }
-
-    private static void setBank(String bankID) {
-        bank = new Bank(bankID);
+    public static void ausloggen(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Bank bank = (Bank) session.getAttribute("bank");
+        session.invalidate();
+        session = request.getSession();
+        session.setAttribute("bank", bank);
     }
 }

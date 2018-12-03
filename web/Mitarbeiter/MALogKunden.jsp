@@ -10,8 +10,7 @@
         <br>Hier sehen Sie die gesamten Transaktionen des Kunden.
         <br><br>
         <%
-            Kunde kunde = new Kunde((String) session.getAttribute("userAuswahl"));
-            out.println(Log.ausgabeKundenLog(kunde));
+            out.println(Log.ausgabeKundenLog((Kunde) session.getAttribute("userAuswahl")));
         %>
         <br><br>
         <form action="${pageContext.request.contextPath}/MAServlet" method="post">
