@@ -11,6 +11,29 @@
         <filter-name>servletFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <!--
+        Damit Die Verbindung mittels https funktioniert muss ein Keystore erstellt werden mit dem Befehl:
+            "keytool -genkey -alias tomcat -keyalg RSA" ausgeführt in %JAVA_HOME%/bin
+        Während der Erstellung müssen ein Passwort und ein paar Informationen eingegeben werden.
+        Anschließend muss in %TOMCAT_HOME%/conf/server.xml folgendes ergänzt werden:
+             <Connector SSLEnabled="true" acceptCount="100" clientAuth="false"
+			   disableUploadTimeout="true" enableLookups="false" maxThreads="25"
+			   port="8443" keystoreFile="/Users/user/.keystore" keystorePass="password"
+			   protocol="org.apache.coyote.http11.Http11NioProtocol" scheme="https"
+			   secure="true" sslProtocol="TLS" />
+		keystoreFile und keystorePass sind je nach Ort und Passwort des erstellten Keystore anzupassen.
+       ->
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Webanwendung</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    -->
     <error-page>
         <error-code>404</error-code>
         <location>/fehler/Fehler404.html</location>
@@ -19,7 +42,7 @@
         <error-code>405</error-code>
         <location>/fehler/Fehler405.html</location>
     </error-page>
-    <!-- TODO Wird angezeigt beim Ausloggen -->
+    <!-- TODO Fehler 500 würde beim Einloggen mit falschen Daten oder beim Abmelden angezeigt werden -->
     <!--<error-page>
         <error-code>500</error-code>
         <location>/fehler/Fehler500.html</location>

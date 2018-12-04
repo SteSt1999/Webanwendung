@@ -5,8 +5,8 @@ import Datenbank.DBUser;
 import Logik.Umwandlung;
 
 public class Kunde {
-    final Bank bank;
-    String benutzername;
+    private final Bank bank;
+    private String benutzername;
     private Konto konto;
 
     public Kunde(String benutzername, Bank bank) {

@@ -1,0 +1,17 @@
+hostbank:
+    Kunden:
+        holzmann.julia      Hallo123
+        otto.ben            Test1
+        otto.ben2           Test2
+        stump.stefan        Passwort
+    Mitarbeiter:
+        fisch.bert          Nemo
+        stein.linda         Steine
+
+mukabank:
+    Kunden:
+        kambeck.marcel      Mars
+        mueller.david       Muell
+    Mitarbeiter:
+        dummi.dumm          Doof
+        indiana.jones       Peitsche
